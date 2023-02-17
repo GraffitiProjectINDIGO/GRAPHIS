@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50"
+   height="50"
+   viewBox="0 0 13.229167 13.229167"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="polygon_show.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="5.7656004"
+     inkscape:cx="25.582765"
+     inkscape:cy="64.260437"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       id="linearGradient1316">
+      <stop
+         stop-color="#ffce3b"
+         id="stop1312" />
+      <stop
+         offset="1"
+         stop-color="#ffd762"
+         id="stop1314" />
+    </linearGradient>
+    <linearGradient
+       id="0"
+       gradientUnits="userSpaceOnUse"
+       y1="986.67"
+       x2="0"
+       y2="-2.623">
+      <stop
+         stop-color="#ffce3b"
+         id="stop1318" />
+      <stop
+         offset="1"
+         stop-color="#fef4ab"
+         id="stop1320" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       x2="1"
+       x1="0"
+       xlink:href="#0"
+       id="linearGradient1323" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       id="0-3">
+      <stop
+         stop-color="#ffce3b"
+         id="stop1362" />
+      <stop
+         offset="1"
+         stop-color="#ffd762"
+         id="stop1364" />
+    </linearGradient>
+    <linearGradient
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1371">
+      <stop
+         stop-color="#ffce3b"
+         id="stop1367" />
+      <stop
+         offset="1"
+         stop-color="#fef4ab"
+         id="stop1369" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.02714904;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path1955"
+       inkscape:flatsided="true"
+       sodipodi:sides="5"
+       sodipodi:cx="4.1626196"
+       sodipodi:cy="7.6314688"
+       sodipodi:r1="31.928545"
+       sodipodi:r2="16.035692"
+       sodipodi:arg1="0.95079091"
+       sodipodi:arg2="1.5791095"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 22.714368,33.617323 -14.818591,33.3053 -26.120162,-2.4870852 4.4280422,-24.295973 34.609441,-1.9822214 Z"
+       transform="matrix(0.17611686,0,0,0.18478888,5.8664677,5.7747568)"
+       inkscape:transform-center-x="1.0188311"
+       inkscape:transform-center-y="-0.4560579" />
+    <g
+       transform="matrix(0.52915874,0,0,0.52915874,0.7938056,-544.43019)"
+       fill="#da4453"
+       id="g1379">
+      <rect
+         y="1037.36"
+         x="7"
+         height="8"
+         width="8"
+         fill="#32c671"
+         rx="4"
+         id="rect1375" />
+      <path
+         d="M 123.86,12.966 112.78,1.886 c -1.52,-1.521 -3.368,-2.281 -5.54,-2.281 -2.173,0 -4.02,0.76 -5.541,2.281 l -53.45,53.53 -23.953,-24.04 c -1.521,-1.521 -3.368,-2.281 -5.54,-2.281 -2.173,0 -4.02,0.76 -5.541,2.281 l -11.08,11.08 c -1.521,1.521 -2.281,3.368 -2.281,5.541 0,2.172 0.76,4.02 2.281,5.54 l 29.493,29.493 11.08,11.08 c 1.52,1.521 3.367,2.281 5.54,2.281 2.172,0 4.02,-0.761 5.54,-2.281 l 11.08,-11.08 58.986,-58.986 c 1.52,-1.521 2.281,-3.368 2.281,-5.541 10e-5,-2.172 -0.761,-4.02 -2.281,-5.54"
+         fill="#ffffff"
+         transform="matrix(0.0436,0,0,0.0436,8.177,1039.72)"
+         stroke="none"
+         stroke-width="9.512"
+         id="path1377" />
+    </g>
+  </g>
+</svg>

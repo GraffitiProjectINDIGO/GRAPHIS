@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50"
+   height="50"
+   viewBox="0 0 13.229167 13.229167"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="save.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="5.7656004"
+     inkscape:cx="25.582765"
+     inkscape:cy="64.260437"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       id="linearGradient826">
+      <stop
+         stop-color="#ffce3b"
+         id="stop822" />
+      <stop
+         offset="1"
+         stop-color="#ffd762"
+         id="stop824" />
+    </linearGradient>
+    <linearGradient
+       id="0"
+       gradientUnits="userSpaceOnUse"
+       y1="986.67"
+       x2="0"
+       y2="-2.623">
+      <stop
+         stop-color="#ffce3b"
+         id="stop828" />
+      <stop
+         offset="1"
+         stop-color="#fef4ab"
+         id="stop830" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       x2="1"
+       x1="0"
+       xlink:href="#0"
+       id="linearGradient833" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       id="0-1">
+      <stop
+         stop-color="#ffce3b"
+         id="stop952" />
+      <stop
+         offset="1"
+         stop-color="#ffd762"
+         id="stop954" />
+    </linearGradient>
+    <linearGradient
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient961">
+      <stop
+         stop-color="#ffce3b"
+         id="stop957" />
+      <stop
+         offset="1"
+         stop-color="#fef4ab"
+         id="stop959" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       id="0-8">
+      <stop
+         stop-color="#ffce3b"
+         id="stop12921" />
+      <stop
+         offset="1"
+         stop-color="#ffd762"
+         id="stop12923" />
+    </linearGradient>
+    <linearGradient
+       y2="-2.623"
+       x2="0"
+       y1="986.67"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient12930">
+      <stop
+         stop-color="#ffce3b"
+         id="stop12926" />
+      <stop
+         offset="1"
+         stop-color="#fef4ab"
+         id="stop12928" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:none;fill-opacity:1;stroke:#32c671;stroke-width:0.529167;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path846"
+       cx="6.7407985"
+       cy="8.5763979"
+       rx="1.2599207"
+       ry="1.2599206" />
+    <path
+       style="fill:none;stroke:#32c671;stroke-width:0.52916668;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 1.9273796,1.8814896 V 11.564278 H 11.839617 V 4.175989 L 8.9944379,1.8814896 Z"
+       id="path8444" />
+    <path
+       style="fill:none;stroke:#32c671;stroke-width:0.52916668;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 8.9944379,1.8814896 v 3.946539 H 4.267769 l -0.04589,-3.992429"
+       id="path10884" />
+  </g>
+</svg>

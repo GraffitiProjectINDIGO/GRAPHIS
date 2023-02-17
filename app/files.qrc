@@ -1,0 +1,34 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/console.svg</file>
+    <file>icons/Question.svg</file>
+    <file>icons/save.svg</file>
+    <file>icons/circle_color.svg</file>
+    <file>icons/rectangle_color.svg</file>
+    <file>icons/polygon_show.svg</file>
+    <file>icons/polygon_color.svg</file>
+    <file>icons/polygon_hide.svg</file>
+    <file>icons/rectangle_show.svg</file>
+    <file>icons/rectangle_hide.svg</file>
+    <file>icons/circle_show.svg</file>
+    <file>icons/circle_hide.svg</file>
+    <file>icons/resize.svg</file>
+    <file>icons/add_node.svg</file>
+    <file>icons/remove_node.svg</file>
+    <file>icons/change.svg</file>
+    <file>icons/move.svg</file>
+    <file>icons/rectangle.svg</file>
+    <file>icons/polygon.svg</file>
+    <file>icons/circle.svg</file>
+    <file>icons/cil-size-grip.png</file>
+    <file>icons/cil-window-maximize.png</file>
+    <file>icons/cil-window-minimize.png</file>
+    <file>icons/cil-window-restore.png</file>
+    <file>icons/cil-x.png</file>
+    <file>icons/Flat_cross_icon.svg</file>
+    <file>icons/Flat_tick_icon.svg</file>
+    <file>icons/Flat_tick_icon_yellow.svg</file>
+    <file>icons/top_icon.png</file>
+    <file>icons/cil-arrow-bottom.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,5 @@
+numpy==1.23.1
+Pillow==9.4.0
+PyExifTool==0.5.4
+PySide2==5.15.2.1
+Shapely==1.8.5.post1

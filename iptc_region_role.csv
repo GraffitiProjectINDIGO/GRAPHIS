@@ -1,0 +1,11 @@
+cropping,http://cv.iptc.org/newscodes/imageregionrole/cropping
+recommended cropping,http://cv.iptc.org/newscodes/imageregionrole/recomCropping
+landscape format cropping, http://cv.iptc.org/newscodes/imageregionrole/landscapeCropping
+portrait format cropping, http://cv.iptc.org/newscodes/imageregionrole/portraitCropping
+square format cropping, http://cv.iptc.org/newscodes/imageregionrole/squareCropping
+composite image item, http://cv.iptc.org/newscodes/imageregionrole/compositeImageItem
+copyright region, http://cv.iptc.org/newscodes/imageregionrole/copyrightRegion
+subject area, http://cv.iptc.org/newscodes/imageregionrole/subjectArea
+main subject area, http://cv.iptc.org/newscodes/imageregionrole/mainSubjectArea
+area of interest, http://cv.iptc.org/newscodes/imageregionrole/areaOfInterest
+business use, http://cv.iptc.org/newscodes/imageregionrole/businessUse]]
