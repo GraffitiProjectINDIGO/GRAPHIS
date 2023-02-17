@@ -1,4 +1,4 @@
-GRAFFIlable
+# GRAFFIlabel  ![ ](/scr/graffilabel/app/icon.ico)
 
 ## Table of contents
 * [General info](#general-info)
@@ -6,19 +6,10 @@ GRAFFIlable
 * [Setup](#setup)
 
 ## General info
-This project is simple Lorem ipsum dolor generator.
-	
-## Technologies
-Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
-	
+This project is a little tool written in python and QT to change and view IPTC image region tag from images.
+		
 ## Setup
-To run this project, install it locally using npm:
+To run this project
 
-```
-$ cd ../lorem
-$ npm install
-$ npm start
-```
+### Creating binaries with PyInstaller
+run ```pyinstaller --nowindowed --icon=icon.ico --noconsole -n GRAFFIlabel_1_3 graffilabel.py``` to create a package/folder GRAFFIlabel_1_3 and copy the folder "./app/" and the files "graffilabel.config" into the distribution folder GRAFFIlabel_1_3.
