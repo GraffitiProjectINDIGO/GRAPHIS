@@ -1,4 +1,4 @@
-# GRAFFIlabel  ![ ](/app/icon.ico)
+# GRAFFIlabel  ![ ](icon.ico)
 
 ## Table of contents
 * [General info](#general-info)

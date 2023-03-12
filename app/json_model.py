@@ -100,7 +100,7 @@ class TreeItem:
         elif isinstance(value, list):
             for index, value in enumerate(value):
                 child = cls.load(value, rootItem)
-                child.key = index
+                child.key = index + 1
                 child.value_type = type(value)
                 rootItem.appendChild(child)
 
@@ -211,13 +211,13 @@ class JsonModel(QAbstractItemModel):
             return QModelIndex()
 
         if not parent.isValid():
-            parentItem = self._rootItem
+            parent_item = self._rootItem
         else:
-            parentItem = parent.internalPointer()
+            parent_item = parent.internalPointer()
 
-        childItem = parentItem.child(row)
-        if childItem:
-            return self.createIndex(row, column, childItem)
+        child_item = parent_item.child(row)
+        if child_item:
+            return self.createIndex(row, column, child_item)
         else:
             return QModelIndex()
 
@@ -248,11 +248,11 @@ class JsonModel(QAbstractItemModel):
             return 0
 
         if not parent.isValid():
-            parentItem = self._rootItem
+            parent_item = self._rootItem
         else:
-            parentItem = parent.internalPointer()
+            parent_item = parent.internalPointer()
 
-        return parentItem.childCount()
+        return parent_item.childCount()
 
     def columnCount(self, parent=QModelIndex()):
         """Override from QAbstractItemModel
@@ -278,18 +278,18 @@ class JsonModel(QAbstractItemModel):
         if item is None:
             item = self._rootItem
 
-        nchild = item.childCount()
+        nr_child = item.childCount()
 
         if item.value_type is dict:
             document = {}
-            for i in range(nchild):
+            for i in range(nr_child):
                 ch = item.child(i)
                 document[ch.key] = self.to_json(ch)
             return document
 
         elif item.value_type == list:
             document = []
-            for i in range(nchild):
+            for i in range(nr_child):
                 ch = item.child(i)
                 document.append(self.to_json(ch))
             return document

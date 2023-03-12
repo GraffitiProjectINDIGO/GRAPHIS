@@ -1,10 +1,11 @@
 from pathlib import Path
 from sqlite3 import dbapi2, IntegrityError, DatabaseError
-from .createDb import create
-from .createDb import init
+from app.createDb import create
+from app.createDb import init
 import sys
 import json
 
+from app.var_classes import create_region_boundary
 
 class DBHandler:
     def __init__(self):
@@ -68,6 +69,13 @@ class DBHandler:
         self.con.execute(query, {'blob': blob, 'id': image_id, 'width': width, 'height': height})
         self.con.commit()
 
+    def db_deleted_orig_tag(self, image_id):
+        query = r"""Update images
+        SET deleted_orig_tag = 1
+        where id=:id"""
+        self.con.execute(query, {'id': image_id})
+        self.con.commit()
+
     def db_store_image_region(self, image_id, orig_image_region=''):
 
         query = r"""Update images
@@ -88,22 +96,30 @@ class DBHandler:
         return data
 
     def db_delete_geometry(self, object_id: int):
-        # GET IMAGE ID for IMAGE NAME in SFM DB
+        # delete geometry but check if it is an original one to know if image changes
+
+        data = self.db_load_object(object_id)
+        if data['orig_img_region'] is not None:
+            self.db_deleted_orig_tag(data['image'])
+
         self.con.execute(r'''DELETE FROM objects WHERE id = :id ''', {'id': object_id})
         self.con.commit()
 
     def db_load_object(self, obj_id: int):
-        query = r"""SELECT * FROM objects 
-        Where id = :id """
+        query = r"""SELECT objects.*, images.width as img_width, images.height as img_height FROM objects 
+                    join
+                    images
+                    where
+                    images.id = objects.image and objects.id =:id"""
 
         data = self.con.execute(query, {'id': obj_id}).fetchone()
         return data
 
     def db_store_object(self, image_id: int, obj: str, data: dict, user=''):
         query = r"""Insert into objects 
-        (image,user,object_type,data)
+        (image,user,object_type,data,changed)
         Values
-        (:image,:user, :obj, :data)"""
+        (:image,:user, :obj, :data, 1)"""
         if not user:
             user = self.db_user
         data = self.con.execute(query, {'image': image_id, 'user': user, 'obj': obj, 'data': json.dumps(data)})
@@ -129,9 +145,12 @@ class DBHandler:
             if obj:
                 data = json.loads(obj['data'])
                 data['coords'] = coordinates
+                bound = create_region_boundary(obj['img_width'], obj['img_height'], obj['object_type'], coordinates)
+                data['attributes']["RegionBoundary"] = bound
 
         query = r"""Update objects
-        SET data = :data
+        SET data = :data,
+        changed = 1
         where id=:id"""
         self.con.execute(query, {'data': json.dumps(data), 'id': obj_id})
         self.con.commit()

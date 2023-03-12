@@ -35,6 +35,7 @@ def create(db_fn: str):
                 width  INTEGER,
                 height INTEGER,
                 user TEXT,
+                deleted_orig_tag INTEGER DEFAULT 0,
                 path   TEXT NOT NULL UNIQUE,
                 orig_img_region_leftover TEXT,
                 preview blob 
@@ -47,6 +48,7 @@ def create(db_fn: str):
                 user TEXT,
                 object_type TEXT,
                 orig_img_region TEXT,
+                changed INTEGER DEFAULT 0,
                 data TEXT
             ); 
                      

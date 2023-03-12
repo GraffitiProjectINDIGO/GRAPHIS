@@ -1,13 +1,19 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/rectangle_active.svg</file>
+    <file>icons/polygon_active.svg</file>
+    <file>icons/move_active.svg</file>
+    <file>icons/circle_active.svg</file>
     <file>icons/console.svg</file>
     <file>icons/Question.svg</file>
+    <file>icons/resize_active.svg</file>
     <file>icons/save.svg</file>
     <file>icons/circle_color.svg</file>
     <file>icons/rectangle_color.svg</file>
     <file>icons/polygon_show.svg</file>
     <file>icons/polygon_color.svg</file>
     <file>icons/polygon_hide.svg</file>
+    <file>icons/resize_active.svg</file>
     <file>icons/rectangle_show.svg</file>
     <file>icons/rectangle_hide.svg</file>
     <file>icons/circle_show.svg</file>

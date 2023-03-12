@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_main_v2.ui'
+## Form generated from reading UI file 'gui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 5.15.6
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2.QtCore import *  # type: ignore
+from PySide2.QtGui import *  # type: ignore
+from PySide2.QtWidgets import *  # type: ignore
 
 from app.digitizerview import DIGITIZERView
 from app.spinningwaiter import SPINNINGWaiter
@@ -276,7 +276,7 @@ class Ui_MainWindow(object):
 "	background-repeat: no-reperat;\n"
 " }\n"
 "QComboBox QAbstractItemView {\n"
-"	color: rgb(85, 170, 255);	\n"
+"	color: rgb(178, 186, 87);	\n"
 "	background-color: rgb(27, 29, 35);\n"
 "	padding: 10p"
                         "x;\n"
@@ -623,15 +623,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.frame_6 = QFrame(self.frame_2)
-        self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setMinimumSize(QSize(0, 0))
-        self.frame_6.setMaximumSize(QSize(16777215, 150))
-        self.frame_6.setFrameShape(QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QFrame.Raised)
-        self.lbl_polygon_number = QLabel(self.frame_6)
+        self.groupBox = QGroupBox(self.frame_2)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setMaximumSize(QSize(16777215, 200))
+        self.groupBox.setFont(font1)
+        self.groupBox.setAlignment(Qt.AlignCenter)
+        self.label_2 = QLabel(self.groupBox)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(20, 150, 91, 30))
+        self.label_2.setFont(font1)
+        self.lbl_polygon_number = QLabel(self.groupBox)
         self.lbl_polygon_number.setObjectName(u"lbl_polygon_number")
-        self.lbl_polygon_number.setGeometry(QRect(150, 120, 81, 30))
+        self.lbl_polygon_number.setGeometry(QRect(160, 150, 81, 30))
         font3 = QFont()
         font3.setPointSize(20)
         font3.setBold(True)
@@ -639,48 +642,45 @@ class Ui_MainWindow(object):
         self.lbl_polygon_number.setFont(font3)
         self.lbl_polygon_number.setStyleSheet(u"color: purple;")
         self.lbl_polygon_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.lbl_rectangle_number = QLabel(self.frame_6)
-        self.lbl_rectangle_number.setObjectName(u"lbl_rectangle_number")
-        self.lbl_rectangle_number.setGeometry(QRect(150, 80, 91, 30))
-        self.lbl_rectangle_number.setFont(font3)
-        self.lbl_rectangle_number.setStyleSheet(u"color: orange;")
-        self.lbl_rectangle_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.lbl_image_number = QLabel(self.frame_6)
-        self.lbl_image_number.setObjectName(u"lbl_image_number")
-        self.lbl_image_number.setGeometry(QRect(150, -10, 81, 41))
-        self.lbl_image_number.setFont(font3)
-        self.lbl_image_number.setStyleSheet(u"color: lightgreen;")
-        self.lbl_image_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.label_3 = QLabel(self.frame_6)
+        self.label_3 = QLabel(self.groupBox)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(10, 80, 101, 26))
+        self.label_3.setGeometry(QRect(20, 110, 101, 26))
         self.label_3.setFont(font1)
-        self.label_5 = QLabel(self.frame_6)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(10, 0, 121, 20))
-        self.label_5.setFont(font1)
-        self.label_5.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.label_2 = QLabel(self.frame_6)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(10, 120, 91, 30))
-        self.label_2.setFont(font1)
-        self.label_18 = QLabel(self.frame_6)
-        self.label_18.setObjectName(u"label_18")
-        self.label_18.setGeometry(QRect(10, 40, 101, 30))
-        self.label_18.setFont(font1)
-        self.lbl_circle_number = QLabel(self.frame_6)
+        self.lbl_circle_number = QLabel(self.groupBox)
         self.lbl_circle_number.setObjectName(u"lbl_circle_number")
-        self.lbl_circle_number.setGeometry(QRect(150, 40, 91, 30))
+        self.lbl_circle_number.setGeometry(QRect(160, 70, 81, 30))
         self.lbl_circle_number.setFont(font3)
         self.lbl_circle_number.setStyleSheet(u"color: lightblue;")
         self.lbl_circle_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.label_18 = QLabel(self.groupBox)
+        self.label_18.setObjectName(u"label_18")
+        self.label_18.setGeometry(QRect(20, 70, 101, 30))
+        self.label_18.setFont(font1)
+        self.lbl_rectangle_number = QLabel(self.groupBox)
+        self.lbl_rectangle_number.setObjectName(u"lbl_rectangle_number")
+        self.lbl_rectangle_number.setGeometry(QRect(160, 110, 71, 30))
+        self.lbl_rectangle_number.setFont(font3)
+        self.lbl_rectangle_number.setStyleSheet(u"color: orange;")
+        self.lbl_rectangle_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.label_5 = QLabel(self.groupBox)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(20, 30, 121, 20))
+        self.label_5.setFont(font1)
+        self.label_5.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.lbl_image_number = QLabel(self.groupBox)
+        self.lbl_image_number.setObjectName(u"lbl_image_number")
+        self.lbl_image_number.setGeometry(QRect(160, 20, 81, 41))
+        self.lbl_image_number.setFont(font3)
+        self.lbl_image_number.setStyleSheet(u"color: #d7191c;")
+        self.lbl_image_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.verticalLayout_6.addWidget(self.frame_6)
+        self.verticalLayout_6.addWidget(self.groupBox)
 
         self.groupBox_3 = QGroupBox(self.frame_2)
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.groupBox_3.setMaximumSize(QSize(16777215, 200))
         self.groupBox_3.setFont(font1)
+        self.groupBox_3.setAlignment(Qt.AlignCenter)
         self.btn_color_polygon = COLORButton(self.groupBox_3)
         self.btn_color_polygon.setObjectName(u"btn_color_polygon")
         self.btn_color_polygon.setGeometry(QRect(170, 40, 51, 51))
@@ -758,7 +758,7 @@ class Ui_MainWindow(object):
 "	border: 2px solid rgb(43, 50, 61);\n"
 "}")
         icon6 = QIcon()
-        icon6.addFile(u":/icons/icons/polygon_hide.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u":/icons/icons/polygon_show.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_show_polygon.setIcon(icon6)
         self.btn_show_polygon.setIconSize(QSize(50, 50))
         self.btn_show_circle = QPushButton(self.groupBox_3)
@@ -778,7 +778,7 @@ class Ui_MainWindow(object):
 "	border: 2px solid rgb(43, 50, 61);\n"
 "}")
         icon7 = QIcon()
-        icon7.addFile(u":/icons/icons/circle_hide.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon7.addFile(u":/icons/icons/circle_show.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_show_circle.setIcon(icon7)
         self.btn_show_circle.setIconSize(QSize(50, 50))
         self.btn_show_rectangle = QPushButton(self.groupBox_3)
@@ -798,7 +798,7 @@ class Ui_MainWindow(object):
 "	border: 2px solid rgb(43, 50, 61);\n"
 "}")
         icon8 = QIcon()
-        icon8.addFile(u":/icons/icons/rectangle_hide.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon8.addFile(u":/icons/icons/rectangle_show.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_show_rectangle.setIcon(icon8)
         self.btn_show_rectangle.setIconSize(QSize(50, 50))
 
@@ -808,6 +808,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setMaximumSize(QSize(16777215, 200))
         self.groupBox_2.setFont(font1)
+        self.groupBox_2.setAlignment(Qt.AlignCenter)
         self.btn_create_circle = QPushButton(self.groupBox_2)
         self.btn_create_circle.setObjectName(u"btn_create_circle")
         self.btn_create_circle.setGeometry(QRect(10, 50, 51, 51))
@@ -1037,11 +1038,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_5 = QVBoxLayout(self.frame)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.image_name = QLabel(self.frame)
-        self.image_name.setObjectName(u"image_name")
-        self.image_name.setFont(font1)
+        self.lbl_image_name = QLabel(self.frame)
+        self.lbl_image_name.setObjectName(u"lbl_image_name")
+        self.lbl_image_name.setFont(font1)
 
-        self.verticalLayout_5.addWidget(self.image_name)
+        self.verticalLayout_5.addWidget(self.lbl_image_name)
+
+        self.lbl_image_path = QLabel(self.frame)
+        self.lbl_image_path.setObjectName(u"lbl_image_path")
+        self.lbl_image_path.setMinimumSize(QSize(0, 30))
+        self.lbl_image_path.setWordWrap(False)
+
+        self.verticalLayout_5.addWidget(self.lbl_image_path)
 
         self.splitter_images = QSplitter(self.frame)
         self.splitter_images.setObjectName(u"splitter_images")
@@ -1118,6 +1126,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName(u"tabWidget")
         font5 = QFont()
         font5.setPointSize(9)
+        font5.setBold(True)
+        font5.setWeight(75)
         self.tabWidget.setFont(font5)
         self.tabWidget.setStyleSheet(u"\n"
 "\n"
@@ -1200,7 +1210,7 @@ class Ui_MainWindow(object):
 
         self.frame_5 = QFrame(self.frame_10)
         self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setStyleSheet(u"background-color: rgb(0, 84, 127);")
+        self.frame_5.setStyleSheet(u"background-color: rgb(0, 74, 117);")
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
         self.verticalLayout_11 = QVBoxLayout(self.frame_5)
@@ -1249,7 +1259,7 @@ class Ui_MainWindow(object):
         self.txt_rname.setSizePolicy(sizePolicy4)
         self.txt_rname.setMaximumSize(QSize(16777215, 35))
         self.txt_rname.setFont(font4)
-        self.txt_rname.setStyleSheet(u"background-color: rgb(52, 120, 72);")
+        self.txt_rname.setStyleSheet(u"background-color: rgb(52, 90, 72);")
         self.txt_rname.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         self.formLayout_5.setWidget(1, QFormLayout.FieldRole, self.txt_rname)
@@ -1294,9 +1304,11 @@ class Ui_MainWindow(object):
         sizePolicy4.setHeightForWidth(self.comboBox_region_role.sizePolicy().hasHeightForWidth())
         self.comboBox_region_role.setSizePolicy(sizePolicy4)
         self.comboBox_region_role.setMaximumSize(QSize(16777215, 35))
-        self.comboBox_region_role.setFont(font4)
+        font8 = QFont()
+        font8.setPointSize(11)
+        self.comboBox_region_role.setFont(font8)
         self.comboBox_region_role.setLayoutDirection(Qt.RightToLeft)
-        self.comboBox_region_role.setStyleSheet(u"background-color: rgb(52,120, 72);")
+        self.comboBox_region_role.setStyleSheet(u"background-color: rgb(52, 90, 72);")
 
         self.formLayout_8.setWidget(1, QFormLayout.FieldRole, self.comboBox_region_role)
 
@@ -1355,6 +1367,11 @@ class Ui_MainWindow(object):
         self.tabWidget_3 = QTabWidget(self.frame_10)
         self.tabWidget_3.setObjectName(u"tabWidget_3")
         self.tabWidget_3.setMaximumSize(QSize(16777215, 200))
+        font9 = QFont()
+        font9.setPointSize(9)
+        font9.setBold(False)
+        font9.setWeight(50)
+        self.tabWidget_3.setFont(font9)
         self.tabWidget_3.setStyleSheet(u"\n"
 "\n"
 "/* Style the tab using the tab sub-control. Note that\n"
@@ -1568,8 +1585,93 @@ class Ui_MainWindow(object):
         self.tab_2.setObjectName(u"tab_2")
         self.verticalLayout_9 = QVBoxLayout(self.tab_2)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.frame_4 = QFrame(self.tab_2)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_11 = QHBoxLayout(self.frame_4)
+        self.horizontalLayout_11.setSpacing(6)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_11.addItem(self.horizontalSpacer)
+
+        self.btn_expand_all = QPushButton(self.frame_4)
+        self.btn_expand_all.setObjectName(u"btn_expand_all")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.btn_expand_all.sizePolicy().hasHeightForWidth())
+        self.btn_expand_all.setSizePolicy(sizePolicy6)
+        self.btn_expand_all.setMaximumSize(QSize(100, 16777215))
+        self.btn_expand_all.setLayoutDirection(Qt.RightToLeft)
+        self.btn_expand_all.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+
+        self.horizontalLayout_11.addWidget(self.btn_expand_all)
+
+        self.btn_collapse_all = QPushButton(self.frame_4)
+        self.btn_collapse_all.setObjectName(u"btn_collapse_all")
+        sizePolicy6.setHeightForWidth(self.btn_collapse_all.sizePolicy().hasHeightForWidth())
+        self.btn_collapse_all.setSizePolicy(sizePolicy6)
+        self.btn_collapse_all.setMaximumSize(QSize(100, 16777215))
+        self.btn_collapse_all.setLayoutDirection(Qt.RightToLeft)
+        self.btn_collapse_all.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+
+        self.horizontalLayout_11.addWidget(self.btn_collapse_all)
+
+        self.btn_all_regions = QPushButton(self.frame_4)
+        self.btn_all_regions.setObjectName(u"btn_all_regions")
+        sizePolicy6.setHeightForWidth(self.btn_all_regions.sizePolicy().hasHeightForWidth())
+        self.btn_all_regions.setSizePolicy(sizePolicy6)
+        self.btn_all_regions.setMaximumSize(QSize(100, 16777215))
+        self.btn_all_regions.setLayoutDirection(Qt.RightToLeft)
+        self.btn_all_regions.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+
+        self.horizontalLayout_11.addWidget(self.btn_all_regions)
+
+
+        self.verticalLayout_9.addWidget(self.frame_4)
+
         self.image_region_view = QTreeView(self.tab_2)
         self.image_region_view.setObjectName(u"image_region_view")
+        self.image_region_view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.image_region_view.setStyleSheet(u"QTreeView{alternate-background-color: #222222; background: transparent;}\n"
 "\n"
 "QTreeView::branch:has-children:!has-siblings:closed,\n"
@@ -1585,7 +1687,9 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
+        self.image_region_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.image_region_view.setAlternatingRowColors(True)
+        self.image_region_view.setSelectionMode(QAbstractItemView.NoSelection)
         self.image_region_view.setIndentation(40)
         self.image_region_view.header().setVisible(False)
         self.image_region_view.header().setCascadingSectionResizes(False)
@@ -1633,9 +1737,9 @@ class Ui_MainWindow(object):
         self.label_credits = QLabel(self.frame_label_bottom)
         self.label_credits.setObjectName(u"label_credits")
         self.label_credits.setMaximumSize(QSize(16777215, 40))
-        font8 = QFont()
-        font8.setFamily(u"Segoe UI")
-        self.label_credits.setFont(font8)
+        font10 = QFont()
+        font10.setFamily(u"Segoe UI")
+        self.label_credits.setFont(font10)
         self.label_credits.setCursor(QCursor(Qt.ArrowCursor))
         self.label_credits.setStyleSheet(u"color: rgb(98, 103, 111);")
         self.label_credits.setAlignment(Qt.AlignCenter)
@@ -1645,7 +1749,7 @@ class Ui_MainWindow(object):
         self.label_version = QLabel(self.frame_label_bottom)
         self.label_version.setObjectName(u"label_version")
         self.label_version.setMaximumSize(QSize(100, 16777215))
-        self.label_version.setFont(font8)
+        self.label_version.setFont(font10)
         self.label_version.setStyleSheet(u"color: rgb(98, 103, 111);")
         self.label_version.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -1683,8 +1787,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.tabWidget_2.setCurrentIndex(1)
-        self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_3.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget_3.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1710,22 +1814,23 @@ class Ui_MainWindow(object):
         self.btn_close.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Close</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.btn_close.setText("")
-        self.lbl_polygon_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.lbl_rectangle_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.lbl_image_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Rectangles", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Nr.of  images", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Database statistics", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Polygons", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Circles", None))
+        self.lbl_polygon_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Rectangles", None))
         self.lbl_circle_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Appearance", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Circles", None))
+        self.lbl_rectangle_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Nr.of  images", None))
+        self.lbl_image_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Region appearance", None))
         self.btn_color_polygon.setText("")
         self.btn_color_circle.setText("")
         self.btn_color_rectangle.setText("")
         self.btn_show_polygon.setText("")
         self.btn_show_circle.setText("")
         self.btn_show_rectangle.setText("")
-        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Geometry Operations", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Region operations", None))
         self.btn_create_circle.setText("")
         self.btn_create_rectangle.setText("")
         self.btn_create_polygon.setText("")
@@ -1743,8 +1848,9 @@ class Ui_MainWindow(object):
                         "TABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), "")
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), "")
-        self.image_name.setText("")
-        self.groupBox_9.setTitle(QCoreApplication.translate("MainWindow", u"User Information", None))
+        self.lbl_image_name.setText("")
+        self.lbl_image_path.setText("")
+        self.groupBox_9.setTitle(QCoreApplication.translate("MainWindow", u"User information", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.btn_object_save.setText("")
@@ -1760,15 +1866,15 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"Contributor - Region Creator", None))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"Contributor-Region Creator", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Contributor - Fine Tuner", None))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Contributor-Fine Tuner", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Contributor - Descriptor", None))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Contributor-Descriptor", None))
         self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Description", None))
         self.xmp_dc.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -1776,8 +1882,11 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Change Image Region", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"View full image region", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Change region info", None))
+        self.btn_expand_all.setText(QCoreApplication.translate("MainWindow", u"expand all", None))
+        self.btn_collapse_all.setText(QCoreApplication.translate("MainWindow", u"collapse all", None))
+        self.btn_all_regions.setText(QCoreApplication.translate("MainWindow", u"show all regions", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"View region info", None))
         self.label_credits.setText(QCoreApplication.translate("MainWindow", u"GraffiLabel", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"v1.2", None))
 #if QT_CONFIG(tooltip)

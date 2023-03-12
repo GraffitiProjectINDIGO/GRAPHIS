@@ -44,8 +44,8 @@ class POPUPUser(QWidget):
         if not self.ui3.input_user.text().lower() == 'your name':
             uri = ''
             if not self.ui3.input_uri.text().lower() == 'uri/orcid':
-                uri = self.ui3.input_uri.text().lower()
-            self.got_user.emit(self.ui3.input_user.text().lower(), uri)
+                uri = self.ui3.input_uri.text()
+            self.got_user.emit(self.ui3.input_user.text(), uri)
 
 
             self.user_dict[self.ui3.input_user.text()]=uri

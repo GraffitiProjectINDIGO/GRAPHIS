@@ -703,7 +703,7 @@ QComboBox::drop-down {
 	background-repeat: no-reperat;
  }
 QComboBox QAbstractItemView {
-	color: rgb(85, 170, 255);	
+	color: rgb(178, 186, 87);	
 	background-color: rgb(27, 29, 35);
 	padding: 10px;
 	selection-background-color: rgb(39, 44, 54);
@@ -1425,30 +1425,51 @@ QPushButton:pressed {
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QFrame" name="frame_6">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
+                 <widget class="QGroupBox" name="groupBox">
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>150</height>
+                    <height>200</height>
                    </size>
                   </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
                   </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
+                  <property name="title">
+                   <string>Database statistics</string>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <widget class="QLabel" name="label_2">
+                   <property name="geometry">
+                    <rect>
+                     <x>20</x>
+                     <y>150</y>
+                     <width>91</width>
+                     <height>30</height>
+                    </rect>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Polygons</string>
+                   </property>
+                  </widget>
                   <widget class="QLabel" name="lbl_polygon_number">
                    <property name="geometry">
                     <rect>
-                     <x>150</x>
-                     <y>120</y>
+                     <x>160</x>
+                     <y>150</y>
                      <width>81</width>
                      <height>30</height>
                     </rect>
@@ -1470,12 +1491,78 @@ QPushButton:pressed {
                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                    </property>
                   </widget>
+                  <widget class="QLabel" name="label_3">
+                   <property name="geometry">
+                    <rect>
+                     <x>20</x>
+                     <y>110</y>
+                     <width>101</width>
+                     <height>26</height>
+                    </rect>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Rectangles</string>
+                   </property>
+                  </widget>
+                  <widget class="QLabel" name="lbl_circle_number">
+                   <property name="geometry">
+                    <rect>
+                     <x>160</x>
+                     <y>70</y>
+                     <width>81</width>
+                     <height>30</height>
+                    </rect>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: lightblue;</string>
+                   </property>
+                   <property name="text">
+                    <string>0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                  <widget class="QLabel" name="label_18">
+                   <property name="geometry">
+                    <rect>
+                     <x>20</x>
+                     <y>70</y>
+                     <width>101</width>
+                     <height>30</height>
+                    </rect>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Circles</string>
+                   </property>
+                  </widget>
                   <widget class="QLabel" name="lbl_rectangle_number">
                    <property name="geometry">
                     <rect>
-                     <x>150</x>
-                     <y>80</y>
-                     <width>91</width>
+                     <x>160</x>
+                     <y>110</y>
+                     <width>71</width>
                      <height>30</height>
                     </rect>
                    </property>
@@ -1496,57 +1583,11 @@ QPushButton:pressed {
                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                    </property>
                   </widget>
-                  <widget class="QLabel" name="lbl_image_number">
-                   <property name="geometry">
-                    <rect>
-                     <x>150</x>
-                     <y>-10</y>
-                     <width>81</width>
-                     <height>41</height>
-                    </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>20</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: lightgreen;</string>
-                   </property>
-                   <property name="text">
-                    <string>0</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_3">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>80</y>
-                     <width>101</width>
-                     <height>26</height>
-                    </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Rectangles</string>
-                   </property>
-                  </widget>
                   <widget class="QLabel" name="label_5">
                    <property name="geometry">
                     <rect>
-                     <x>10</x>
-                     <y>0</y>
+                     <x>20</x>
+                     <y>30</y>
                      <width>121</width>
                      <height>20</height>
                     </rect>
@@ -1565,53 +1606,13 @@ QPushButton:pressed {
                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                    </property>
                   </widget>
-                  <widget class="QLabel" name="label_2">
+                  <widget class="QLabel" name="lbl_image_number">
                    <property name="geometry">
                     <rect>
-                     <x>10</x>
-                     <y>120</y>
-                     <width>91</width>
-                     <height>30</height>
-                    </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Polygons</string>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_18">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>40</y>
-                     <width>101</width>
-                     <height>30</height>
-                    </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Circles</string>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="lbl_circle_number">
-                   <property name="geometry">
-                    <rect>
-                     <x>150</x>
-                     <y>40</y>
-                     <width>91</width>
-                     <height>30</height>
+                     <x>160</x>
+                     <y>20</y>
+                     <width>81</width>
+                     <height>41</height>
                     </rect>
                    </property>
                    <property name="font">
@@ -1622,7 +1623,7 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">color: lightblue;</string>
+                    <string notr="true">color: #d7191c;</string>
                    </property>
                    <property name="text">
                     <string>0</string>
@@ -1649,7 +1650,10 @@ QPushButton:pressed {
                    </font>
                   </property>
                   <property name="title">
-                   <string>Appearance</string>
+                   <string>Region appearance</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                   <widget class="COLORButton" name="btn_color_polygon">
                    <property name="geometry">
@@ -1794,7 +1798,7 @@ QPushButton:pressed {
                    </property>
                    <property name="icon">
                     <iconset resource="files.qrc">
-                     <normaloff>:/icons/icons/polygon_hide.svg</normaloff>:/icons/icons/polygon_hide.svg</iconset>
+                     <normaloff>:/icons/icons/polygon_show.svg</normaloff>:/icons/icons/polygon_show.svg</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1832,7 +1836,7 @@ QPushButton:pressed {
                    </property>
                    <property name="icon">
                     <iconset resource="files.qrc">
-                     <normaloff>:/icons/icons/circle_hide.svg</normaloff>:/icons/icons/circle_hide.svg</iconset>
+                     <normaloff>:/icons/icons/circle_show.svg</normaloff>:/icons/icons/circle_show.svg</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1870,7 +1874,7 @@ QPushButton:pressed {
                    </property>
                    <property name="icon">
                     <iconset resource="files.qrc">
-                     <normaloff>:/icons/icons/rectangle_hide.svg</normaloff>:/icons/icons/rectangle_hide.svg</iconset>
+                     <normaloff>:/icons/icons/rectangle_show.svg</normaloff>:/icons/icons/rectangle_show.svg</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1897,7 +1901,10 @@ QPushButton:pressed {
                    </font>
                   </property>
                   <property name="title">
-                   <string>Geometry Operations</string>
+                   <string>Region operations</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                   <widget class="QPushButton" name="btn_create_circle">
                    <property name="geometry">
@@ -2335,7 +2342,7 @@ QPTextEdit:focus {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+                <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
                  <property name="leftMargin">
                   <number>0</number>
                  </property>
@@ -2349,7 +2356,7 @@ QPTextEdit:focus {
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QLabel" name="image_name">
+                  <widget class="QLabel" name="lbl_image_name">
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
@@ -2359,6 +2366,22 @@ QPTextEdit:focus {
                    </property>
                    <property name="text">
                     <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lbl_image_path">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -2462,7 +2485,7 @@ QPTextEdit:focus {
                     </font>
                    </property>
                    <property name="title">
-                    <string>User Information</string>
+                    <string>User information</string>
                    </property>
                    <layout class="QFormLayout" name="formLayout_4">
                     <property name="leftMargin">
@@ -2528,6 +2551,8 @@ QPTextEdit:focus {
                    <property name="font">
                     <font>
                      <pointsize>9</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2567,11 +2592,11 @@ QTabBar::tab:!selected {
 </string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="tab">
                     <attribute name="title">
-                     <string>Change Image Region</string>
+                     <string>Change region info</string>
                     </attribute>
                     <layout class="QVBoxLayout" name="verticalLayout_8">
                      <property name="spacing">
@@ -2679,7 +2704,7 @@ QPushButton:pressed {
                         <item>
                          <widget class="QFrame" name="frame_5">
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(0, 84, 127);</string>
+                           <string notr="true">background-color: rgb(0, 74, 117);</string>
                           </property>
                           <property name="frameShape">
                            <enum>QFrame::StyledPanel</enum>
@@ -2806,7 +2831,7 @@ QPushButton:pressed {
                                  </font>
                                 </property>
                                 <property name="styleSheet">
-                                 <string notr="true">background-color: rgb(52, 120, 72);</string>
+                                 <string notr="true">background-color: rgb(52, 90, 72);</string>
                                 </property>
                                 <property name="verticalScrollBarPolicy">
                                  <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -2921,14 +2946,14 @@ QPushButton:pressed {
                                 </property>
                                 <property name="font">
                                  <font>
-                                  <pointsize>10</pointsize>
+                                  <pointsize>11</pointsize>
                                  </font>
                                 </property>
                                 <property name="layoutDirection">
                                  <enum>Qt::RightToLeft</enum>
                                 </property>
                                 <property name="styleSheet">
-                                 <string notr="true">background-color: rgb(52,120, 72);</string>
+                                 <string notr="true">background-color: rgb(52, 90, 72);</string>
                                 </property>
                                </widget>
                               </item>
@@ -3065,6 +3090,13 @@ QPushButton:pressed {
                             <height>200</height>
                            </size>
                           </property>
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true">
 
@@ -3102,11 +3134,11 @@ QTabBar::tab:!selected {
 </string>
                           </property>
                           <property name="currentIndex">
-                           <number>1</number>
+                           <number>0</number>
                           </property>
                           <widget class="QWidget" name="tab_7">
                            <attribute name="title">
-                            <string>Contributor - Region Creator</string>
+                            <string>Contributor-Region Creator</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout_2">
                             <property name="verticalSpacing">
@@ -3212,7 +3244,7 @@ QTabBar::tab:!selected {
                           </widget>
                           <widget class="QWidget" name="tab_5">
                            <attribute name="title">
-                            <string>Contributor - Fine Tuner</string>
+                            <string>Contributor-Fine Tuner</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout">
                             <property name="verticalSpacing">
@@ -3312,7 +3344,7 @@ QTabBar::tab:!selected {
                           </widget>
                           <widget class="QWidget" name="tab_6">
                            <attribute name="title">
-                            <string>Contributor - Descriptor</string>
+                            <string>Contributor-Descriptor</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout_3">
                             <property name="verticalSpacing">
@@ -3473,11 +3505,165 @@ p, li { white-space: pre-wrap; }
                    </widget>
                    <widget class="QWidget" name="tab_2">
                     <attribute name="title">
-                     <string>View full image region</string>
+                     <string>View region info</string>
                     </attribute>
                     <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
+                      <widget class="QFrame" name="frame_4">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_11">
+                        <property name="spacing">
+                         <number>6</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <spacer name="horizontalSpacer">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="btn_expand_all">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>100</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>expand all</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="btn_collapse_all">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>100</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>collapse all</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="btn_all_regions">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>100</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>show all regions</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QTreeView" name="image_region_view">
+                       <property name="contextMenuPolicy">
+                        <enum>Qt::CustomContextMenu</enum>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">QTreeView{alternate-background-color: #222222; background: transparent;}
 
@@ -3495,8 +3681,14 @@ QTreeView::branch:open:has-children:has-siblings  {
 
 </string>
                        </property>
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
                        <property name="alternatingRowColors">
                         <bool>true</bool>
+                       </property>
+                       <property name="selectionMode">
+                        <enum>QAbstractItemView::NoSelection</enum>
                        </property>
                        <property name="indentation">
                         <number>40</number>

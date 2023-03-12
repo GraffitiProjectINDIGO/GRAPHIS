@@ -1,5 +1,6 @@
 numpy==1.23.1
-Pillow==9.4.0
+Pillow>=9.3.0
 PyExifTool==0.5.4
-PySide2==5.15.2.1
-Shapely==1.8.5.post1
+PySide2>=5.15.6
+Shapely>=1.8.5
+rawpy>=0.18.0

@@ -1,130 +1,114 @@
 from exiftool import ExifTool
-from app.db_handler import DBHandler
+from .db_handler import DBHandler
 import json
 import numpy
 
 
 def parse_img_region(region: dict, img_width: int, img_height: int):
 
-	bound = region['RegionBoundary']
+    bound = region['RegionBoundary']
 
-	if bound['RbUnit'] == 'relative':
-		mx = img_width
-		my = img_height
-	else:
-		mx = 1
-		my = 1
+    if bound['RbUnit'] == 'relative':
+        mx = img_width
+        my = img_height
+    else:
+        mx = 1
+        my = 1
 
-	if bound['RbShape'] == 'polygon':
+    if bound['RbShape'] == 'polygon':
 
-		vert = bound['RbVertices']
+        vert = bound['RbVertices']
 
-		coords = [[float(x['RbX']) * mx, float(x['RbY']) * my] for x in vert]
-		coords.append(coords[0])
-		object_type = 'polygon'
+        coords = [[float(x['RbX']) * mx, float(x['RbY']) * my] for x in vert]
+        coords.append(coords[0])
+        object_type = 'polygon'
 
-	elif bound['RbShape'] == 'rectangle':
-		x = float(bound['RbX']) * mx
-		y = float(bound['RbY']) * my
-		w = float(bound['RbW']) * mx
-		h = float(bound['RbH']) * my
+    elif bound['RbShape'] == 'rectangle':
+        x = float(bound['RbX']) * mx
+        y = float(bound['RbY']) * my
+        w = float(bound['RbW']) * mx
+        h = float(bound['RbH']) * my
 
-		coords = [[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]]
-		object_type = 'rectangle'
-	else:
-		x = float(bound['RbX']) * mx
-		y = float(bound['RbY']) * my
-		radius = float(bound['RbRx']) * mx
-		coords = [x, y, radius]
-		object_type = 'circle'
+        coords = [[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]]
+        object_type = 'rectangle'
+    else:
+        x = float(bound['RbX']) * mx
+        y = float(bound['RbY']) * my
+        radius = float(bound['RbRx']) * mx
+        coords = [x, y, radius]
+        object_type = 'circle'
 
-	data = {"attributes": region, 'coords': coords}
+    data = {"attributes": region, 'coords': coords}
 
-	return object_type, data, ''
+    return object_type, data, ''
 
 
-def meta_writer(db1: DBHandler, user: str) -> bool:
+def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
 
-	print('\nWrite Data to Image - ImageRegions')
+    print('\nWrite Data to Image - ImageRegions')
 
-	db = DBHandler()
-	db.db_load(db1.db_path, user)
-	db.db_user = user
+    count_image_written = 0
 
-	try:
-		et = ExifTool(executable=r"app\bin\exiftool-12.52.exe")
-		et.run()
-		print("\tStart running Exiftool")
-	except OSError as err:
-		print("\tStart running Exiftool failed")
-		print("\tOS error:", err)
+    db = DBHandler()
+    db.db_load(db1.db_path, user)
+    db.db_user = user
 
-		return False
+    try:
+        et = ExifTool(executable=r"app\bin\exiftool-12.52.exe")
+        et.run()
+        print("\tStart running Exiftool")
+    except OSError as err:
+        print("\tStart running Exiftool failed")
+        print("\tOS error:", err)
 
-	images = db.db_load_images_list()
+        return False
 
-	for img in images:
+    images = db.db_load_images_list()
 
-		if img['s_count'] > 0:
+    for img in images:
 
-			objects = db.db_load_objects_image(img['id'])
-			img_regions = []
-			img_width = img['width']
-			img_height = img['height']
-			for count, obj in enumerate(objects):
+        force_change = False
+        # image deleted_orig_tag will show that original tag is deleted and thus anyhow gets written
+        force_change = True if img['deleted_orig_tag'] else False
 
-				img_region = json.loads(obj['data'])['attributes']
+        if img['s_count'] > 0 or img['deleted_orig_tag']:
 
-				# Geometry
-				bound = {'RbUnit': 'relative'}
+            objects = db.db_load_objects_image(img['id'])
+            img_regions = []
+            img_width = img['width']
+            img_height = img['height']
+            for count, obj in enumerate(objects):
 
-				mx = img_width
-				my = img_height
+                if obj['changed']:
+                    force_change = True
+                img_region = json.loads(obj['data'])['attributes']
 
-				if obj['object_type'] == 'polygon':
+                img_regions.append(img_region)
 
-					# RegionBoundary={RbShape=Polygon,RbUnit=Relative,RbVertices=[{RbX=0.0,RbY=0.0},{RbX=0.22,RbY=0.0},
-					# {RbX=0.3,RbY=0.37},{RbX=0.12,RbY=0.76},{RbX=0.0,RbY=0.39}]}
-					bound['RbShape'] = 'polygon'
-					data = json.loads(obj['data'])
-					coordinates = [{"RbX": x[0]/mx, "RbY": x[1]/my} for x in data['coords']]
+            if img['orig_img_region_leftover']:
+                region_leftover = json.loads(img['orig_img_region_leftover'])
+                for reg in region_leftover:
+                    img_regions.append(reg)
 
-					coordinates.pop()
-					bound['RbVertices'] = coordinates
+            if force_change:
+                if len(img_regions) == 0:
+                    # delete region if no region anymore in image
+                    img_region_parsed = ''
+                else:
+                    img_region_parsed = json.dumps(img_regions, ensure_ascii=False, separators=(', ', '= ')).replace('"', '')
+                if not keep_orig:
+                    et.execute(*['-overwrite_original', '-struct', '-xmp:ImageRegion=' + img_region_parsed, img['path']])
+                else:
+                    et.execute(*['-struct', '-xmp:ImageRegion=' + img_region_parsed, img['path']])
+                if et.last_status:
+                    print("\tProblem writing EXIF to: " + img['path'])
+                else:
+                    count_image_written += 1
 
-				elif obj['object_type'] == 'rectangle':
-					bound['RbShape'] = 'rectangle'
-					data = json.loads(obj['data'])
-					np_coords = numpy.array(data["coords"])
-					min_rec = np_coords.min(axis=0)
-					max_rec = np_coords.max(axis=0)
-					w = max_rec[0] - min_rec[0]
-					h = max_rec[1] - min_rec[1]
-					bound['RbX'] = min_rec[0] / mx
-					bound['RbY'] = min_rec[1] / my
-					bound['RbW'] = w / mx
-					bound['RbH'] = h / my
+    et.terminate()
 
-				elif obj['object_type'] == 'circle':
-					bound['RbShape'] = 'circle'
-					data = json.loads(obj['data'])
-					np_coords = data["coords"]
-					bound['RbX'] = np_coords[0] / mx
-					bound['RbY'] = np_coords[1] / my
-					bound['RbRx'] = np_coords[2] / mx
-
-				img_region["RegionBoundary"] = bound
-				img_regions.append(img_region)
-
-			if img['orig_img_region_leftover']:
-				region_leftover = json.loads(img['orig_img_region_leftover'])
-				for reg in region_leftover:
-					img_regions.append(reg)
-
-			img_region_parsed = json.dumps(img_regions, ensure_ascii=False, separators=(', ', '= ')).replace('"', '')
-			et.execute(*['-overwrite_original', '-struct', '-xmp:ImageRegion=' + img_region_parsed, img['path']])
-			if et.last_status:
-				print("\tProblem writing EXIF to: " + img['path'])
-
-	et.terminate()
-	return True
+    if count_image_written:
+        print('\tSuccessfully wrote metadata: ImgNr. %i' % count_image_written)
+    else:
+        print('\tNo images needed to be changed')
+    return True
