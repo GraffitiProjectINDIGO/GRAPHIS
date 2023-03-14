@@ -29,7 +29,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
         self.image_height = 0
         self.db = DBHandler()
         self.color_rectangle = None
-        self.color_scene = None
+        self.color_polygon = None
         self.color_circle = None
         self.change_point_index = -1
         self.old_cords = None
@@ -118,7 +118,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
         self.object_add.emit(object_id)
         self.current_instruction = Instructions.No_Instruction
         self.change_color(object_type='rectangle', color=self.color_rectangle)
-        self.change_color(object_type='scene', color=self.color_scene)
+        self.change_color(object_type='polygon', color=self.color_polygon)
         self.change_color(object_type='circle', color=self.color_circle)
 
         return object_id, tooltip
@@ -211,9 +211,10 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                     if self.active_item.is_valid:
                         coordinates, valid = self.active_item.get_coords(self.image_width, self.image_height)
-                        self.db.update_object(self.active_item.obj_id, coordinates)
-                        self.change_object.emit(self.active_item.obj_id)
-                        self.instruction_active = False
+                        if valid:
+                            self.db.update_object(self.active_item.obj_id, coordinates)
+                            self.change_object.emit(self.active_item.obj_id)
+                            self.instruction_active = False
 
             # -----------------------------------------------------------------------------------------------
             # Drawing instructions
@@ -271,7 +272,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             self.instruction_active = False
 
                             if self.polygon_item.polygon().length() > 2:
-                                coordinates = self.polygon_item.get_coords()
+                                coordinates, valid = self.polygon_item.get_coords(self.image_width, self.image_height)
 
                                 self.polygon_item.obj_id, tooltip = self.store_sightings('polygon', coordinates)
                                 self.polygon_item.setToolTip(tooltip)

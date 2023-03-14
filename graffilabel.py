@@ -3,11 +3,13 @@ import traceback
 import json
 from pathlib import Path
 import numpy
+import datetime
+import csv
+
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtWidgets import *
 from PySide2.QtCore import Slot
 from PySide2.QtGui import (QColor, Qt, QPixmap)
-import datetime
 
 from exiftool import ExifTool
 
@@ -155,8 +157,10 @@ class MainWindow(QMainWindow):
         self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.Stretch)
         self.ui.image_region_view.setAlternatingRowColors(True)
         self.model_image_region = JsonModel()
+        self.model_image_region_all = JsonModel()
 
         self.ui.image_region_view.setModel(self.model_image_region)
+        self.ui.image_all_region.setModel(self.model_image_region_all)
 
         # Redirect Logger
         stdout = OutputWrapper(self, True)
@@ -167,7 +171,7 @@ class MainWindow(QMainWindow):
         self.action_menue1 = QAction("Create new database", self)
         self.action_menue2 = QAction("Load database", self)
         self.action_menue3 = QAction("Add image folder", self)
-        self.action_menue4 = QAction("Save BOX to CSV file", self)
+        self.action_menue4 = QAction("Save bounding boxes to CSV file", self)
         self.action_menue5 = QAction("Save image regions to files", self)
         self.action_menue6 = QAction("Save image regions to files (keep original images)", self)
 
@@ -272,7 +276,10 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_expand_all.clicked.connect(self.ui.image_region_view.expandAll)
         self.ui.btn_collapse_all.clicked.connect(self.ui.image_region_view.collapseAll)
-        self.ui.btn_all_regions.clicked.connect(self.image_region_view_load_all_image)
+
+        self.ui.btn_expand_all_all_region.clicked.connect(self.ui.image_all_region.expandAll)
+        self.ui.btn_collapse_all_all_region.clicked.connect(self.ui.image_all_region.collapseAll)
+
         # window basic attributes
         # self.ui_start_up()
         self.pop_user.show()
@@ -360,13 +367,12 @@ class MainWindow(QMainWindow):
 
     def image_region_view_load_all_image(self):
 
-        if self.current_item and self.current_image:
             json_image_all_region = []
             data = self.db.db_load_objects_image(self.current_image['id']+1)
             for obj in data:
                 json_image_all_region.append(json.loads(obj['data'])['attributes'])
-            self.model_image_region.load(json_image_all_region)
-            self.ui.image_region_view.setModel(self.model_image_region)
+            self.model_image_region_all.load(json_image_all_region)
+            self.ui.image_all_region.setModel(self.model_image_region_all)
 
     def scene_load_image(self, index):
 
@@ -376,7 +382,7 @@ class MainWindow(QMainWindow):
         self.digitizer_scene.clear()
 
         self.model_image_region.clear()
-
+        self.model_image_region_all.clear()
         self.current_item = None
 
         # set icon of hiding for objects
@@ -406,6 +412,8 @@ class MainWindow(QMainWindow):
                 else:
                     color = self.color_polygon
                 self.digitizer_scene.add_object(element["object_type"], data, element['id'], color)
+
+            self.image_region_view_load_all_image()
 
     def change_visibility(self, objects_type):
         self.digitizer_scene.hide_item(objects_type)
@@ -538,6 +546,7 @@ class MainWindow(QMainWindow):
                 self.change_color(self.color_polygon, 'polygon')
                 self.change_color(self.color_circle, 'circle')
                 self.current_item = None
+                self.image_region_view_load_all_image()
                 self.clear_entries()
 
     def clear_entries(self):
@@ -595,6 +604,8 @@ class MainWindow(QMainWindow):
         self.change_color(self.color_circle, 'circle')
         self.current_item = None
         self.clear_entries()
+        self.image_region_view_load_all_image()
+
 
     @Slot(int)
     def load_data(self, object_id):
@@ -675,6 +686,7 @@ class MainWindow(QMainWindow):
         self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
         self.parse_show_data(self.current_item['data']['attributes'])
         self.model_image_region.load(self.current_item['data']['attributes'])
+        self.image_region_view_load_all_image()
 
     def parse_show_data(self, dict_item: dict):
 
@@ -749,6 +761,7 @@ class MainWindow(QMainWindow):
                     self.ui.lbl_circle_number.setText(str(self.count_circle))
                 self.current_item = None
                 self.clear_entries()
+                self.image_region_view_load_all_image()
         else:
             print("Database is locked")
 
@@ -784,7 +797,7 @@ class MainWindow(QMainWindow):
         self.digitizer_scene.clear()
 
         self.clear_entries()
-
+        self.model_image_region_all.clear()
         self.ui.lbl_image_name.setText('')
         self.ui.lbl_image_path.setText('')
         self.ui.table_preview.setModel(None)
@@ -963,6 +976,11 @@ class MainWindow(QMainWindow):
                     self.db.is_locked = False
             else:
                 self.db.is_locked = False
+        else:
+            msg = QMessageBox(self, text="Seems no database is active or database is locked")
+            msg.setWindowTitle('Warning')
+            #msg.setStyleSheet('background-color: rgb(40, 44, 52);')
+            x = msg.exec_()
 
     def save_image_regions(self, keep_orig=False):
 
@@ -982,9 +1000,13 @@ class MainWindow(QMainWindow):
                 image_path, _ = QtWidgets.QFileDialog.getSaveFileName(caption="Export rectangle CSV",
                                                                       filter='CSV (*.csv)')
                 if image_path:
-                    with open(image_path, 'w') as fid:
-                        fid.write("image,type,RId,UpperLeftX,UpperLeftY,Width,Height,Description\n")
-                        for obj in objs:
+                    with open(image_path, 'w', newline='', encoding='utf-8') as fid:
+
+                        csv_writer = csv.writer(fid, delimiter=',', quotechar='"',
+                                                     quoting=csv.QUOTE_MINIMAL)
+
+                        csv_writer.writerow(['image','type','RId','UpperLeftX','UpperLeftY','Width','Height','Description'])
+                        for obj in objs:#
 
                             image = obj['image_name']
                             data = json.loads(obj['data'])
@@ -1009,15 +1031,16 @@ class MainWindow(QMainWindow):
 
                             if data.get("attributes", ''):
                                 if data["attributes"].get("RId", ''):
-                                    rid = data["attributes"]["RId"].replace(',', '_')
+                                    rid =  data["attributes"]["RId"]
 
                             if data.get("attributes", ''):
                                 if data["attributes"].get(self.config["DEFAULT"]["EXTRA_STRING_TAG"], ''):
-                                    description = data["attributes"][
-                                        self.config["DEFAULT"]["EXTRA_STRING_TAG"]].replace(',', '_')
 
-                            fid.write(",".join([image, obj['object_type'], rid, str(int(uplx)), str(int(uply)),
-                                                str(int(w)), str(int(h)), description]) + "\n")
+                                    description = data["attributes"][self.config["DEFAULT"]["EXTRA_STRING_TAG"]]
+
+                            csv_writer.writerow([image, obj['object_type'], rid, str(int(uplx)), str(int(uply)),
+                                                str(int(w)), str(int(h)), description])
+
 
             else:
                 print("\tNothing to export")

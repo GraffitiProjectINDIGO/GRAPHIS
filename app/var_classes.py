@@ -5,7 +5,7 @@ import numpy
 from PySide2.QtGui import QColor, QBrush, QStandardItem
 
 
-software_version = '1.3.2'
+software_version = '1.3.3'
 
 CONFIG_FILE = "graffilabel.config"
 

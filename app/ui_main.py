@@ -1644,28 +1644,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_11.addWidget(self.btn_collapse_all)
 
-        self.btn_all_regions = QPushButton(self.frame_4)
-        self.btn_all_regions.setObjectName(u"btn_all_regions")
-        sizePolicy6.setHeightForWidth(self.btn_all_regions.sizePolicy().hasHeightForWidth())
-        self.btn_all_regions.setSizePolicy(sizePolicy6)
-        self.btn_all_regions.setMaximumSize(QSize(100, 16777215))
-        self.btn_all_regions.setLayoutDirection(Qt.RightToLeft)
-        self.btn_all_regions.setStyleSheet(u"QPushButton {\n"
-"	border: 2px solid rgb(52, 59, 72);\n"
-"	border-radius: 5px;	\n"
-"	background-color: rgb(52, 59, 72);\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(57, 65, 80);\n"
-"	border: 2px solid rgb(61, 70, 86);\n"
-"}\n"
-"QPushButton:pressed {	\n"
-"	background-color: rgb(35, 40, 49);\n"
-"	border: 2px solid rgb(43, 50, 61);\n"
-"}")
-
-        self.horizontalLayout_11.addWidget(self.btn_all_regions)
-
 
         self.verticalLayout_9.addWidget(self.frame_4)
 
@@ -1693,12 +1671,107 @@ class Ui_MainWindow(object):
         self.image_region_view.setIndentation(40)
         self.image_region_view.header().setVisible(False)
         self.image_region_view.header().setCascadingSectionResizes(False)
-        self.image_region_view.header().setMinimumSectionSize(200)
+        self.image_region_view.header().setMinimumSectionSize(220)
+        self.image_region_view.header().setDefaultSectionSize(120)
         self.image_region_view.header().setStretchLastSection(True)
 
         self.verticalLayout_9.addWidget(self.image_region_view)
 
         self.tabWidget.addTab(self.tab_2, "")
+        self.tab_8 = QWidget()
+        self.tab_8.setObjectName(u"tab_8")
+        self.verticalLayout_13 = QVBoxLayout(self.tab_8)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.frame_6 = QFrame(self.tab_8)
+        self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_12 = QHBoxLayout(self.frame_6)
+        self.horizontalLayout_12.setSpacing(6)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_12.addItem(self.horizontalSpacer_2)
+
+        self.btn_expand_all_all_region = QPushButton(self.frame_6)
+        self.btn_expand_all_all_region.setObjectName(u"btn_expand_all_all_region")
+        sizePolicy6.setHeightForWidth(self.btn_expand_all_all_region.sizePolicy().hasHeightForWidth())
+        self.btn_expand_all_all_region.setSizePolicy(sizePolicy6)
+        self.btn_expand_all_all_region.setMaximumSize(QSize(100, 16777215))
+        self.btn_expand_all_all_region.setLayoutDirection(Qt.RightToLeft)
+        self.btn_expand_all_all_region.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+
+        self.horizontalLayout_12.addWidget(self.btn_expand_all_all_region)
+
+        self.btn_collapse_all_all_region = QPushButton(self.frame_6)
+        self.btn_collapse_all_all_region.setObjectName(u"btn_collapse_all_all_region")
+        sizePolicy6.setHeightForWidth(self.btn_collapse_all_all_region.sizePolicy().hasHeightForWidth())
+        self.btn_collapse_all_all_region.setSizePolicy(sizePolicy6)
+        self.btn_collapse_all_all_region.setMaximumSize(QSize(100, 16777215))
+        self.btn_collapse_all_all_region.setLayoutDirection(Qt.RightToLeft)
+        self.btn_collapse_all_all_region.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+
+        self.horizontalLayout_12.addWidget(self.btn_collapse_all_all_region)
+
+
+        self.verticalLayout_13.addWidget(self.frame_6)
+
+        self.image_all_region = QTreeView(self.tab_8)
+        self.image_all_region.setObjectName(u"image_all_region")
+        self.image_all_region.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.image_all_region.setStyleSheet(u"QTreeView{alternate-background-color: #222222; background: transparent;}\n"
+"\n"
+"QTreeView::branch:has-children:!has-siblings:closed,\n"
+"QTreeView::branch:closed:has-children:has-siblings {\n"
+"        border-image: none;\n"
+"        image: url(:/icons/icons/cil-size-grip.png);\n"
+"}\n"
+"\n"
+"QTreeView::branch:open:has-children:!has-siblings,\n"
+"QTreeView::branch:open:has-children:has-siblings  {\n"
+"        border-image: none;\n"
+"        image:url(:/icons/icons/circle.svg);\n"
+"}\n"
+"\n"
+"")
+        self.image_all_region.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.image_all_region.setAlternatingRowColors(True)
+        self.image_all_region.setSelectionMode(QAbstractItemView.NoSelection)
+        self.image_all_region.setIndentation(40)
+        self.image_all_region.header().setVisible(False)
+        self.image_all_region.header().setCascadingSectionResizes(False)
+        self.image_all_region.header().setMinimumSectionSize(220)
+        self.image_all_region.header().setDefaultSectionSize(120)
+        self.image_all_region.header().setStretchLastSection(True)
+
+        self.verticalLayout_13.addWidget(self.image_all_region)
+
+        self.tabWidget.addTab(self.tab_8, "")
 
         self.verticalLayout_7.addWidget(self.tabWidget)
 
@@ -1787,7 +1860,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.tabWidget_2.setCurrentIndex(1)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_3.setCurrentIndex(0)
 
 
@@ -1821,7 +1894,7 @@ class Ui_MainWindow(object):
         self.lbl_circle_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Circles", None))
         self.lbl_rectangle_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Nr.of  images", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Nr. of  images", None))
         self.lbl_image_number.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Region appearance", None))
         self.btn_color_polygon.setText("")
@@ -1883,10 +1956,12 @@ class Ui_MainWindow(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Change region info", None))
-        self.btn_expand_all.setText(QCoreApplication.translate("MainWindow", u"expand all", None))
-        self.btn_collapse_all.setText(QCoreApplication.translate("MainWindow", u"collapse all", None))
-        self.btn_all_regions.setText(QCoreApplication.translate("MainWindow", u"show all regions", None))
+        self.btn_expand_all.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
+        self.btn_collapse_all.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"View region info", None))
+        self.btn_expand_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
+        self.btn_collapse_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"All region info", None))
         self.label_credits.setText(QCoreApplication.translate("MainWindow", u"GraffiLabel", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"v1.2", None))
 #if QT_CONFIG(tooltip)

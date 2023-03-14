@@ -309,7 +309,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
         coords = self.polygon().toList()
         valid = True
         for p in coords:
-            if p.x() < 0 or p.x() < 0 or p.x() > image_width or p.y() > image_height:
+            if p.x() < 0 or p.y() < 0 or p.x() > image_width or p.y() > image_height:
                 valid = False
         return list_of_points_to_list(self.polygon().toList()), valid
 
