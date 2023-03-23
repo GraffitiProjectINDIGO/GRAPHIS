@@ -1,17 +1,17 @@
-#Copyright (C) 2023 Martin Wieser
+# Copyright (C) 2023 Martin Wieser
 #
-#This program is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#You should have received a copy of the GNU General Public License
-#along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
 import sys
@@ -30,9 +30,9 @@ from PySide2.QtGui import (QColor, Qt, QPixmap)
 from exiftool import ExifTool
 
 from app.preview_class import PreviewModel, PreviewDelegate
-from app.var_classes import (software_version, Instructions, image_list_provided, PreviewModelData,
+from app.var_classes import (software_version, Instructions, PreviewModelData,
                              image_region_role, put_struct_to_dict_or_remove, put_text_to_dict_or_remove,
-                             put_struc_tag, find_key_role, PREVIEW_HEIGHT, CONFIG_FILE, load_config,
+                             put_struc_tag, find_key_role, PREVIEW_HEIGHT, load_config,
                              get_image_region_role)
 from app.ui_main import Ui_MainWindow
 from app.digitizerscene import DIGITIZERScene
@@ -107,7 +107,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
 
         # try to load config File
-        self.config_success, self.config = load_config(CONFIG_FILE)
+        self.config_success, self.config_default, self.config_polygon, self.config_rectangle, self.config_circle = load_config()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.label_version.setText(str(software_version))
@@ -185,31 +185,31 @@ class MainWindow(QMainWindow):
         stderr = OutputWrapper(self, False)
         stderr.outputWritten.connect(self.handle_output)
 
-        self.action_menue1 = QAction("Create new database", self)
-        self.action_menue2 = QAction("Load database", self)
-        self.action_menue3 = QAction("Add image folder", self)
-        self.action_menue4 = QAction("Save bounding boxes to CSV file", self)
-        self.action_menue5 = QAction("Save image regions to files", self)
-        self.action_menue6 = QAction("Save image regions to files (keep original images)", self)
+        self.action_menu1 = QAction("Create new database", self)
+        self.action_menu2 = QAction("Load database", self)
+        self.action_menu3 = QAction("Add image folder", self)
+        self.action_menu4 = QAction("Save bounding boxes to CSV file", self)
+        self.action_menu5 = QAction("Save image regions to files", self)
+        self.action_menu6 = QAction("Save image regions to files (keep original images)", self)
 
         self.alignMenu = QMenu(self)
-        self.alignMenu.addAction(self.action_menue1)
-        self.alignMenu.addAction(self.action_menue2)
+        self.alignMenu.addAction(self.action_menu1)
+        self.alignMenu.addAction(self.action_menu2)
         self.alignMenu.addSeparator()
-        self.alignMenu.addAction(self.action_menue3)
+        self.alignMenu.addAction(self.action_menu3)
         self.alignMenu.addSeparator()
-        self.alignMenu.addAction(self.action_menue4)
-        self.alignMenu.addAction(self.action_menue5)
-        self.alignMenu.addAction(self.action_menue6)
+        self.alignMenu.addAction(self.action_menu4)
+        self.alignMenu.addAction(self.action_menu5)
+        self.alignMenu.addAction(self.action_menu6)
         self.alignMenu.setStyleSheet("background: rgb(130, 130, 130);font: 10pt;\n")
 
         self.ui.toolButton.setMenu(self.alignMenu)
 
         # ----------------------------------------------------------
         # VARIABLES
-        self.color_rectangle = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_RECTANGLE_START"])
-        self.color_polygon = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_POLYGON_START"])
-        self.color_circle = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_CIRCLE_START"])
+        self.color_rectangle = QColor(self.config_rectangle.color_start)
+        self.color_polygon = QColor(self.config_polygon.color_start)
+        self.color_circle = QColor(self.config_circle.color_start)
 
         self.ui.btn_color_circle.set_color(self.color_circle)
         self.ui.btn_color_rectangle.set_color(self.color_rectangle)
@@ -230,7 +230,7 @@ class MainWindow(QMainWindow):
         self.digitizer_scene.color_circle = self.color_circle
 
         self.delegate = PreviewDelegate()
-        self.delegate.rectangle_color = self.color_circle
+        self.delegate.rectangle_color = self.color_rectangle
         self.delegate.polygon_color = self.color_polygon
         self.delegate.circle_color = self.color_circle
         self.ui.table_preview.setItemDelegate(self.delegate)
@@ -251,12 +251,12 @@ class MainWindow(QMainWindow):
         # ------------------------------------------------------------------------------------------------------------
         # EVENTS #
         # Menu Action Items
-        self.action_menue1.triggered.connect(self.create_new_db)
-        self.action_menue2.triggered.connect(self.load_existing_db)
-        self.action_menue3.triggered.connect(self.load_input_image_folder)
-        self.action_menue4.triggered.connect(self.save_csv)
-        self.action_menue5.triggered.connect(lambda: self.save_image_regions(keep_orig=False))
-        self.action_menue6.triggered.connect(lambda: self.save_image_regions(keep_orig=True))
+        self.action_menu1.triggered.connect(self.create_new_db)
+        self.action_menu2.triggered.connect(self.load_existing_db)
+        self.action_menu3.triggered.connect(self.load_input_image_folder)
+        self.action_menu4.triggered.connect(self.save_csv)
+        self.action_menu5.triggered.connect(lambda: self.save_image_regions(keep_orig=False))
+        self.action_menu6.triggered.connect(lambda: self.save_image_regions(keep_orig=True))
 
         # Connect double on image to load the image
         self.ui.table_preview.doubleClicked.connect(self.scene_load_image)
@@ -365,7 +365,7 @@ class MainWindow(QMainWindow):
         self.ui.txt_user_indent.setPlainText(user_uri)
         print('Welcome ' + self.user.upper() + '. Enjoy working')
         if not self.config_success:
-            print('Config file parsing failed. Please create or fix file "graffilabel.conf" ', file=sys.stderr)
+            print('Config file is not proper set.\nFallback on malformed options')
         self.show()
 
     def handle_output(self, text, stdout):
@@ -384,12 +384,12 @@ class MainWindow(QMainWindow):
 
     def image_region_view_load_all_image(self):
 
-            json_image_all_region = []
-            data = self.db.db_load_objects_image(self.current_image['id']+1)
-            for obj in data:
-                json_image_all_region.append(json.loads(obj['data'])['attributes'])
-            self.model_image_region_all.load(json_image_all_region)
-            self.ui.image_all_region.setModel(self.model_image_region_all)
+        json_image_all_region = []
+        data = self.db.db_load_objects_image(self.current_image['id'] + 1)
+        for obj in data:
+            json_image_all_region.append(json.loads(obj['data'])['attributes'])
+        self.model_image_region_all.load(json_image_all_region)
+        self.ui.image_all_region.setModel(self.model_image_region_all)
 
     def scene_load_image(self, index):
 
@@ -438,7 +438,7 @@ class MainWindow(QMainWindow):
 
         self.change_visible_button(objects_type)
 
-    def change_visible_button(self, objects_type:str, show_all=False):
+    def change_visible_button(self, objects_type: str, show_all=False):
 
         if show_all:
             self.circle_visible = True
@@ -508,6 +508,7 @@ class MainWindow(QMainWindow):
         if self.digitizer_scene.image_item is not None:
             if self.current_item is not None:
 
+                object_type = self.current_item['object_type']
                 data = self.current_item['data']['attributes']
 
                 data = put_text_to_dict_or_remove(data, 'RId', self.ui.txt_rid.toPlainText())
@@ -519,11 +520,11 @@ class MainWindow(QMainWindow):
                 data = put_struct_to_dict_or_remove(data, 'RRole', self.ui.txt_rrole_ident.toPlainText(),
                                                     self.ui.comboBox_region_role.currentText())
 
-                data = put_struc_tag(data, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
+                data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
                                      self.ui.contr_creator_role.toPlainText(),
                                      self.ui.contr_creator_ident.toPlainText(),
                                      self.ui.contr_creator_name.toPlainText())
-                data = put_struc_tag(data, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
+                data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
                                      self.ui.contr_tuner_role.toPlainText(),
                                      self.ui.contr_tuner_ident.toPlainText(),
                                      self.ui.contr_tuner_name.toPlainText())
@@ -532,27 +533,26 @@ class MainWindow(QMainWindow):
                 descr_ident = self.ui.txt_user_indent.toPlainText()
                 descr_name = self.ui.txt_user_name.toPlainText()
 
-                if not data.get(self.config["DEFAULT"]["EXTRA_STRING_TAG"], ''):
+                success, idx = find_key_role(data, self.config_default["CONTRIBUTOR_TAG"],
+                                             self.get_config_role(object_type, 'describer_creator_role'))
+                if success:
 
-                    # If no describer text is written set indent and name to empty
-                    # then the put_struc_tag will delete it
-                    if describer_text:
-                        data = put_struc_tag(data, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                             self.config["CONTRIBUTOR"]["REGION_DESCRIBER_ROLE"],
+                    if describer_text != data.get(self.config_default["EXTRA_STRING_TAG"], ''):
+
+                        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                                             self.get_config_role(object_type, 'describer_modifier_role'),
                                              descr_ident,
                                              descr_name)
                 else:
-                    if describer_text != data[self.config["DEFAULT"]["EXTRA_STRING_TAG"]]:
-                        if not describer_text:
-                            descr_ident = ''
-                            descr_name = ''
-                        data = put_struc_tag(data, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                             self.ui.contr_describer_role.toPlainText(),
+
+                    if describer_text:
+                        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                                             self.get_config_role(object_type, 'describer_creator_role'),
                                              descr_ident,
                                              descr_name)
 
-                data = put_text_to_dict_or_remove(data, self.config["DEFAULT"]["EXTRA_STRING_TAG"],
-                                                  self.ui.xmp_dc.toPlainText())
+                data = put_text_to_dict_or_remove(data, self.config_default["EXTRA_STRING_TAG"],
+                                                  describer_text)
 
                 self.digitizer_scene.set_tooltip(self.current_item['id'], data['RId'])
                 self.current_item['data']['attributes'] = data
@@ -594,10 +594,23 @@ class MainWindow(QMainWindow):
         self.ui.contr_describer_ident.setPlainText('')
         self.ui.contr_describer_role.setPlainText('')
 
+        self.ui.contr_describer_modi_name.setPlainText('')
+        self.ui.contr_describer_modi_ident.setPlainText('')
+        self.ui.contr_describer_modi_role.setPlainText('')
+
         self.ui.txt_rctype_name.setPlainText('')
         self.ui.txt_rctype_indent.setPlainText('')
 
         self.ui.xmp_dc.setPlainText('')
+
+    def get_config_role(self, geom_type, config_attr):
+        if geom_type == 'rectangle':
+            item_tag = getattr(self.config_rectangle, config_attr)
+        elif geom_type == 'polygon':
+            item_tag = getattr(self.config_polygon, config_attr)
+        else:
+            item_tag = getattr(self.config_circle, config_attr)
+        return item_tag
 
     @Slot(int)
     def change_finetuner(self, object_id):
@@ -607,8 +620,9 @@ class MainWindow(QMainWindow):
         jdata = json.loads(data['data'])
 
         jdata['attributes'] = put_struc_tag(jdata['attributes'],
-                                            tag=self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                            role=self.config["CONTRIBUTOR"]["FINE_TUNER_ROLE"],
+                                            tag=self.config_default["CONTRIBUTOR_TAG"],
+                                            role=self.get_config_role(data['object_type'],
+                                                                      'region_modifier_role'),
                                             indentifier=self.ui.txt_user_indent.toPlainText(),
                                             name=self.ui.txt_user_name.toPlainText())
 
@@ -634,44 +648,32 @@ class MainWindow(QMainWindow):
 
         self.current_item = {'id': object_id, 'data': jdata, 'object_type': data['object_type']}
 
-        self.parse_show_data(self.current_item['data']['attributes'])
+        self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
 
     @Slot(int)
     def add_data(self, object_id):
         self.clear_entries()
         data = self.db.db_load_object(object_id)
         jdata = json.loads(data['data'])
-
         image = Path(self.current_image['name'])
 
-        #self.model_image_region.load(jdata['attributes'])
-        img_region_dict = {"RegionBoundary": jdata['attributes']["RegionBoundary"]}
-        if data['object_type'] == 'rectangle':
-            img_region_dict['RCtype'] = [
-                {'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_RECTANGLE_IDENTIFIER"]],
-                 'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_RECTANGLE_NAME"]}]
+        # self.model_image_region.load(jdata['attributes'])
+        img_region_dict = {"RegionBoundary": jdata['attributes']["RegionBoundary"], 'RCtype': [
+            {'Identifier': [self.get_config_role(data['object_type'], 'rctype_identifier')],
+             'Name': self.get_config_role(data['object_type'], 'rctype_name')}]}
 
-            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE'])
-            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
-        elif data['object_type'] == 'polygon':
-
-            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_POLYGON_IDENTIFIER"]],
-                                          'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_POLYGON_NAME"]}]
-            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_POLYGON'])
-            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
-
-        else:
-            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_CIRCLE_IDENTIFIER"]],
-                                          'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_CIRCLE_NAME"]}]
-            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_CIRCLE'])
-            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
-
-        # RC type
+        self.ui.comboBox_region_role.setCurrentText(
+            self.get_config_role(data['object_type'], 'region_role_name'))
+        self.ui.txt_rrole_ident.setPlainText(
+            get_image_region_role(self.get_config_role(data['object_type'], 'region_role_name')))
 
         # RId
-        #datetime.now().strftime('%y%j%H%M%S')
-        rid = image.stem + '_' + data['object_type'] + '_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+        # datetime.now().strftime('%y%j%H%M%S')
+        dt = datetime.datetime.now().strftime('%y%m%dT%H:%M:%S')
+        rid = image.stem + '_' + dt
+        name_region = self.get_config_role(data['object_type'], 'region_name_prefix') + dt
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'RId', rid)
+        img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'Name', name_region)
 
         # Role
         img_region_dict = put_struct_to_dict_or_remove(img_region_dict, tag='RRole',
@@ -679,8 +681,8 @@ class MainWindow(QMainWindow):
                                                        name=self.ui.comboBox_region_role.currentText())
 
         # Region Creator
-        img_region_dict = put_struc_tag(img_region_dict, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                        self.config["CONTRIBUTOR"]["REGION_CREATOR_ROLE"],
+        img_region_dict = put_struc_tag(img_region_dict, self.config_default["CONTRIBUTOR_TAG"],
+                                        self.get_config_role(data['object_type'], 'region_creator_role'),
                                         indentifier=self.ui.txt_user_indent.toPlainText(),
                                         name=self.ui.txt_user_name.toPlainText())
 
@@ -701,11 +703,11 @@ class MainWindow(QMainWindow):
             self.ui.lbl_circle_number.setText(str(self.count_circle))
 
         self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
-        self.parse_show_data(self.current_item['data']['attributes'])
+        self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
         self.model_image_region.load(self.current_item['data']['attributes'])
         self.image_region_view_load_all_image()
 
-    def parse_show_data(self, dict_item: dict):
+    def parse_show_data(self, object_type, dict_item: dict):
 
         region_id = dict_item.get("RId", '')
         name = dict_item.get("Name", '')
@@ -725,36 +727,43 @@ class MainWindow(QMainWindow):
             self.ui.comboBox_region_role.setCurrentText(new_name)
             self.ui.txt_rrole_ident.setPlainText(new_id)
 
-        dict_contr = dict_item.get(self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"], {})
+        dict_contr = dict_item.get(self.config_default["CONTRIBUTOR_TAG"], {})
         if dict_contr:
 
-            success, idx = find_key_role(dict_item, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                         self.config["CONTRIBUTOR"]["REGION_CREATOR_ROLE"])
+            success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
+                                         self.get_config_role(object_type, 'region_creator_role'))
             if success:
                 self.ui.contr_creator_name.setPlainText(dict_contr[idx]['Name'])
                 self.ui.contr_creator_ident.setPlainText(dict_contr[idx]['Identifier'][0])
                 self.ui.contr_creator_role.setPlainText(dict_contr[idx]['Role'][0])
 
-            success, idx = find_key_role(dict_item, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                         self.config["CONTRIBUTOR"]["REGION_MODIFIER_ROLE"])
+            success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
+                                         self.get_config_role(object_type, 'region_modifier_role'))
             if success:
                 self.ui.contr_tuner_name.setPlainText(dict_contr[idx]['Name'])
                 self.ui.contr_tuner_ident.setPlainText(dict_contr[idx]['Identifier'][0])
                 self.ui.contr_tuner_role.setPlainText(dict_contr[idx]['Role'][0])
 
-            success, idx = find_key_role(dict_item, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                         self.config["CONTRIBUTOR"]["REGION_DESCRIBER_ROLE"])
+            success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
+                                         self.get_config_role(object_type, 'describer_creator_role'))
             if success:
                 self.ui.contr_describer_name.setPlainText(dict_contr[idx]['Name'])
                 self.ui.contr_describer_ident.setPlainText(dict_contr[idx]['Identifier'][0])
                 self.ui.contr_describer_role.setPlainText(dict_contr[idx]['Role'][0])
+
+            success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
+                                         self.get_config_role(object_type, 'describer_modifier_role'))
+            if success:
+                self.ui.contr_describer_modi_name.setPlainText(dict_contr[idx]['Name'])
+                self.ui.contr_describer_modi_ident.setPlainText(dict_contr[idx]['Identifier'][0])
+                self.ui.contr_describer_modi_role.setPlainText(dict_contr[idx]['Role'][0])
 
         dict_rctype = dict_item.get('RCtype', {})
         if dict_rctype:
             self.ui.txt_rctype_name.setPlainText(dict_rctype[0]['Name'])
             self.ui.txt_rctype_indent.setPlainText(dict_rctype[0]['Identifier'][0])
 
-        xmp_dc = dict_item.get(self.config["DEFAULT"]["EXTRA_STRING_TAG"], '')
+        xmp_dc = dict_item.get(self.config_default["EXTRA_STRING_TAG"], '')
         self.ui.xmp_dc.setPlainText(xmp_dc)
 
     def delete_object(self):
@@ -970,12 +979,12 @@ class MainWindow(QMainWindow):
                 added_images = []
                 for image in image_path_parent.rglob('*' + image_path.suffix):
 
-                            image_id = self.db.db_store_image(image)
-                            if image_id >= 0:
-                                self.image_list.append([image, image_id])
-                                added_images.append([image, image_id])
-                            else:
-                                print("Image could not be stored in DB")
+                    image_id = self.db.db_store_image(image)
+                    if image_id >= 0:
+                        self.image_list.append([image, image_id])
+                        added_images.append([image, image_id])
+                    else:
+                        print("Image could not be stored in DB")
 
                 len_image_list = len(added_images)
                 self.len_image_list = len_image_list
@@ -985,7 +994,7 @@ class MainWindow(QMainWindow):
 
                 if len_image_list > 0:
 
-                    worker = Worker(add_preview, added_images, self.db, self.user, self.config)
+                    worker = Worker(add_preview, added_images, self.db, self.user, self.config_default['CONTRIBUTOR_TAG'])
                     worker.signals.result.connect(self.thread_output)
                     self.ui.waiting_spinner.start()
                     self.thread_pool.start(worker)
@@ -996,7 +1005,7 @@ class MainWindow(QMainWindow):
         else:
             msg = QMessageBox(self, text="Seems no database is active or database is locked")
             msg.setWindowTitle('Warning')
-            #msg.setStyleSheet('background-color: rgb(40, 44, 52);')
+            # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
             x = msg.exec_()
 
     def save_image_regions(self, keep_orig=False):
@@ -1020,10 +1029,11 @@ class MainWindow(QMainWindow):
                     with open(image_path, 'w', newline='', encoding='utf-8') as fid:
 
                         csv_writer = csv.writer(fid, delimiter=',', quotechar='"',
-                                                     quoting=csv.QUOTE_MINIMAL)
+                                                quoting=csv.QUOTE_MINIMAL)
 
-                        csv_writer.writerow(['image','type','RId','UpperLeftX','UpperLeftY','Width','Height','Description'])
-                        for obj in objs:#
+                        csv_writer.writerow(['image', 'type', 'RId', 'UpperLeftX', 'UpperLeftY',
+                                             'Width', 'Height', 'Description'])
+                        for obj in objs:  #
 
                             image = obj['image_name']
                             data = json.loads(obj['data'])
@@ -1048,22 +1058,21 @@ class MainWindow(QMainWindow):
 
                             if data.get("attributes", ''):
                                 if data["attributes"].get("RId", ''):
-                                    rid =  data["attributes"]["RId"]
+                                    rid = data["attributes"]["RId"]
 
                             if data.get("attributes", ''):
-                                if data["attributes"].get(self.config["DEFAULT"]["EXTRA_STRING_TAG"], ''):
-
-                                    description = data["attributes"][self.config["DEFAULT"]["EXTRA_STRING_TAG"]]
+                                if data["attributes"].get(self.config_default["EXTRA_STRING_TAG"], ''):
+                                    description = data["attributes"][self.config_default["EXTRA_STRING_TAG"]]
 
                             csv_writer.writerow([image, obj['object_type'], rid, str(int(uplx)), str(int(uply)),
-                                                str(int(w)), str(int(h)), description])
+                                                 str(int(w)), str(int(h)), description])
 
 
             else:
                 print("\tNothing to export")
 
 
-def add_preview(image_list, db1: DBHandler, user, config_dict):
+def add_preview(image_list, db1: DBHandler, user, contributor_tag):
     # Add a bunch of images.
     item_all = []
 
@@ -1112,7 +1121,7 @@ def add_preview(image_list, db1: DBHandler, user, config_dict):
 
                     if region:
                         if region.get('Contributor', ''):
-                            region[config_dict["CONTRIBUTOR"]["CONTRIBUTOR_TAG"]] = region.pop('Contributor')
+                            region[contributor_tag] = region.pop('Contributor')
                         object_type, data, user = parse_img_region(region, img_width, img_height)
 
                         db.db_store_object_imgregion(fn[1], object_type, data, user=user,

@@ -122,7 +122,7 @@ class DBHandler:
         self.con.commit()
 
     def db_load_object(self, obj_id: int):
-        query = r"""SELECT objects.*, images.width as img_width, images.height as img_height FROM objects, 
+        query = r"""SELECT objects.*, images.width as img_width, images.height as img_height FROM objects
                     join
                     images
                     where

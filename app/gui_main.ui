@@ -182,6 +182,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>210</red>
+        <green>210</green>
+        <blue>210</blue>
+       </color>
+      </brush>
+     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -346,6 +355,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>210</red>
+        <green>210</green>
+        <blue>210</blue>
+       </color>
+      </brush>
+     </colorrole>
     </inactive>
     <disabled>
      <colorrole role="WindowText">
@@ -504,6 +522,15 @@
      <colorrole role="ToolTipText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
+        <red>210</red>
+        <green>210</green>
+        <blue>210</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
         <red>210</red>
         <green>210</green>
         <blue>210</blue>
@@ -3134,7 +3161,7 @@ QTabBar::tab:!selected {
 </string>
                           </property>
                           <property name="currentIndex">
-                           <number>3</number>
+                           <number>0</number>
                           </property>
                           <widget class="QWidget" name="tab_7">
                            <attribute name="title">
@@ -3233,10 +3260,13 @@ QTabBar::tab:!selected {
                                </font>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                               <string notr="true">background-color: rgb(90, 90, 90);</string>
                               </property>
                               <property name="verticalScrollBarPolicy">
                                <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                              <property name="readOnly">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -3333,10 +3363,13 @@ QTabBar::tab:!selected {
                                </font>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                               <string notr="true">background-color: rgb(90, 90, 90);</string>
                               </property>
                               <property name="verticalScrollBarPolicy">
                                <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                              <property name="readOnly">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -3433,10 +3466,13 @@ QTabBar::tab:!selected {
                                </font>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                               <string notr="true">background-color: rgb(90, 90, 90);</string>
                               </property>
                               <property name="verticalScrollBarPolicy">
                                <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                              <property name="readOnly">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -3533,10 +3569,13 @@ QTabBar::tab:!selected {
                                </font>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                               <string notr="true">background-color: rgb(90, 90, 90);</string>
                               </property>
                               <property name="verticalScrollBarPolicy">
                                <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                              <property name="readOnly">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -3762,10 +3801,10 @@ QTreeView::branch:open:has-children:has-siblings  {
                        <attribute name="headerCascadingSectionResizes">
                         <bool>false</bool>
                        </attribute>
-                       <attribute name="headerDefaultSectionSize">
-                        <number>120</number>
-                       </attribute>
                        <attribute name="headerMinimumSectionSize">
+                        <number>220</number>
+                       </attribute>
+                       <attribute name="headerDefaultSectionSize">
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
@@ -3934,10 +3973,10 @@ QTreeView::branch:open:has-children:has-siblings  {
                        <attribute name="headerCascadingSectionResizes">
                         <bool>false</bool>
                        </attribute>
-                       <attribute name="headerDefaultSectionSize">
-                        <number>120</number>
-                       </attribute>
                        <attribute name="headerMinimumSectionSize">
+                        <number>220</number>
+                       </attribute>
+                       <attribute name="headerDefaultSectionSize">
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
