@@ -160,6 +160,16 @@ def put_struc_tag(dict_attribute, tag, role, indentifier, name):
     return dict_attribute
 
 
+def get_image_region_role(name: str):
+
+    new_id = ''
+    for x in image_region_role:
+        if x[0] == name:
+            new_id = x[1]
+
+    return new_id
+
+
 def load_config(config_file):
     config = configparser.ConfigParser()
 
@@ -169,46 +179,67 @@ def load_config(config_file):
 
         assert config['DEFAULT']
         assert config['CONTRIBUTOR']
-        assert config['GEOMETRIE-RCTYPES']
-        assert config['GEOMETRIE-COLOURS']
+        assert config['GEOMETRY-RCTYPES']
+        assert config['GEOMETRY-COLOURS']
 
         assert config['DEFAULT']['EXTRA_STRING_TAG']
 
         assert config['CONTRIBUTOR']["CONTRIBUTOR_TAG"]
-        assert config['CONTRIBUTOR']["FINE_TUNER_ROLE"]
+        assert config['CONTRIBUTOR']["REGION_MODIFIER_ROLE"]
         assert config['CONTRIBUTOR']["REGION_CREATOR_ROLE"]
-        assert config['CONTRIBUTOR']["DESCRIBER_ROLE"]
+        assert config['CONTRIBUTOR']["REGION_DESCRIBER_ROLE"]
 
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_POLYGON_IDENTIFIER"]
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_POLYGON_NAME"]
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_RECTANGLE_IDENTIFIER"]
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_RECTANGLE_NAME"]
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_CIRCLE_IDENTIFIER"]
-        assert config['GEOMETRIE-RCTYPES']["RCTYPE_CIRCLE_NAME"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_POLYGON_IDENTIFIER"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_POLYGON_NAME"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_RECTANGLE_IDENTIFIER"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_RECTANGLE_NAME"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_CIRCLE_IDENTIFIER"]
+        assert config['GEOMETRY-RCTYPES']["RCTYPE_CIRCLE_NAME"]
 
-        assert config['GEOMETRIE-COLOURS']["COLOR_CIRCLE_START"]
-        assert config['GEOMETRIE-COLOURS']["COLOR_RECTANGLE_START"]
-        assert config['GEOMETRIE-COLOURS']["COLOR_POLYGON_START"]
+        assert config['GEOMETRY-COLOURS']["COLOUR_CIRCLE_START"]
+        assert config['GEOMETRY-COLOURS']["COLOUR_RECTANGLE_START"]
+        assert config['GEOMETRY-COLOURS']["COLOUR_POLYGON_START"]
+
+        assert config['GEOMETRY-REGION-ROLE']
+        # Must be present in the iptc region news code
+        assert config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_POLYGON']
+        assert config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']
+        assert config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_CIRCLE']
 
         success = True
     except:
         config = configparser.ConfigParser()
         config['DEFAULT'] = {'EXTRA_STRING_TAG': EXTRA_TAG}
         config['CONTRIBUTOR'] = {"CONTRIBUTOR_TAG":  "XMP-iptcExt:Contributor",
-                                 "FINE_TUNER_ROLE": FINE_TUNER_ROLE,
-                                 "DESCRIBER_ROLE": DESCRIBER_ROLE,
+                                 "REGION_MODIFIER_ROLE": FINE_TUNER_ROLE,
+                                 "REGION_DESCRIBER_ROLE": DESCRIBER_ROLE,
                                  "REGION_CREATOR_ROLE": REGION_CREATOR_ROLE}
-        config['GEOMETRIE-RCTYPES'] = {"RCTYPE_POLYGON_IDENTIFIER": RCTYPE_POLYGON[0]['Identifier'][0],
+        config['GEOMETRY-RCTYPES'] = {"RCTYPE_POLYGON_IDENTIFIER": RCTYPE_POLYGON[0]['Identifier'][0],
                                        "RCTYPE_POLYGON_NAME":  RCTYPE_POLYGON[0]['Name'],
                                        "RCTYPE_RECTANGLE_IDENTIFIER": RCTYPE_CIRCLE[0]['Identifier'][0],
                                        "RCTYPE_RECTANGLE_NAME": RCTYPE_CIRCLE[0]['Name'],
                                        "RCTYPE_CIRCLE_IDENTIFIER": RCTYPE_RECTANGLE[0]['Identifier'][0],
                                        "RCTYPE_CIRCLE_NAME": RCTYPE_CIRCLE[0]['Name']}
 
-        config['GEOMETRIE-COLOURS'] = {"COLOR_CIRCLE_START": COLOR_RECTANGLE_START,
-                                       "COLOR_RECTANGLE_START": COLOR_RECTANGLE_START,
-                                       "COLOR_POLYGON_START": COLOR_POLYGON_START}
+        config['GEOMETRY-COLOURS'] = {"COLOUR_CIRCLE_START": COLOR_RECTANGLE_START,
+                                       "COLOUR_RECTANGLE_START": COLOR_RECTANGLE_START,
+                                       "COLOUR_POLYGON_START": COLOR_POLYGON_START}
+
+        config['GEOMETRY-REGION-ROLE'] = {'REGION_ROLE_NAME_POLYGON': 'main subject area',
+                                          'REGION_ROLE_NAME_RECTANGLE': 'area of interest',
+                                          'REGION_ROLE_NAME_CIRCLE': 'area of interest'}
+
         success = False
+
+    if not get_image_region_role(config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_POLYGON']):
+        config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_POLYGON'] = 'main subject area'
+
+    if not get_image_region_role(config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']):
+        config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE'] = 'area of interest'
+
+    if not get_image_region_role(config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_CIRCLE']):
+        config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_CIRCLE'] = 'area of interest'
+
     return success, config
 
 

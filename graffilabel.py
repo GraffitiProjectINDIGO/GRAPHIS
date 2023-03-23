@@ -32,7 +32,8 @@ from exiftool import ExifTool
 from app.preview_class import PreviewModel, PreviewDelegate
 from app.var_classes import (software_version, Instructions, image_list_provided, PreviewModelData,
                              image_region_role, put_struct_to_dict_or_remove, put_text_to_dict_or_remove,
-                             put_struc_tag, find_key_role, PREVIEW_HEIGHT, CONFIG_FILE, load_config)
+                             put_struc_tag, find_key_role, PREVIEW_HEIGHT, CONFIG_FILE, load_config,
+                             get_image_region_role)
 from app.ui_main import Ui_MainWindow
 from app.digitizerscene import DIGITIZERScene
 from app.image_loader import image_loader
@@ -206,9 +207,9 @@ class MainWindow(QMainWindow):
 
         # ----------------------------------------------------------
         # VARIABLES
-        self.color_rectangle = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_RECTANGLE_START"])
-        self.color_polygon = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_POLYGON_START"])
-        self.color_circle = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_CIRCLE_START"])
+        self.color_rectangle = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_RECTANGLE_START"])
+        self.color_polygon = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_POLYGON_START"])
+        self.color_circle = QColor(self.config["GEOMETRY-COLOURS"]["COLOUR_CIRCLE_START"])
 
         self.ui.btn_color_circle.set_color(self.color_circle)
         self.ui.btn_color_rectangle.set_color(self.color_rectangle)
@@ -229,9 +230,9 @@ class MainWindow(QMainWindow):
         self.digitizer_scene.color_circle = self.color_circle
 
         self.delegate = PreviewDelegate()
-        self.delegate.rectangle_color = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_RECTANGLE_START"])
-        self.delegate.polygon_color = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_POLYGON_START"])
-        self.delegate.circle_color = QColor(self.config["GEOMETRIE-COLOURS"]["COLOR_CIRCLE_START"])
+        self.delegate.rectangle_color = self.color_circle
+        self.delegate.polygon_color = self.color_polygon
+        self.delegate.circle_color = self.color_circle
         self.ui.table_preview.setItemDelegate(self.delegate)
         self.model = PreviewModel()
         self.ui.table_preview.setModel(self.model)
@@ -537,7 +538,7 @@ class MainWindow(QMainWindow):
                     # then the put_struc_tag will delete it
                     if describer_text:
                         data = put_struc_tag(data, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                             self.config["CONTRIBUTOR"]["DESCRIBER_ROLE"],
+                                             self.config["CONTRIBUTOR"]["REGION_DESCRIBER_ROLE"],
                                              descr_ident,
                                              descr_name)
                 else:
@@ -622,7 +623,6 @@ class MainWindow(QMainWindow):
         self.clear_entries()
         self.image_region_view_load_all_image()
 
-
     @Slot(int)
     def load_data(self, object_id):
         self.clear_entries()
@@ -648,27 +648,28 @@ class MainWindow(QMainWindow):
         img_region_dict = {"RegionBoundary": jdata['attributes']["RegionBoundary"]}
         if data['object_type'] == 'rectangle':
             img_region_dict['RCtype'] = [
-                {'Identifier': [self.config["GEOMETRIE-RCTYPES"]["RCTYPE_RECTANGLE_IDENTIFIER"]],
-                 'Name': self.config["GEOMETRIE-RCTYPES"]["RCTYPE_RECTANGLE_NAME"]}]
+                {'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_RECTANGLE_IDENTIFIER"]],
+                 'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_RECTANGLE_NAME"]}]
 
-            self.ui.comboBox_region_role.setCurrentText("area of interest")
-            self.ui.txt_rrole_ident.setPlainText("http://cv.iptc.org/newscodes/imageregionrole/areaOfInterest")
+            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE'])
+            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
         elif data['object_type'] == 'polygon':
 
-            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRIE-RCTYPES"]["RCTYPE_POLYGON_IDENTIFIER"]],
-                                          'Name': self.config["GEOMETRIE-RCTYPES"]["RCTYPE_POLYGON_NAME"]}]
-            self.ui.comboBox_region_role.setCurrentText("area of interest")
-            self.ui.txt_rrole_ident.setPlainText("http://cv.iptc.org/newscodes/imageregionrole/areaOfInterest")
+            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_POLYGON_IDENTIFIER"]],
+                                          'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_POLYGON_NAME"]}]
+            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_POLYGON'])
+            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
 
         else:
-            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRIE-RCTYPES"]["RCTYPE_CIRCLE_IDENTIFIER"]],
-                                          'Name': self.config["GEOMETRIE-RCTYPES"]["RCTYPE_CIRCLE_NAME"]}]
-            self.ui.comboBox_region_role.setCurrentText("main subject area")
-            self.ui.txt_rrole_ident.setPlainText("http://cv.iptc.org/newscodes/imageregionrole/mainSubjectArea")
+            img_region_dict['RCtype'] = [{'Identifier': [self.config["GEOMETRY-RCTYPES"]["RCTYPE_CIRCLE_IDENTIFIER"]],
+                                          'Name': self.config["GEOMETRY-RCTYPES"]["RCTYPE_CIRCLE_NAME"]}]
+            self.ui.comboBox_region_role.setCurrentText(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_CIRCLE'])
+            self.ui.txt_rrole_ident.setPlainText(get_image_region_role(self.config['GEOMETRY-REGION-ROLE']['REGION_ROLE_NAME_RECTANGLE']))
 
         # RC type
 
         # RId
+        #datetime.now().strftime('%y%j%H%M%S')
         rid = image.stem + '_' + data['object_type'] + '_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'RId', rid)
 
@@ -735,14 +736,14 @@ class MainWindow(QMainWindow):
                 self.ui.contr_creator_role.setPlainText(dict_contr[idx]['Role'][0])
 
             success, idx = find_key_role(dict_item, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                         self.config["CONTRIBUTOR"]["FINE_TUNER_ROLE"])
+                                         self.config["CONTRIBUTOR"]["REGION_MODIFIER_ROLE"])
             if success:
                 self.ui.contr_tuner_name.setPlainText(dict_contr[idx]['Name'])
                 self.ui.contr_tuner_ident.setPlainText(dict_contr[idx]['Identifier'][0])
                 self.ui.contr_tuner_role.setPlainText(dict_contr[idx]['Role'][0])
 
             success, idx = find_key_role(dict_item, self.config["CONTRIBUTOR"]["CONTRIBUTOR_TAG"],
-                                         self.config["CONTRIBUTOR"]["DESCRIBER_ROLE"])
+                                         self.config["CONTRIBUTOR"]["REGION_DESCRIBER_ROLE"])
             if success:
                 self.ui.contr_describer_name.setPlainText(dict_contr[idx]['Name'])
                 self.ui.contr_describer_ident.setPlainText(dict_contr[idx]['Identifier'][0])
@@ -979,7 +980,7 @@ class MainWindow(QMainWindow):
                 len_image_list = len(added_images)
                 self.len_image_list = len_image_list
 
-                print("\tFound Nr. of image: ", len_image_list)
+                print("\tFound nr. of image: ", len_image_list)
                 # self.ui.lbl_image_nr.setText(str(len_image_list))
 
                 if len_image_list > 0:

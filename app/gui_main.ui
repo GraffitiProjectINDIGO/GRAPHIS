@@ -2124,7 +2124,7 @@ QPushButton:pressed {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset resource="files.qrc">
+                    <iconset>
                      <normaloff>:/icons/icons/Flat_cross_icon.svg</normaloff>:/icons/icons/Flat_cross_icon.svg</iconset>
                    </property>
                    <property name="iconSize">
@@ -3134,11 +3134,11 @@ QTabBar::tab:!selected {
 </string>
                           </property>
                           <property name="currentIndex">
-                           <number>0</number>
+                           <number>3</number>
                           </property>
                           <widget class="QWidget" name="tab_7">
                            <attribute name="title">
-                            <string>Contributor-Region Creator</string>
+                            <string>Region Creator</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout_2">
                             <property name="verticalSpacing">
@@ -3244,7 +3244,7 @@ QTabBar::tab:!selected {
                           </widget>
                           <widget class="QWidget" name="tab_5">
                            <attribute name="title">
-                            <string>Contributor-Fine Tuner</string>
+                            <string>Region Modifier</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout">
                             <property name="verticalSpacing">
@@ -3344,7 +3344,7 @@ QTabBar::tab:!selected {
                           </widget>
                           <widget class="QWidget" name="tab_6">
                            <attribute name="title">
-                            <string>Contributor-Descriptor</string>
+                            <string>Descriptor Creator</string>
                            </attribute>
                            <layout class="QFormLayout" name="formLayout_3">
                             <property name="verticalSpacing">
@@ -3427,6 +3427,106 @@ QTabBar::tab:!selected {
                             </item>
                             <item row="2" column="1">
                              <widget class="QPlainTextEdit" name="contr_describer_role">
+                              <property name="font">
+                               <font>
+                                <pointsize>10</pointsize>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                              </property>
+                              <property name="verticalScrollBarPolicy">
+                               <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                          <widget class="QWidget" name="tab_9">
+                           <attribute name="title">
+                            <string>Descriptor Modifier</string>
+                           </attribute>
+                           <layout class="QFormLayout" name="formLayout_6">
+                            <property name="verticalSpacing">
+                             <number>10</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>24</number>
+                            </property>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="label_26">
+                              <property name="font">
+                               <font>
+                                <pointsize>11</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                               </font>
+                              </property>
+                              <property name="text">
+                               <string>Identifier</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QPlainTextEdit" name="contr_describer_modi_ident">
+                              <property name="font">
+                               <font>
+                                <pointsize>10</pointsize>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                              </property>
+                              <property name="verticalScrollBarPolicy">
+                               <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="label_27">
+                              <property name="font">
+                               <font>
+                                <pointsize>11</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                               </font>
+                              </property>
+                              <property name="text">
+                               <string>Name</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="1">
+                             <widget class="QPlainTextEdit" name="contr_describer_modi_name">
+                              <property name="font">
+                               <font>
+                                <pointsize>10</pointsize>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 70, 72);</string>
+                              </property>
+                              <property name="verticalScrollBarPolicy">
+                               <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="label_28">
+                              <property name="font">
+                               <font>
+                                <pointsize>11</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                               </font>
+                              </property>
+                              <property name="text">
+                               <string>Role</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="2" column="1">
+                             <widget class="QPlainTextEdit" name="contr_describer_modi_role">
                               <property name="font">
                                <font>
                                 <pointsize>10</pointsize>
