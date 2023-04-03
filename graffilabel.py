@@ -14,6 +14,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+__version__ = '1.3.4'
+
 import sys
 import traceback
 import json
@@ -30,7 +32,7 @@ from PySide2.QtGui import (QColor, Qt, QPixmap)
 from exiftool import ExifTool
 
 from app.preview_class import PreviewModel, PreviewDelegate
-from app.var_classes import (software_version, Instructions, PreviewModelData,
+from app.var_classes import (Instructions, PreviewModelData,
                              image_region_role, put_struct_to_dict_or_remove, put_text_to_dict_or_remove,
                              put_struc_tag, find_key_role, PREVIEW_HEIGHT, load_config,
                              get_image_region_role)
@@ -110,7 +112,7 @@ class MainWindow(QMainWindow):
         self.config_success, self.config_default, self.config_polygon, self.config_rectangle, self.config_circle = load_config()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.label_version.setText(str(software_version))
+        self.ui.label_version.setText(str(__version__))
 
         # ----------------------------------------------------------
         # Appearance STUFF
@@ -524,34 +526,61 @@ class MainWindow(QMainWindow):
                                      self.ui.contr_creator_role.toPlainText(),
                                      self.ui.contr_creator_ident.toPlainText(),
                                      self.ui.contr_creator_name.toPlainText())
-                data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
-                                     self.ui.contr_tuner_role.toPlainText(),
-                                     self.ui.contr_tuner_ident.toPlainText(),
-                                     self.ui.contr_tuner_name.toPlainText())
 
                 describer_text = self.ui.xmp_dc.toPlainText()
-                descr_ident = self.ui.txt_user_indent.toPlainText()
-                descr_name = self.ui.txt_user_name.toPlainText()
 
-                success, idx = find_key_role(data, self.config_default["CONTRIBUTOR_TAG"],
-                                             self.get_config_role(object_type, 'describer_creator_role'))
-                if success:
+                transcriber_text = self.ui.xmp_dc_transcriber.toPlainText()
 
-                    if describer_text != data.get(self.config_default["EXTRA_STRING_TAG"], ''):
+                indent_user = self.ui.txt_user_indent.toPlainText()
+                name_user = self.ui.txt_user_name.toPlainText()
 
-                        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
-                                             self.get_config_role(object_type, 'describer_modifier_role'),
-                                             descr_ident,
-                                             descr_name)
-                else:
-
+                if describer_text != data.get(self.config_default["TAG_DESCRIBER"], ''):
                     if describer_text:
-                        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
-                                             self.get_config_role(object_type, 'describer_creator_role'),
-                                             descr_ident,
-                                             descr_name)
+                        temp_user_indent = indent_user
+                        temp_user_name = name_user
+                    else:
+                        temp_user_indent = ''
+                        temp_user_name = ''
+                    data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                                         self.get_config_role(object_type, 'describer_role'),
+                                         temp_user_indent,
+                                         temp_user_name)
 
-                data = put_text_to_dict_or_remove(data, self.config_default["EXTRA_STRING_TAG"],
+                if transcriber_text != data.get(self.config_default["TAG_TRANSCRIBER"], ''):
+                    if transcriber_text:
+                        temp_user_indent = indent_user
+                        temp_user_name = name_user
+                    else:
+                        temp_user_indent = ''
+                        temp_user_name = ''
+                    data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                                            self.get_config_role(object_type, 'transcriber_role'),
+                                            temp_user_indent,
+                                            temp_user_name)
+
+                # Old code to append
+                #success, idx = find_key_role(data, self.config_default["CONTRIBUTOR_TAG"],
+                #                             self.get_config_role(object_type, 'describer_role'))
+                #if success:
+                #
+                #    if describer_text != data.get(self.config_default["TAG_DESCRIBER"], ''):
+                #
+                #        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                #                             self.get_config_role(object_type, 'describer_modifier_role'),
+                #                             descr_ident,
+                #                             descr_name)
+                #else:
+                #
+                #    if describer_text:
+                #        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
+                #                             self.get_config_role(object_type, 'describer_creator_role'),
+                #                             descr_ident,
+                #                             descr_name)
+
+                data = put_text_to_dict_or_remove(data, self.config_default["TAG_TRANSCRIBER"],
+                                                  transcriber_text)
+
+                data = put_text_to_dict_or_remove(data, self.config_default["TAG_DESCRIBER"],
                                                   describer_text)
 
                 self.digitizer_scene.set_tooltip(self.current_item['id'], data['RId'])
@@ -586,22 +615,20 @@ class MainWindow(QMainWindow):
         self.ui.contr_creator_ident.setPlainText('')
         self.ui.contr_creator_role.setPlainText('')
 
-        self.ui.contr_tuner_name.setPlainText('')
-        self.ui.contr_tuner_ident.setPlainText('')
-        self.ui.contr_tuner_role.setPlainText('')
 
         self.ui.contr_describer_name.setPlainText('')
         self.ui.contr_describer_ident.setPlainText('')
         self.ui.contr_describer_role.setPlainText('')
 
-        self.ui.contr_describer_modi_name.setPlainText('')
-        self.ui.contr_describer_modi_ident.setPlainText('')
-        self.ui.contr_describer_modi_role.setPlainText('')
+        self.ui.contr_transcriber_name.setPlainText('')
+        self.ui.contr_transcriber_ident.setPlainText('')
+        self.ui.contr_transcriber_role.setPlainText('')
 
         self.ui.txt_rctype_name.setPlainText('')
         self.ui.txt_rctype_indent.setPlainText('')
 
         self.ui.xmp_dc.setPlainText('')
+        self.ui.xmp_dc_transcriber.setPlainText('')
 
     def get_config_role(self, geom_type, config_attr):
         if geom_type == 'rectangle':
@@ -619,10 +646,11 @@ class MainWindow(QMainWindow):
         data = self.db.db_load_object(object_id)
         jdata = json.loads(data['data'])
 
+        # jdata['attributes'] = append_struc_tag(jdata['attributes'],
         jdata['attributes'] = put_struc_tag(jdata['attributes'],
                                             tag=self.config_default["CONTRIBUTOR_TAG"],
                                             role=self.get_config_role(data['object_type'],
-                                                                      'region_modifier_role'),
+                                                                      'region_creator_role'),
                                             indentifier=self.ui.txt_user_indent.toPlainText(),
                                             name=self.ui.txt_user_name.toPlainText())
 
@@ -734,37 +762,33 @@ class MainWindow(QMainWindow):
                                          self.get_config_role(object_type, 'region_creator_role'))
             if success:
                 self.ui.contr_creator_name.setPlainText(dict_contr[idx]['Name'])
-                self.ui.contr_creator_ident.setPlainText(dict_contr[idx]['Identifier'][0])
-                self.ui.contr_creator_role.setPlainText(dict_contr[idx]['Role'][0])
+                self.ui.contr_creator_ident.setPlainText(dict_contr[idx]['Identifier'][-1])
+                self.ui.contr_creator_role.setPlainText(dict_contr[idx]['Role'][-1])
 
             success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
-                                         self.get_config_role(object_type, 'region_modifier_role'))
-            if success:
-                self.ui.contr_tuner_name.setPlainText(dict_contr[idx]['Name'])
-                self.ui.contr_tuner_ident.setPlainText(dict_contr[idx]['Identifier'][0])
-                self.ui.contr_tuner_role.setPlainText(dict_contr[idx]['Role'][0])
-
-            success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
-                                         self.get_config_role(object_type, 'describer_creator_role'))
+                                         self.get_config_role(object_type, 'describer_role'))
             if success:
                 self.ui.contr_describer_name.setPlainText(dict_contr[idx]['Name'])
-                self.ui.contr_describer_ident.setPlainText(dict_contr[idx]['Identifier'][0])
-                self.ui.contr_describer_role.setPlainText(dict_contr[idx]['Role'][0])
+                self.ui.contr_describer_ident.setPlainText(dict_contr[idx]['Identifier'][-1])
+                self.ui.contr_describer_role.setPlainText(dict_contr[idx]['Role'][-1])
 
             success, idx = find_key_role(dict_item, self.config_default["CONTRIBUTOR_TAG"],
-                                         self.get_config_role(object_type, 'describer_modifier_role'))
+                                         self.get_config_role(object_type, 'transcriber_role'))
             if success:
-                self.ui.contr_describer_modi_name.setPlainText(dict_contr[idx]['Name'])
-                self.ui.contr_describer_modi_ident.setPlainText(dict_contr[idx]['Identifier'][0])
-                self.ui.contr_describer_modi_role.setPlainText(dict_contr[idx]['Role'][0])
+                self.ui.contr_transcriber_name.setPlainText(dict_contr[idx]['Name'])
+                self.ui.contr_transcriber_ident.setPlainText(dict_contr[idx]['Identifier'][-1])
+                self.ui.contr_transcriber_role.setPlainText(dict_contr[idx]['Role'][-1])
 
         dict_rctype = dict_item.get('RCtype', {})
         if dict_rctype:
             self.ui.txt_rctype_name.setPlainText(dict_rctype[0]['Name'])
             self.ui.txt_rctype_indent.setPlainText(dict_rctype[0]['Identifier'][0])
 
-        xmp_dc = dict_item.get(self.config_default["EXTRA_STRING_TAG"], '')
+        xmp_dc = dict_item.get(self.config_default["TAG_DESCRIBER"], '')
         self.ui.xmp_dc.setPlainText(xmp_dc)
+
+        xmp_trans = dict_item.get(self.config_default["TAG_TRANSCRIBER"], '')
+        self.ui.xmp_dc_transcriber.setPlainText(xmp_trans)
 
     def delete_object(self):
         if not self.db.is_locked:
@@ -1032,7 +1056,7 @@ class MainWindow(QMainWindow):
                                                 quoting=csv.QUOTE_MINIMAL)
 
                         csv_writer.writerow(['image', 'type', 'RId', 'UpperLeftX', 'UpperLeftY',
-                                             'Width', 'Height', 'Description'])
+                                             'Width', 'Height', 'Description', 'Transcription', 'Polygon'])
                         for obj in objs:  #
 
                             image = obj['image_name']
@@ -1049,11 +1073,16 @@ class MainWindow(QMainWindow):
                                 min_rec = np_coords.min(axis=0)
                                 max_rec = np_coords.max(axis=0)
                                 uplx = min_rec[0]
-                                uply = max_rec[1]
+                                uply = min_rec[1]
                                 w = max_rec[0] - min_rec[0]
                                 h = max_rec[1] - min_rec[1]
 
+                            polygon = ''
+                            if obj['object_type'] == 'polygon':
+                                polygon = str(numpy.array(data["coords"]).tolist())
+
                             description = ''
+                            transcription = ''
                             rid = ''
 
                             if data.get("attributes", ''):
@@ -1061,11 +1090,15 @@ class MainWindow(QMainWindow):
                                     rid = data["attributes"]["RId"]
 
                             if data.get("attributes", ''):
-                                if data["attributes"].get(self.config_default["EXTRA_STRING_TAG"], ''):
-                                    description = data["attributes"][self.config_default["EXTRA_STRING_TAG"]]
+                                if data["attributes"].get(self.config_default["TAG_DESCRIBER"], ''):
+                                    description = data["attributes"][self.config_default["TAG_DESCRIBER"]]
+
+                            if data.get("attributes", ''):
+                                if data["attributes"].get(self.config_default["TAG_TRANSCRIBER"], ''):
+                                    transcription = data["attributes"][self.config_default["TAG_TRANSCRIBER"]]
 
                             csv_writer.writerow([image, obj['object_type'], rid, str(int(uplx)), str(int(uply)),
-                                                 str(int(w)), str(int(h)), description])
+                                                 str(int(w)), str(int(h)), description, transcription, polygon])
 
 
             else:

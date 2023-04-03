@@ -199,7 +199,6 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
 
         return [x, y, ellipse_rect.width() / 2.0], valid
 
-
     def close_point(self, pos, distance):
 
         ellipse_rect = self.rect()

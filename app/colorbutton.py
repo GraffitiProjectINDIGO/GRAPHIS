@@ -23,7 +23,7 @@ from PySide2 import QtWidgets
 #
 
 from PySide2 import QtWidgets
-from PySide2.QtCore import Qt, Signal
+from PySide2.QtCore import Qt, Signal, SignalInstance
 from PySide2.QtGui import QColor
 
 
@@ -45,7 +45,7 @@ class COLORButton(QtWidgets.QPushButton):
     right-clicking resets the color to None (no-color).
     """
 
-    colorChanged = Signal(QColor)
+    colorChanged: SignalInstance = Signal(QColor)
 
     def __init__(self, *args, color=None, **kwargs):
         super(COLORButton, self).__init__(*args, **kwargs)

@@ -3,14 +3,14 @@
 ################################################################################
 ## Form generated from reading UI file 'gui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.8
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *  # type: ignore
-from PySide2.QtGui import *  # type: ignore
-from PySide2.QtWidgets import *  # type: ignore
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 from app.digitizerview import DIGITIZERView
 from app.spinningwaiter import SPINNINGWaiter
@@ -65,11 +65,6 @@ class Ui_MainWindow(object):
         brush10.setStyle(Qt.SolidPattern)
         palette.setBrush(QPalette.Active, QPalette.ToolTipBase, brush10)
         palette.setBrush(QPalette.Active, QPalette.ToolTipText, brush6)
-        brush11 = QBrush(QColor(210, 210, 210, 128))
-        brush11.setStyle(Qt.NoBrush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette.setBrush(QPalette.Active, QPalette.PlaceholderText, brush11)
-#endif
         palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
         palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
         palette.setBrush(QPalette.Inactive, QPalette.Light, brush2)
@@ -88,11 +83,6 @@ class Ui_MainWindow(object):
         palette.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush4)
         palette.setBrush(QPalette.Inactive, QPalette.ToolTipBase, brush10)
         palette.setBrush(QPalette.Inactive, QPalette.ToolTipText, brush6)
-        brush12 = QBrush(QColor(210, 210, 210, 128))
-        brush12.setStyle(Qt.NoBrush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush12)
-#endif
         palette.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
         palette.setBrush(QPalette.Disabled, QPalette.Button, brush1)
         palette.setBrush(QPalette.Disabled, QPalette.Light, brush2)
@@ -105,19 +95,14 @@ class Ui_MainWindow(object):
         palette.setBrush(QPalette.Disabled, QPalette.Base, brush1)
         palette.setBrush(QPalette.Disabled, QPalette.Window, brush1)
         palette.setBrush(QPalette.Disabled, QPalette.Shadow, brush7)
-        brush13 = QBrush(QColor(51, 153, 255, 255))
-        brush13.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Disabled, QPalette.Highlight, brush13)
+        brush11 = QBrush(QColor(51, 153, 255, 255))
+        brush11.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Disabled, QPalette.Highlight, brush11)
         palette.setBrush(QPalette.Disabled, QPalette.Link, brush8)
         palette.setBrush(QPalette.Disabled, QPalette.LinkVisited, brush9)
         palette.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush10)
         palette.setBrush(QPalette.Disabled, QPalette.ToolTipBase, brush10)
         palette.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush6)
-        brush14 = QBrush(QColor(210, 210, 210, 128))
-        brush14.setStyle(Qt.NoBrush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush14)
-#endif
         MainWindow.setPalette(palette)
         font = QFont()
         font.setFamily(u"Segoe UI")
@@ -485,7 +470,8 @@ class Ui_MainWindow(object):
 
         self.lbl_sqlite_name = QLabel(self.frame_label_top_btns)
         self.lbl_sqlite_name.setObjectName(u"lbl_sqlite_name")
-        self.lbl_sqlite_name.setMaximumSize(QSize(300, 16777215))
+        self.lbl_sqlite_name.setMinimumSize(QSize(900, 0))
+        self.lbl_sqlite_name.setMaximumSize(QSize(900, 16777215))
         self.lbl_sqlite_name.setFont(font1)
         self.lbl_sqlite_name.setStyleSheet(u"background: transparent;\n"
 "")
@@ -1225,6 +1211,12 @@ class Ui_MainWindow(object):
 
         self.frame_5 = QFrame(self.frame_10)
         self.frame_5.setObjectName(u"frame_5")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
+        self.frame_5.setSizePolicy(sizePolicy6)
+        self.frame_5.setMaximumSize(QSize(16777215, 350))
         self.frame_5.setStyleSheet(u"background-color: rgb(0, 74, 117);")
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
@@ -1239,8 +1231,8 @@ class Ui_MainWindow(object):
         self.groupBox_5.setFont(font6)
         self.formLayout_5 = QFormLayout(self.groupBox_5)
         self.formLayout_5.setObjectName(u"formLayout_5")
-        self.formLayout_5.setVerticalSpacing(3)
-        self.formLayout_5.setContentsMargins(-1, 3, -1, 3)
+        self.formLayout_5.setVerticalSpacing(10)
+        self.formLayout_5.setContentsMargins(-1, 9, -1, 3)
         self.label = QLabel(self.groupBox_5)
         self.label.setObjectName(u"label")
         font7 = QFont()
@@ -1289,8 +1281,8 @@ class Ui_MainWindow(object):
         self.groupBox_11.setFont(font6)
         self.formLayout_8 = QFormLayout(self.groupBox_11)
         self.formLayout_8.setObjectName(u"formLayout_8")
-        self.formLayout_8.setVerticalSpacing(3)
-        self.formLayout_8.setContentsMargins(-1, 3, -1, 3)
+        self.formLayout_8.setVerticalSpacing(10)
+        self.formLayout_8.setContentsMargins(-1, 9, -1, 3)
         self.label_21 = QLabel(self.groupBox_11)
         self.label_21.setObjectName(u"label_21")
         self.label_21.setFont(font7)
@@ -1335,15 +1327,15 @@ class Ui_MainWindow(object):
         self.groupBox_10.setMaximumSize(QSize(16777215, 16777215))
         self.groupBox_10.setBaseSize(QSize(0, 0))
         self.groupBox_10.setFont(font6)
-        self.formLayout_7 = QFormLayout(self.groupBox_10)
-        self.formLayout_7.setObjectName(u"formLayout_7")
-        self.formLayout_7.setVerticalSpacing(3)
-        self.formLayout_7.setContentsMargins(-1, 3, -1, 3)
+        self.formLayout_6 = QFormLayout(self.groupBox_10)
+        self.formLayout_6.setObjectName(u"formLayout_6")
+        self.formLayout_6.setVerticalSpacing(10)
+        self.formLayout_6.setContentsMargins(-1, 9, -1, 3)
         self.label_19 = QLabel(self.groupBox_10)
         self.label_19.setObjectName(u"label_19")
         self.label_19.setFont(font7)
 
-        self.formLayout_7.setWidget(0, QFormLayout.LabelRole, self.label_19)
+        self.formLayout_6.setWidget(0, QFormLayout.LabelRole, self.label_19)
 
         self.txt_rctype_indent = QPlainTextEdit(self.groupBox_10)
         self.txt_rctype_indent.setObjectName(u"txt_rctype_indent")
@@ -1354,13 +1346,13 @@ class Ui_MainWindow(object):
         self.txt_rctype_indent.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.txt_rctype_indent.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_7.setWidget(0, QFormLayout.FieldRole, self.txt_rctype_indent)
+        self.formLayout_6.setWidget(0, QFormLayout.FieldRole, self.txt_rctype_indent)
 
         self.label_20 = QLabel(self.groupBox_10)
         self.label_20.setObjectName(u"label_20")
         self.label_20.setFont(font7)
 
-        self.formLayout_7.setWidget(1, QFormLayout.LabelRole, self.label_20)
+        self.formLayout_6.setWidget(1, QFormLayout.LabelRole, self.label_20)
 
         self.txt_rctype_name = QPlainTextEdit(self.groupBox_10)
         self.txt_rctype_name.setObjectName(u"txt_rctype_name")
@@ -1371,7 +1363,7 @@ class Ui_MainWindow(object):
         self.txt_rctype_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.txt_rctype_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_7.setWidget(1, QFormLayout.FieldRole, self.txt_rctype_name)
+        self.formLayout_6.setWidget(1, QFormLayout.FieldRole, self.txt_rctype_name)
 
 
         self.verticalLayout_11.addWidget(self.groupBox_10)
@@ -1381,12 +1373,11 @@ class Ui_MainWindow(object):
 
         self.tabWidget_3 = QTabWidget(self.frame_10)
         self.tabWidget_3.setObjectName(u"tabWidget_3")
-        self.tabWidget_3.setMaximumSize(QSize(16777215, 200))
-        font9 = QFont()
-        font9.setPointSize(9)
-        font9.setBold(False)
-        font9.setWeight(50)
-        self.tabWidget_3.setFont(font9)
+        sizePolicy4.setHeightForWidth(self.tabWidget_3.sizePolicy().hasHeightForWidth())
+        self.tabWidget_3.setSizePolicy(sizePolicy4)
+        self.tabWidget_3.setMinimumSize(QSize(0, 0))
+        self.tabWidget_3.setMaximumSize(QSize(16777215, 500))
+        self.tabWidget_3.setFont(font5)
         self.tabWidget_3.setStyleSheet(u"\n"
 "\n"
 "/* Style the tab using the tab sub-control. Note that\n"
@@ -1423,17 +1414,24 @@ class Ui_MainWindow(object):
 "")
         self.tab_7 = QWidget()
         self.tab_7.setObjectName(u"tab_7")
-        self.formLayout_2 = QFormLayout(self.tab_7)
-        self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setVerticalSpacing(10)
-        self.formLayout_2.setContentsMargins(24, -1, -1, -1)
-        self.label_11 = QLabel(self.tab_7)
+        self.verticalLayout_15 = QVBoxLayout(self.tab_7)
+        self.verticalLayout_15.setSpacing(0)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.frame_9 = QFrame(self.tab_7)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setMaximumSize(QSize(16777215, 150))
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.formLayout_7 = QFormLayout(self.frame_9)
+        self.formLayout_7.setObjectName(u"formLayout_7")
+        self.label_11 = QLabel(self.frame_9)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setFont(font7)
 
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_7.setWidget(0, QFormLayout.LabelRole, self.label_11)
 
-        self.contr_creator_ident = QPlainTextEdit(self.tab_7)
+        self.contr_creator_ident = QPlainTextEdit(self.frame_9)
         self.contr_creator_ident.setObjectName(u"contr_creator_ident")
         sizePolicy4.setHeightForWidth(self.contr_creator_ident.sizePolicy().hasHeightForWidth())
         self.contr_creator_ident.setSizePolicy(sizePolicy4)
@@ -1441,209 +1439,201 @@ class Ui_MainWindow(object):
         self.contr_creator_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_creator_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.contr_creator_ident)
+        self.formLayout_7.setWidget(0, QFormLayout.FieldRole, self.contr_creator_ident)
 
-        self.label_10 = QLabel(self.tab_7)
+        self.label_10 = QLabel(self.frame_9)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setFont(font7)
 
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_7.setWidget(1, QFormLayout.LabelRole, self.label_10)
 
-        self.contr_creator_name = QPlainTextEdit(self.tab_7)
+        self.contr_creator_name = QPlainTextEdit(self.frame_9)
         self.contr_creator_name.setObjectName(u"contr_creator_name")
         self.contr_creator_name.setFont(font4)
         self.contr_creator_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_creator_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.contr_creator_name)
+        self.formLayout_7.setWidget(1, QFormLayout.FieldRole, self.contr_creator_name)
 
-        self.label_12 = QLabel(self.tab_7)
+        self.label_12 = QLabel(self.frame_9)
         self.label_12.setObjectName(u"label_12")
         self.label_12.setFont(font7)
 
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_12)
+        self.formLayout_7.setWidget(2, QFormLayout.LabelRole, self.label_12)
 
-        self.contr_creator_role = QPlainTextEdit(self.tab_7)
+        self.contr_creator_role = QPlainTextEdit(self.frame_9)
         self.contr_creator_role.setObjectName(u"contr_creator_role")
         self.contr_creator_role.setFont(font4)
         self.contr_creator_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
         self.contr_creator_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.contr_creator_role.setReadOnly(True)
 
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.contr_creator_role)
+        self.formLayout_7.setWidget(2, QFormLayout.FieldRole, self.contr_creator_role)
+
+
+        self.verticalLayout_15.addWidget(self.frame_9)
 
         self.tabWidget_3.addTab(self.tab_7, "")
-        self.tab_5 = QWidget()
-        self.tab_5.setObjectName(u"tab_5")
-        self.formLayout = QFormLayout(self.tab_5)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setVerticalSpacing(10)
-        self.formLayout.setContentsMargins(24, -1, -1, -1)
-        self.label_23 = QLabel(self.tab_5)
-        self.label_23.setObjectName(u"label_23")
-        self.label_23.setFont(font7)
-
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_23)
-
-        self.contr_tuner_ident = QPlainTextEdit(self.tab_5)
-        self.contr_tuner_ident.setObjectName(u"contr_tuner_ident")
-        self.contr_tuner_ident.setFont(font4)
-        self.contr_tuner_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
-        self.contr_tuner_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.contr_tuner_ident)
-
-        self.label_24 = QLabel(self.tab_5)
-        self.label_24.setObjectName(u"label_24")
-        self.label_24.setFont(font7)
-
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_24)
-
-        self.contr_tuner_name = QPlainTextEdit(self.tab_5)
-        self.contr_tuner_name.setObjectName(u"contr_tuner_name")
-        self.contr_tuner_name.setFont(font4)
-        self.contr_tuner_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
-        self.contr_tuner_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.contr_tuner_name)
-
-        self.label_25 = QLabel(self.tab_5)
-        self.label_25.setObjectName(u"label_25")
-        self.label_25.setFont(font7)
-
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label_25)
-
-        self.contr_tuner_role = QPlainTextEdit(self.tab_5)
-        self.contr_tuner_role.setObjectName(u"contr_tuner_role")
-        self.contr_tuner_role.setFont(font4)
-        self.contr_tuner_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
-        self.contr_tuner_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.contr_tuner_role.setReadOnly(True)
-
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.contr_tuner_role)
-
-        self.tabWidget_3.addTab(self.tab_5, "")
         self.tab_6 = QWidget()
         self.tab_6.setObjectName(u"tab_6")
-        self.formLayout_3 = QFormLayout(self.tab_6)
-        self.formLayout_3.setObjectName(u"formLayout_3")
-        self.formLayout_3.setVerticalSpacing(10)
-        self.formLayout_3.setContentsMargins(24, -1, -1, -1)
-        self.label_14 = QLabel(self.tab_6)
+        self.verticalLayout_16 = QVBoxLayout(self.tab_6)
+        self.verticalLayout_16.setSpacing(0)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.frame_13 = QFrame(self.tab_6)
+        self.frame_13.setObjectName(u"frame_13")
+        self.frame_13.setMaximumSize(QSize(16777215, 150))
+        self.frame_13.setFrameShape(QFrame.StyledPanel)
+        self.frame_13.setFrameShadow(QFrame.Raised)
+        self.formLayout_2 = QFormLayout(self.frame_13)
+        self.formLayout_2.setObjectName(u"formLayout_2")
+        self.label_14 = QLabel(self.frame_13)
         self.label_14.setObjectName(u"label_14")
         self.label_14.setFont(font7)
 
-        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_14)
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_14)
 
-        self.contr_describer_ident = QPlainTextEdit(self.tab_6)
+        self.contr_describer_ident = QPlainTextEdit(self.frame_13)
         self.contr_describer_ident.setObjectName(u"contr_describer_ident")
         self.contr_describer_ident.setFont(font4)
         self.contr_describer_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_describer_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.contr_describer_ident)
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.contr_describer_ident)
 
-        self.label_13 = QLabel(self.tab_6)
+        self.label_13 = QLabel(self.frame_13)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setFont(font7)
 
-        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_13)
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_13)
 
-        self.contr_describer_name = QPlainTextEdit(self.tab_6)
+        self.contr_describer_name = QPlainTextEdit(self.frame_13)
         self.contr_describer_name.setObjectName(u"contr_describer_name")
         self.contr_describer_name.setFont(font4)
         self.contr_describer_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_describer_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.contr_describer_name)
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.contr_describer_name)
 
-        self.label_15 = QLabel(self.tab_6)
+        self.label_15 = QLabel(self.frame_13)
         self.label_15.setObjectName(u"label_15")
         self.label_15.setFont(font7)
 
-        self.formLayout_3.setWidget(2, QFormLayout.LabelRole, self.label_15)
+        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_15)
 
-        self.contr_describer_role = QPlainTextEdit(self.tab_6)
+        self.contr_describer_role = QPlainTextEdit(self.frame_13)
         self.contr_describer_role.setObjectName(u"contr_describer_role")
         self.contr_describer_role.setFont(font4)
         self.contr_describer_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
         self.contr_describer_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.contr_describer_role.setReadOnly(True)
 
-        self.formLayout_3.setWidget(2, QFormLayout.FieldRole, self.contr_describer_role)
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.contr_describer_role)
 
-        self.tabWidget_3.addTab(self.tab_6, "")
-        self.tab_9 = QWidget()
-        self.tab_9.setObjectName(u"tab_9")
-        self.formLayout_6 = QFormLayout(self.tab_9)
-        self.formLayout_6.setObjectName(u"formLayout_6")
-        self.formLayout_6.setVerticalSpacing(10)
-        self.formLayout_6.setContentsMargins(24, -1, -1, -1)
-        self.label_26 = QLabel(self.tab_9)
-        self.label_26.setObjectName(u"label_26")
-        self.label_26.setFont(font7)
 
-        self.formLayout_6.setWidget(0, QFormLayout.LabelRole, self.label_26)
+        self.verticalLayout_16.addWidget(self.frame_13)
 
-        self.contr_describer_modi_ident = QPlainTextEdit(self.tab_9)
-        self.contr_describer_modi_ident.setObjectName(u"contr_describer_modi_ident")
-        self.contr_describer_modi_ident.setFont(font4)
-        self.contr_describer_modi_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
-        self.contr_describer_modi_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        self.formLayout_6.setWidget(0, QFormLayout.FieldRole, self.contr_describer_modi_ident)
-
-        self.label_27 = QLabel(self.tab_9)
-        self.label_27.setObjectName(u"label_27")
-        self.label_27.setFont(font7)
-
-        self.formLayout_6.setWidget(1, QFormLayout.LabelRole, self.label_27)
-
-        self.contr_describer_modi_name = QPlainTextEdit(self.tab_9)
-        self.contr_describer_modi_name.setObjectName(u"contr_describer_modi_name")
-        self.contr_describer_modi_name.setFont(font4)
-        self.contr_describer_modi_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
-        self.contr_describer_modi_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        self.formLayout_6.setWidget(1, QFormLayout.FieldRole, self.contr_describer_modi_name)
-
-        self.label_28 = QLabel(self.tab_9)
-        self.label_28.setObjectName(u"label_28")
-        self.label_28.setFont(font7)
-
-        self.formLayout_6.setWidget(2, QFormLayout.LabelRole, self.label_28)
-
-        self.contr_describer_modi_role = QPlainTextEdit(self.tab_9)
-        self.contr_describer_modi_role.setObjectName(u"contr_describer_modi_role")
-        self.contr_describer_modi_role.setFont(font4)
-        self.contr_describer_modi_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
-        self.contr_describer_modi_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.contr_describer_modi_role.setReadOnly(True)
-
-        self.formLayout_6.setWidget(2, QFormLayout.FieldRole, self.contr_describer_modi_role)
-
-        self.tabWidget_3.addTab(self.tab_9, "")
-
-        self.verticalLayout_10.addWidget(self.tabWidget_3)
-
-        self.groupBox_7 = QGroupBox(self.frame_10)
-        self.groupBox_7.setObjectName(u"groupBox_7")
-        self.groupBox_7.setMinimumSize(QSize(0, 0))
-        self.groupBox_7.setMaximumSize(QSize(16777215, 16777215))
-        self.groupBox_7.setFont(font6)
-        self.horizontalLayout_9 = QHBoxLayout(self.groupBox_7)
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.xmp_dc = QTextEdit(self.groupBox_7)
+        self.groupBox_8 = QGroupBox(self.tab_6)
+        self.groupBox_8.setObjectName(u"groupBox_8")
+        self.groupBox_8.setMinimumSize(QSize(0, 0))
+        self.groupBox_8.setMaximumSize(QSize(16777215, 16777215))
+        self.groupBox_8.setFont(font6)
+        self.horizontalLayout_13 = QHBoxLayout(self.groupBox_8)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.xmp_dc = QTextEdit(self.groupBox_8)
         self.xmp_dc.setObjectName(u"xmp_dc")
         self.xmp_dc.setFont(font4)
         self.xmp_dc.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.xmp_dc.setFrameShape(QFrame.NoFrame)
         self.xmp_dc.setFrameShadow(QFrame.Plain)
 
-        self.horizontalLayout_9.addWidget(self.xmp_dc)
+        self.horizontalLayout_13.addWidget(self.xmp_dc)
 
 
-        self.verticalLayout_10.addWidget(self.groupBox_7)
+        self.verticalLayout_16.addWidget(self.groupBox_8)
+
+        self.tabWidget_3.addTab(self.tab_6, "")
+        self.tab_9 = QWidget()
+        self.tab_9.setObjectName(u"tab_9")
+        self.verticalLayout_14 = QVBoxLayout(self.tab_9)
+        self.verticalLayout_14.setSpacing(0)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.frame_8 = QFrame(self.tab_9)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setMaximumSize(QSize(16777215, 150))
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.formLayout = QFormLayout(self.frame_8)
+        self.formLayout.setObjectName(u"formLayout")
+        self.label_26 = QLabel(self.frame_8)
+        self.label_26.setObjectName(u"label_26")
+        self.label_26.setFont(font7)
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_26)
+
+        self.contr_transcriber_ident = QPlainTextEdit(self.frame_8)
+        self.contr_transcriber_ident.setObjectName(u"contr_transcriber_ident")
+        self.contr_transcriber_ident.setFont(font4)
+        self.contr_transcriber_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
+        self.contr_transcriber_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.contr_transcriber_ident)
+
+        self.label_27 = QLabel(self.frame_8)
+        self.label_27.setObjectName(u"label_27")
+        self.label_27.setFont(font7)
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_27)
+
+        self.contr_transcriber_name = QPlainTextEdit(self.frame_8)
+        self.contr_transcriber_name.setObjectName(u"contr_transcriber_name")
+        self.contr_transcriber_name.setFont(font4)
+        self.contr_transcriber_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
+        self.contr_transcriber_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.contr_transcriber_name)
+
+        self.label_28 = QLabel(self.frame_8)
+        self.label_28.setObjectName(u"label_28")
+        self.label_28.setFont(font7)
+
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label_28)
+
+        self.contr_transcriber_role = QPlainTextEdit(self.frame_8)
+        self.contr_transcriber_role.setObjectName(u"contr_transcriber_role")
+        self.contr_transcriber_role.setFont(font4)
+        self.contr_transcriber_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
+        self.contr_transcriber_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.contr_transcriber_role.setReadOnly(True)
+
+        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.contr_transcriber_role)
+
+
+        self.verticalLayout_14.addWidget(self.frame_8)
+
+        self.groupBox_7 = QGroupBox(self.tab_9)
+        self.groupBox_7.setObjectName(u"groupBox_7")
+        self.groupBox_7.setMinimumSize(QSize(0, 0))
+        self.groupBox_7.setMaximumSize(QSize(16777215, 16777215))
+        self.groupBox_7.setFont(font6)
+        self.horizontalLayout_9 = QHBoxLayout(self.groupBox_7)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.xmp_dc_transcriber = QTextEdit(self.groupBox_7)
+        self.xmp_dc_transcriber.setObjectName(u"xmp_dc_transcriber")
+        self.xmp_dc_transcriber.setFont(font4)
+        self.xmp_dc_transcriber.setStyleSheet(u"background-color: rgb(52, 70, 72);")
+        self.xmp_dc_transcriber.setFrameShape(QFrame.NoFrame)
+        self.xmp_dc_transcriber.setFrameShadow(QFrame.Plain)
+
+        self.horizontalLayout_9.addWidget(self.xmp_dc_transcriber)
+
+
+        self.verticalLayout_14.addWidget(self.groupBox_7)
+
+        self.tabWidget_3.addTab(self.tab_9, "")
+
+        self.verticalLayout_10.addWidget(self.tabWidget_3)
 
 
         self.verticalLayout_8.addWidget(self.frame_10)
@@ -1667,11 +1657,11 @@ class Ui_MainWindow(object):
 
         self.btn_expand_all = QPushButton(self.frame_4)
         self.btn_expand_all.setObjectName(u"btn_expand_all")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.btn_expand_all.sizePolicy().hasHeightForWidth())
-        self.btn_expand_all.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.btn_expand_all.sizePolicy().hasHeightForWidth())
+        self.btn_expand_all.setSizePolicy(sizePolicy7)
         self.btn_expand_all.setMaximumSize(QSize(100, 16777215))
         self.btn_expand_all.setLayoutDirection(Qt.RightToLeft)
         self.btn_expand_all.setStyleSheet(u"QPushButton {\n"
@@ -1692,8 +1682,8 @@ class Ui_MainWindow(object):
 
         self.btn_collapse_all = QPushButton(self.frame_4)
         self.btn_collapse_all.setObjectName(u"btn_collapse_all")
-        sizePolicy6.setHeightForWidth(self.btn_collapse_all.sizePolicy().hasHeightForWidth())
-        self.btn_collapse_all.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.btn_collapse_all.sizePolicy().hasHeightForWidth())
+        self.btn_collapse_all.setSizePolicy(sizePolicy7)
         self.btn_collapse_all.setMaximumSize(QSize(100, 16777215))
         self.btn_collapse_all.setLayoutDirection(Qt.RightToLeft)
         self.btn_collapse_all.setStyleSheet(u"QPushButton {\n"
@@ -1764,8 +1754,8 @@ class Ui_MainWindow(object):
 
         self.btn_expand_all_all_region = QPushButton(self.frame_6)
         self.btn_expand_all_all_region.setObjectName(u"btn_expand_all_all_region")
-        sizePolicy6.setHeightForWidth(self.btn_expand_all_all_region.sizePolicy().hasHeightForWidth())
-        self.btn_expand_all_all_region.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.btn_expand_all_all_region.sizePolicy().hasHeightForWidth())
+        self.btn_expand_all_all_region.setSizePolicy(sizePolicy7)
         self.btn_expand_all_all_region.setMaximumSize(QSize(100, 16777215))
         self.btn_expand_all_all_region.setLayoutDirection(Qt.RightToLeft)
         self.btn_expand_all_all_region.setStyleSheet(u"QPushButton {\n"
@@ -1786,8 +1776,8 @@ class Ui_MainWindow(object):
 
         self.btn_collapse_all_all_region = QPushButton(self.frame_6)
         self.btn_collapse_all_all_region.setObjectName(u"btn_collapse_all_all_region")
-        sizePolicy6.setHeightForWidth(self.btn_collapse_all_all_region.sizePolicy().hasHeightForWidth())
-        self.btn_collapse_all_all_region.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.btn_collapse_all_all_region.sizePolicy().hasHeightForWidth())
+        self.btn_collapse_all_all_region.setSizePolicy(sizePolicy7)
         self.btn_collapse_all_all_region.setMaximumSize(QSize(100, 16777215))
         self.btn_collapse_all_all_region.setLayoutDirection(Qt.RightToLeft)
         self.btn_collapse_all_all_region.setStyleSheet(u"QPushButton {\n"
@@ -1878,9 +1868,9 @@ class Ui_MainWindow(object):
         self.label_credits = QLabel(self.frame_label_bottom)
         self.label_credits.setObjectName(u"label_credits")
         self.label_credits.setMaximumSize(QSize(16777215, 40))
-        font10 = QFont()
-        font10.setFamily(u"Segoe UI")
-        self.label_credits.setFont(font10)
+        font9 = QFont()
+        font9.setFamily(u"Segoe UI")
+        self.label_credits.setFont(font9)
         self.label_credits.setCursor(QCursor(Qt.ArrowCursor))
         self.label_credits.setStyleSheet(u"color: rgb(98, 103, 111);")
         self.label_credits.setAlignment(Qt.AlignCenter)
@@ -1890,7 +1880,7 @@ class Ui_MainWindow(object):
         self.label_version = QLabel(self.frame_label_bottom)
         self.label_version.setObjectName(u"label_version")
         self.label_version.setMaximumSize(QSize(100, 16777215))
-        self.label_version.setFont(font10)
+        self.label_version.setFont(font9)
         self.label_version.setStyleSheet(u"color: rgb(98, 103, 111);")
         self.label_version.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -1929,7 +1919,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget_2.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_3.setCurrentIndex(0)
+        self.tabWidget_3.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2008,25 +1998,28 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Role", None))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"Region Creator", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
-        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Name", None))
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Region Modifier", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Descriptor Creator", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
-        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Name", None))
-        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Role", None))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"Descriptor Modifier", None))
-        self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Description", None))
+        self.groupBox_8.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Description", None))
         self.xmp_dc.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Description", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
+        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Name", None))
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Role", None))
+        self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Title", None))
+        self.xmp_dc_transcriber.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"Transcription", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Change region info", None))
         self.btn_expand_all.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
         self.btn_collapse_all.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))

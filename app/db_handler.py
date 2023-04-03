@@ -23,6 +23,7 @@ import json
 
 from app.var_classes import create_region_boundary
 
+
 class DBHandler:
     def __init__(self):
         self.con = dbapi2.Connection('')

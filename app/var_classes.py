@@ -19,9 +19,9 @@ import configparser
 import numpy
 from pathlib import Path
 
+
 from PySide2.QtGui import QColor, QBrush, QStandardItem
 
-software_version = '1.3.3'
 
 CONFIG_FILE = "graffilabel.config"
 
@@ -30,14 +30,15 @@ COLOR_RECTANGLE_START = '#4dac26'
 COLOR_POLYGON_START = '#2c7bb6'
 
 CONTRIBUTOR_TAG = 'XMP-iptcExt:Contributor'
-EXTRA_TAG = "XMP-dc:Description"
+
+TAG_DESCRIBER = "XMP-dc:Description"
+TAG_TRANSCRIBER = "XMP-dc:Title"
 
 REGION_ROLE = 'main subject area'
 
 REGION_CREATOR_ROLE = 'https://indigo.openatlas.eu/regioncreator'
-REGION_MODIFIER_ROLE = 'https://indigo.openatlas.eu/regionmodigifier'
-DESCRIBER_ROLE = 'https://indigo.openatlas.eu/descriptioncreator'
-DESCRIBER_MODIFIER = 'https://indigo.openatlas.eu/descriptionmodifier'
+DESCRIBER_ROLE = 'https://indigo.openatlas.eu/describer'
+TRANSCRIBER_ROLE = 'https://indigo.openatlas.eu/transcriber'
 
 RCTYPE_Standard_IDENTIFIER = 'link to indigo graffito definition'
 RCTYPE_Standard_NAME = 'graffito'
@@ -63,9 +64,8 @@ class GeometryConfigs:
         self.rctype_identifier = ''
         self.rctype_name = ''
         self.region_creator_role = ''
-        self.region_modifier_role = ''
-        self.describer_creator_role = ''
-        self.describer_modifier_role = ''
+        self.describer_role = ''
+        self.transcriber_role = ''
         self.color_start = ''
 
     def set_values(self, config_parser: configparser.ConfigParser, geom_type: str) -> bool:
@@ -96,9 +96,8 @@ class GeometryConfigs:
         self.rctype_identifier = section.get('RCTYPE_IDENTIFIER', RCTYPE_Standard_IDENTIFIER)
         self.rctype_name = section.get('RCTYPE_NAME', RCTYPE_Standard_NAME)
         self.region_creator_role = section.get('REGION_CREATOR_ROLE', REGION_CREATOR_ROLE)
-        self.region_modifier_role = section.get('REGION_MODIFIER_ROLE', REGION_MODIFIER_ROLE)
-        self.describer_creator_role = section.get('DESCRIBER_CREATOR_ROLE', DESCRIBER_ROLE)
-        self.describer_modifier_role = section.get('DESCRIBER_MODIFIER_ROLE', DESCRIBER_MODIFIER)
+        self.describer_role = section.get('DESCRIBER_ROLE', DESCRIBER_ROLE)
+        self.transcriber_role = section.get('TRANSCRIBER_ROLE', TRANSCRIBER_ROLE)
         self.color_start = section.get('COLOUR_START', color_start)
 
         return success
@@ -176,6 +175,31 @@ def find_key_role(dict_attribute, dict_value, role):
     return False, 0
 
 
+def put_struc_tag_name_list(dict_attribute, tag, role, indentifier, name):
+    success, idx = find_key_role(dict_attribute, tag, role)
+    if success:
+
+        if indentifier or name:
+
+            dict_attribute[tag][idx] = {'Identifier': [indentifier],
+                                        'Name': [name],
+                                        'Role': [role]}
+        else:
+            dict_attribute[tag].pop(idx)
+    else:
+        if indentifier or name:
+            if dict_attribute.get(tag, ''):
+                dict_attribute[tag].append({'Identifier': [indentifier],
+                                            'Name': [name],
+                                            'Role': [role]})
+            else:
+                dict_attribute[tag] = [{'Identifier': [indentifier],
+                                        'Name': [name],
+                                        'Role': [role]}]
+
+    return dict_attribute
+
+
 def put_struc_tag(dict_attribute, tag, role, indentifier, name):
     success, idx = find_key_role(dict_attribute, tag, role)
     if success:
@@ -201,6 +225,30 @@ def put_struc_tag(dict_attribute, tag, role, indentifier, name):
     return dict_attribute
 
 
+def append_struc_tag_namelist(dict_attribute, tag, role, indentifier, name):
+    success, idx = find_key_role(dict_attribute, tag, role)
+    if success:
+        if indentifier or name:
+
+            if (indentifier != dict_attribute[tag][idx]['Identifier'][-1]) \
+                    or (name != dict_attribute[tag][idx]['Name'][-1]):
+                dict_attribute[tag][idx]['Identifier'].append(indentifier)
+                dict_attribute[tag][idx]['Name'].append(name)
+
+    else:
+        if indentifier or name:
+            if dict_attribute.get(tag, ''):
+                dict_attribute[tag].append({'Identifier': [indentifier],
+                                            'Name': [name],
+                                            'Role': [role]})
+            else:
+                dict_attribute[tag] = [{'Identifier': [indentifier],
+                                        'Name': [name],
+                                        'Role': [role]}]
+
+    return dict_attribute
+
+
 def get_image_region_role(name: str):
     new_id = ''
     for x in image_region_role:
@@ -219,12 +267,18 @@ def load_config():
     else:
         success = False
 
-    config_default = {'EXTRA_STRING_TAG': EXTRA_TAG, 'CONTRIBUTOR_TAG': CONTRIBUTOR_TAG}
+    config_default = {'TAG_DESCRIBER': TAG_DESCRIBER, 'TAG_TRANSCRIBER': TAG_TRANSCRIBER,
+                      'CONTRIBUTOR_TAG': CONTRIBUTOR_TAG}
     if config.has_section('TAGS'):
-        if config.has_option('TAGS', 'EXTRA_STRING_TAG'):
-            config_default['EXTRA_STRING_TAG'] = config['TAGS']['EXTRA_STRING_TAG']
+        if config.has_option('TAGS', 'TAG_DESCRIBER'):
+            config_default['TAG_DESCRIBER'] = config['TAGS']['TAG_DESCRIBER']
         else:
             success = False
+        if config.has_option('TAGS', 'TAG_TRANSCRIBER'):
+            config_default['TAG_TRANSCRIBER'] = config['TAGS']['TAG_TRANSCRIBER']
+        else:
+            success = False
+
         if config.has_option('TAGS', 'CONTRIBUTOR_TAG'):
             config_default['CONTRIBUTOR_TAG'] = config['TAGS']['CONTRIBUTOR_TAG']
         else:
@@ -240,7 +294,6 @@ def load_config():
     success = success and config_circle.set_values(config, 'CIRCLE')
 
     return success, config_default, config_polygon, config_rectangle, config_circle
-
 
 
 def list_of_points_to_list(poly):
@@ -281,8 +334,8 @@ def create_region_boundary(img_width, img_height, object_type, list_coordinates)
     elif object_type == 'rectangle':
         bound['RbShape'] = 'rectangle'
         np_coordinates = numpy.array(list_coordinates)
-        min_rec = np_coordinates.min(axis=0)
-        max_rec = np_coordinates.max(axis=0)
+        min_rec = numpy.min(np_coordinates, axis=0)
+        max_rec = numpy.max(np_coordinates, axis=0)
         w = max_rec[0] - min_rec[0]
         h = max_rec[1] - min_rec[1]
         bound['RbX'] = min_rec[0] / mx
