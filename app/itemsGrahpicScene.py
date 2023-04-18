@@ -1,17 +1,17 @@
-#Copyright (C) 2023 Martin Wieser
+# Copyright (C) 2023 Martin Wieser
 #
-#This program is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#You should have received a copy of the GNU General Public License
-#along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
 import math
@@ -48,7 +48,7 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
         self.color_no_Alpha.setAlpha(255)
         self.pen_width = pen_width
 
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width ))
+        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         self.setBrush(self.color)
 
     def set_color(self, color):
@@ -100,19 +100,19 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
 
         rect = self.rect()
 
-        middle_x = rect.x()+rect.width()/2
-        middle_y = rect.y()+rect.height()/2
+        middle_x = rect.x() + rect.width() / 2
+        middle_y = rect.y() + rect.height() / 2
 
         if pos.x() < middle_x:
             rect.setX(pos.x())
         # pass
         else:
-            rect.setWidth(pos.x()-rect.x())
+            rect.setWidth(pos.x() - rect.x())
 
         if pos.y() < middle_y:
             rect.setY(pos.y())
         else:
-            rect.setHeight(pos.y()-rect.y())
+            rect.setHeight(pos.y() - rect.y())
 
         self.setRect(rect)
 
@@ -120,11 +120,10 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
 
         rect_coords = self.rect().getCoords()
 
-        if (abs(pos.x()-rect_coords[0]) < distance or
-            abs(pos.x()-rect_coords[2]) < distance) and \
+        if (abs(pos.x() - rect_coords[0]) < distance or
+            abs(pos.x() - rect_coords[2]) < distance) and \
                 (abs(pos.y() - rect_coords[1]) < distance or
                  abs(pos.y() - rect_coords[3]) < distance):
-
             return True, 0
         return False, 0
 
@@ -140,7 +139,7 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
     def hoverLeaveEvent(self, event):
         self.mouse_hoover = False
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width ))
+        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         super(RectangleAnnotation, self).hoverLeaveEvent(event)
 
 
@@ -173,9 +172,9 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
         x = ellipse_rect.x() + ellipse_rect.width() / 2.0
         y = ellipse_rect.y() + ellipse_rect.height() / 2.0
 
-        radius = math.sqrt((x-position.x())**2 + (y-position.y())**2)
+        radius = math.sqrt((x - position.x()) ** 2 + (y - position.y()) ** 2)
 
-        self.setRect(x-radius, y-radius, radius*2, radius*2)
+        self.setRect(x - radius, y - radius, radius * 2, radius * 2)
 
     def move(self, vector):
         ellipse_rect = self.rect()
@@ -185,7 +184,7 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
 
         self.setRect(x, y, ellipse_rect.width(), ellipse_rect.height())
 
-    def change_geometry(self, position, dum):
+    def change_geometry(self, position, _dum):
         self.set_radius_from_position(position)
 
     def get_coords(self, image_width, image_height):
@@ -194,7 +193,8 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
         x = ellipse_rect.x() + ellipse_rect.width() / 2.0
         y = ellipse_rect.y() + ellipse_rect.height() / 2.0
 
-        if ellipse_rect.x() < 0 or ellipse_rect.y() < 0 or (ellipse_rect.x() +ellipse_rect.width() > image_width) or (ellipse_rect.y() + ellipse_rect.height()) > image_height:
+        if ellipse_rect.x() < 0 or ellipse_rect.y() < 0 or (ellipse_rect.x() + ellipse_rect.width() > image_width) or (
+                ellipse_rect.y() + ellipse_rect.height()) > image_height:
             valid = False
 
         return [x, y, ellipse_rect.width() / 2.0], valid
@@ -206,12 +206,13 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
         y = ellipse_rect.y() + ellipse_rect.height() / 2.0
         x = pos.x() - x
         y = pos.y() - y
-        diff = math.sqrt(x**2 + y**2)
-        if abs(diff-ellipse_rect.width()/2.0) < distance:
+        diff = math.sqrt(x ** 2 + y ** 2)
+        if abs(diff - ellipse_rect.width() / 2.0) < distance:
             return True, 0
         return False, 0
 
     def is_valid(self):
+        # duck typing function needed by polygon and rectangle
         return True
 
     def set_color(self, color):
@@ -224,12 +225,12 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
 
     def hoverEnterEvent(self, event):
         self.setBrush(color_on_image_hoover)
-        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width ))
+        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width))
         super(PointAnnotation, self).hoverEnterEvent(event)
 
     def hoverLeaveEvent(self, event):
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width ))
+        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         super(PointAnnotation, self).hoverLeaveEvent(event)
 
 
@@ -256,7 +257,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
         self.color_no_Alpha.setAlpha(255)
         self.pen_width = pen_width
 
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width ))
+        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         self.setBrush(self.color)
 
     def set_color(self, color):
@@ -288,7 +289,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
             x2 = maxi_coo[0]
             y2 = maxi_coo[1]
 
-            middle_x = x + (x2-x)/2.0
+            middle_x = x + (x2 - x) / 2.0
             middle_y = y + (y2 - y) / 2.0
 
             if pos.x() < middle_x:
@@ -316,7 +317,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
             i = geometry.Polygon(o)
             # print(i.is_valid)
             if i.is_valid:
-                #self.polygon_item.setPolygon(poly)
+                # self.polygon_item.setPolygon(poly)
                 self.setPolygon(poly)
 
     def get_coords(self, image_width, image_height):
@@ -349,10 +350,10 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
 
     def hoverEnterEvent(self, event):
         self.setBrush(color_on_image_hoover)
-        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width ))
+        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width))
         super(PolygonAnnotation, self).hoverEnterEvent(event)
 
     def hoverLeaveEvent(self, event):
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width ))
+        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         super(PolygonAnnotation, self).hoverLeaveEvent(event)

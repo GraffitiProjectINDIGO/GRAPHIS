@@ -26,7 +26,7 @@ import csv
 
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtWidgets import *
-from PySide2.QtCore import Slot
+from PySide2.QtCore import Slot, SignalInstance
 from PySide2.QtGui import (QColor, Qt, QPixmap)
 
 from exiftool import ExifTool
@@ -47,7 +47,7 @@ from app.json_model import JsonModel
 
 
 class OutputWrapper(QtCore.QObject):
-    outputWritten = QtCore.Signal(object, object)
+    outputWritten: SignalInstance = QtCore.Signal(object, object)
 
     def __init__(self, parent, stdout=True):
         QtCore.QObject.__init__(self, parent)
@@ -60,7 +60,8 @@ class OutputWrapper(QtCore.QObject):
         self._stdout = stdout
 
     def write(self, text):
-        self._stream.write(text)
+        if self._stream is not None:
+            self._stream.write(text)
         self.outputWritten.emit(text, self._stdout)
 
     def __getattr__(self, name):
@@ -77,9 +78,9 @@ class OutputWrapper(QtCore.QObject):
 
 
 class WorkerSignal(QtCore.QObject):
-    finished = QtCore.Signal()
-    error = QtCore.Signal(tuple)
-    result = QtCore.Signal(object)
+    finished: SignalInstance = QtCore.Signal()
+    error: SignalInstance = QtCore.Signal(tuple)
+    result: SignalInstance = QtCore.Signal(object)
 
 
 class Worker(QtCore.QRunnable):
@@ -615,7 +616,6 @@ class MainWindow(QMainWindow):
         self.ui.contr_creator_ident.setPlainText('')
         self.ui.contr_creator_role.setPlainText('')
 
-
         self.ui.contr_describer_name.setPlainText('')
         self.ui.contr_describer_ident.setPlainText('')
         self.ui.contr_describer_role.setPlainText('')
@@ -1018,7 +1018,8 @@ class MainWindow(QMainWindow):
 
                 if len_image_list > 0:
 
-                    worker = Worker(add_preview, added_images, self.db, self.user, self.config_default['CONTRIBUTOR_TAG'])
+                    worker = Worker(add_preview, added_images, self.db, self.user,
+                                    self.config_default['CONTRIBUTOR_TAG'])
                     worker.signals.result.connect(self.thread_output)
                     self.ui.waiting_spinner.start()
                     self.thread_pool.start(worker)
@@ -1030,7 +1031,7 @@ class MainWindow(QMainWindow):
             msg = QMessageBox(self, text="Seems no database is active or database is locked")
             msg.setWindowTitle('Warning')
             # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
-            x = msg.exec_()
+            msg.exec_()
 
     def save_image_regions(self, keep_orig=False):
 

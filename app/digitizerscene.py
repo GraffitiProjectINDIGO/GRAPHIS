@@ -177,7 +177,6 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
     def mousePressEvent(self, event):
 
-        modifiers = QtWidgets.QApplication.queryKeyboardModifiers()
         current_item = self.items(event.scenePos())
         if self.image_item in current_item:
 
@@ -349,7 +348,8 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             coordinates = [x, y, radius]
                             self.circle_item.obj_id, tooltip = self.store_sightings('circle', coordinates)
                             self.circle_item.setToolTip(tooltip)
-                            self.change_color_id(self.circle_item.obj_id, QtGui.QColor.fromRgbF(1.0, 1.00, 0.3, 0.588235))
+                            self.change_color_id(self.circle_item.obj_id,
+                                                 QtGui.QColor.fromRgbF(1.0, 1.00, 0.3, 0.588235))
 
         # -----------------------------------------------------------------------------------------------
         # Pass Event
