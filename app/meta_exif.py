@@ -123,7 +123,7 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
     et.terminate()
 
     if count_image_written:
-        print('\tSuccessfully wrote metadata: ImgNr. %i' % count_image_written)
+        print('\tSuccessfully wrote metadata to %i images' % count_image_written)
     else:
         print('\tNo images needed to be changed')
     return True

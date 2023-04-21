@@ -32,6 +32,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
     object_att = Signal(int)
     object_add = Signal(int)
     change_object = Signal(int)
+    message_no_valid = Signal()
 
     def __init__(self, parent=None):
         super(DIGITIZERScene, self).__init__(parent)
@@ -279,14 +280,14 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                     # Finish polygon objects
                     if event.button() == QtCore.Qt.LeftButton:
 
-                        p = self.polygon_item.polygon().toList()
-                        o = [[x.x(), x.y()] for x in p]
-                        i = geometry.Polygon(o)
-                        # print(i.is_valid)
-                        if i.is_valid:
-                            self.instruction_active = False
+                        if self.polygon_item.polygon().length() > 2:
+                            p = self.polygon_item.polygon().toList()
+                            #o = [[x.x(), x.y()] for x in p]
+                            #i = geometry.Polygon(o)
+                            # print(i.is_valid)
+                            if self.polygon_item.is_valid():
+                                self.instruction_active = False
 
-                            if self.polygon_item.polygon().length() > 2:
                                 coordinates, valid = self.polygon_item.get_coords(self.image_width, self.image_height)
 
                                 self.polygon_item.obj_id, tooltip = self.store_sightings('polygon', coordinates)
@@ -295,7 +296,13 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                                                      QtGui.QColor.fromRgbF(1.0, 1.00, 0.3, 0.588235))
                             else:
                                 self.removeItem(self.polygon_item)
+                                self.message_no_valid.emit()
                             self.removeItem(self.p1_poly)
+                        else:
+                            self.message_no_valid.emit()
+                            self.instruction_active = False
+                            self.removeItem(self.p1_poly)
+                            self.removeItem(self.polygon_item)
 
                     # Continue Polygon
                     elif event.button() == QtCore.Qt.RightButton:
@@ -307,8 +314,8 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             o = [[x.x(), x.y()] for x in p]
                             i = geometry.Polygon(o)
                             # print(i.is_valid)
-                            if i.is_valid:
-                                self.polygon_item.setPolygon(poly)
+                            #if i.is_valid:
+                            self.polygon_item.setPolygon(poly)
                         else:
                             self.polygon_item.setPolygon(poly)
 

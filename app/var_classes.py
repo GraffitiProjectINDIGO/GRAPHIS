@@ -23,7 +23,7 @@ from pathlib import Path
 from PySide2.QtGui import QColor, QBrush, QStandardItem
 
 
-CONFIG_FILE = "graffilabel.config"
+CONFIG_FILE = "graphis.config"
 
 COLOR_CIRCLE_START = '#fdae61'
 COLOR_RECTANGLE_START = '#4dac26'

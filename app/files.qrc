@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="icons">
     <file>icons/rectangle_active.svg</file>
+    <file>icons/INDIGO_logoGRAPHIS_text.png</file>
+    <file>icons/INDIGO_logoGRAPHIS.png</file>
     <file>icons/polygon_active.svg</file>
     <file>icons/move_active.svg</file>
     <file>icons/circle_active.svg</file>
@@ -13,7 +15,6 @@
     <file>icons/polygon_show.svg</file>
     <file>icons/polygon_color.svg</file>
     <file>icons/polygon_hide.svg</file>
-    <file>icons/resize_active.svg</file>
     <file>icons/rectangle_show.svg</file>
     <file>icons/rectangle_hide.svg</file>
     <file>icons/circle_show.svg</file>

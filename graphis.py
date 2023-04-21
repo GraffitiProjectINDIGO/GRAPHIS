@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '1.3.4'
+__version__ = '1.3.5'
 
 import sys
 import traceback
@@ -174,13 +174,21 @@ class MainWindow(QMainWindow):
         # MultiThread
         self.thread_pool = QtCore.QThreadPool()
 
-        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.Stretch)
         self.ui.image_region_view.setAlternatingRowColors(True)
         self.model_image_region = JsonModel()
         self.model_image_region_all = JsonModel()
 
         self.ui.image_region_view.setModel(self.model_image_region)
         self.ui.image_all_region.setModel(self.model_image_region_all)
+
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+       #
 
         # Redirect Logger
         stdout = OutputWrapper(self, True)
@@ -190,7 +198,9 @@ class MainWindow(QMainWindow):
 
         self.action_menu1 = QAction("Create new database", self)
         self.action_menu2 = QAction("Load database", self)
-        self.action_menu3 = QAction("Add image folder", self)
+        self.action_menu3 = QAction("Add images of folder", self)
+        self.action_menu3_subfolder = QAction("Add images of folder/subfolders", self)
+        self.action_menu3_singleimage = QAction("Add single image", self)
         self.action_menu4 = QAction("Save bounding boxes to CSV file", self)
         self.action_menu5 = QAction("Save image regions to files", self)
         self.action_menu6 = QAction("Save image regions to files (keep original images)", self)
@@ -199,7 +209,9 @@ class MainWindow(QMainWindow):
         self.alignMenu.addAction(self.action_menu1)
         self.alignMenu.addAction(self.action_menu2)
         self.alignMenu.addSeparator()
+        self.alignMenu.addAction(self.action_menu3_singleimage)
         self.alignMenu.addAction(self.action_menu3)
+        self.alignMenu.addAction(self.action_menu3_subfolder)
         self.alignMenu.addSeparator()
         self.alignMenu.addAction(self.action_menu4)
         self.alignMenu.addAction(self.action_menu5)
@@ -256,7 +268,9 @@ class MainWindow(QMainWindow):
         # Menu Action Items
         self.action_menu1.triggered.connect(self.create_new_db)
         self.action_menu2.triggered.connect(self.load_existing_db)
-        self.action_menu3.triggered.connect(self.load_input_image_folder)
+        self.action_menu3.triggered.connect(lambda: self.load_input_image_folder())
+        self.action_menu3_subfolder.triggered.connect(lambda: self.load_input_image_folder(subfolder=True))
+        self.action_menu3_singleimage.triggered.connect(lambda: self.load_input_image_folder(single_image=True))
         self.action_menu4.triggered.connect(self.save_csv)
         self.action_menu5.triggered.connect(lambda: self.save_image_regions(keep_orig=False))
         self.action_menu6.triggered.connect(lambda: self.save_image_regions(keep_orig=True))
@@ -276,6 +290,7 @@ class MainWindow(QMainWindow):
         self.digitizer_scene.object_att.connect(self.load_data)
         self.digitizer_scene.object_add.connect(self.add_data)
         self.digitizer_scene.change_object.connect(self.change_finetuner)
+        self.digitizer_scene.message_no_valid.connect(self.message_no_valid_polygon)
         self.ui.btn_geometry_remove.clicked.connect(self.delete_object)
 
         # Visibility of geometries
@@ -296,6 +311,8 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_expand_all.clicked.connect(self.ui.image_region_view.expandAll)
         self.ui.btn_collapse_all.clicked.connect(self.ui.image_region_view.collapseAll)
+
+        #head.setSectionResizeMode(2, QHeaderView.ResizeToContents)
 
         self.ui.btn_expand_all_all_region.clicked.connect(self.ui.image_all_region.expandAll)
         self.ui.btn_collapse_all_all_region.clicked.connect(self.ui.image_all_region.collapseAll)
@@ -366,7 +383,7 @@ class MainWindow(QMainWindow):
         self.user_uri = user_uri
         self.ui.txt_user_name.setPlainText(user)
         self.ui.txt_user_indent.setPlainText(user_uri)
-        print('Welcome ' + self.user.upper() + '. Enjoy working')
+        print('Welcome ' + self.user.upper() + '.\nEnjoy working with Graphis')
         if not self.config_success:
             print('Config file is not proper set.\nFallback on malformed options')
         self.show()
@@ -393,6 +410,9 @@ class MainWindow(QMainWindow):
             json_image_all_region.append(json.loads(obj['data'])['attributes'])
         self.model_image_region_all.load(json_image_all_region)
         self.ui.image_all_region.setModel(self.model_image_region_all)
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        #self.ui.image_all_region.resizeColumnToContents(1)
 
     def scene_load_image(self, index):
 
@@ -587,6 +607,8 @@ class MainWindow(QMainWindow):
                 self.digitizer_scene.set_tooltip(self.current_item['id'], data['RId'])
                 self.current_item['data']['attributes'] = data
                 self.model_image_region.load(data)
+                self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+                self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
                 self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
 
                 self.change_color(self.color_rectangle, 'rectangle')
@@ -673,10 +695,19 @@ class MainWindow(QMainWindow):
         jdata = json.loads(data['data'])
 
         self.model_image_region.load(jdata['attributes'])
-
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         self.current_item = {'id': object_id, 'data': jdata, 'object_type': data['object_type']}
 
         self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
+
+
+    @Slot()
+    def message_no_valid_polygon(self):
+        msg = QMessageBox(self, text="That was not a valid polygon\nEither not enough points (min 3) or self intersecting")
+        msg.setWindowTitle('Warning')
+        # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
+        msg.exec_()
 
     @Slot(int)
     def add_data(self, object_id):
@@ -699,7 +730,7 @@ class MainWindow(QMainWindow):
         # datetime.now().strftime('%y%j%H%M%S')
         dt = datetime.datetime.now().strftime('%y%m%dT%H:%M:%S')
         rid = image.stem + '_' + dt
-        name_region = self.get_config_role(data['object_type'], 'region_name_prefix') + dt
+        name_region = self.get_config_role(data['object_type'], 'region_name_prefix') # + dt
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'RId', rid)
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'Name', name_region)
 
@@ -733,6 +764,8 @@ class MainWindow(QMainWindow):
         self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
         self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
         self.model_image_region.load(self.current_item['data']['attributes'])
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         self.image_region_view_load_all_image()
 
     def parse_show_data(self, object_type, dict_item: dict):
@@ -986,22 +1019,42 @@ class MainWindow(QMainWindow):
                     self.ui.table_preview.setModel(self.model)
                     self.ui.lbl_sqlite_name.setText(path.name)
 
+
         else:
             print('Database is locked')
 
-    def load_input_image_folder(self):
+    def load_input_image_folder(self, subfolder=False, single_image=False):
 
         if self.db.db_is_set and not self.db.is_locked:
             self.db.is_locked = True
-            image_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, caption="Click on one image")
+            image_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, caption="Click on one image. Only same file formats are imported")
             if image_path:
-                print("Read Image Folder")
+                print("Read image folder")
                 image_path = Path(image_path)
 
                 image_path_parent = image_path.parent
                 # self.image_list=[file for file in image_path_parent.iterdir() if file.suffix in image_path.suffix]
+
+                if subfolder:
+                    image_list = list(image_path_parent.rglob('*' + image_path.suffix))
+                elif single_image:
+                    image_list = [image_path]
+                else:
+                    image_list = list(image_path_parent.glob('*' + image_path.suffix))
+
+                try:
+                    image = image_loader(image_list[0].as_posix())
+                except:
+                    msg = QMessageBox(self, text="Sorry, seems not to be a valid image format")
+                    msg.setWindowTitle('Warning')
+                    # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
+                    msg.exec_()
+                    print("Image loading failed. No supported image format: " + image_path.suffix)
+                    self.db.is_locked = False
+                    return
+
                 added_images = []
-                for image in image_path_parent.rglob('*' + image_path.suffix):
+                for image in image_list:
 
                     image_id = self.db.db_store_image(image)
                     if image_id >= 0:
@@ -1013,7 +1066,7 @@ class MainWindow(QMainWindow):
                 len_image_list = len(added_images)
                 self.len_image_list = len_image_list
 
-                print("\tFound nr. of image: ", len_image_list)
+                print("\tFound nr. of images: ", len_image_list)
                 # self.ui.lbl_image_nr.setText(str(len_image_list))
 
                 if len_image_list > 0:
@@ -1175,5 +1228,5 @@ if __name__ == "__main__":
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication()
     window = MainWindow()
-    app.setWindowIcon(QtGui.QIcon("app/icons/top_icon.png"))
+    app.setWindowIcon(QtGui.QIcon("app/icons/icon.png"))
     sys.exit(app.exec_())

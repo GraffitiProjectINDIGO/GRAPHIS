@@ -7,13 +7,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1268</width>
+    <width>1125</width>
     <height>1000</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1125</width>
     <height>1000</height>
    </size>
   </property>
@@ -532,6 +532,12 @@ QToolTip {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>1120</width>
+     <height>1000</height>
+    </size>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: transparent;
 color: rgb(210, 210, 210);</string>
@@ -554,6 +560,12 @@ color: rgb(210, 210, 210);</string>
     </property>
     <item>
      <widget class="QFrame" name="frame_main">
+      <property name="minimumSize">
+       <size>
+        <width>1120</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="styleSheet">
        <string notr="true">/* LINE EDIT */
 QLineEdit {
@@ -797,7 +809,7 @@ QPlainTextEdit:focus {
         <widget class="QFrame" name="frame_top">
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>1120</width>
            <height>40</height>
           </size>
          </property>
@@ -832,42 +844,6 @@ QPlainTextEdit:focus {
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <widget class="QFrame" name="frame_toggle">
-            <property name="maximumSize">
-             <size>
-              <width>70</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(27, 29, 35);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-            </layout>
-           </widget>
-          </item>
           <item>
            <widget class="QFrame" name="frame_top_right">
             <property name="maximumSize">
@@ -910,7 +886,7 @@ QPlainTextEdit:focus {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgba(27, 29, 35, 200)</string>
+                <string notr="true">background-color: rgba(27, 29, 35, 255)</string>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -965,9 +941,18 @@ QPlainTextEdit:focus {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QWidget" name="widget_icon_top_bar" native="true">
-                     <property name="enabled">
-                      <bool>true</bool>
+                    <widget class="QLabel" name="label_6">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>35</width>
+                       <height>30</height>
+                      </size>
                      </property>
                      <property name="maximumSize">
                       <size>
@@ -975,12 +960,14 @@ QPlainTextEdit:focus {
                        <height>30</height>
                       </size>
                      </property>
-                     <property name="styleSheet">
-                      <string notr="true">background: transparent;
-background-image:url(:/icons/icons/top_icon.png);
-background-position: center;
-background-repeat: no-repeat;
-</string>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap resource="files.qrc">:/icons/icons/INDIGO_logoGRAPHIS.png</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
@@ -1072,7 +1059,7 @@ background-repeat: no-repeat;
                       <item>
                        <widget class="SPINNINGWaiter" name="waiting_spinner" native="true">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
@@ -1100,15 +1087,21 @@ background-repeat: no-repeat;
                    </item>
                    <item>
                     <widget class="QLabel" name="lbl_sqlite_name">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
-                       <width>900</width>
+                       <width>0</width>
                        <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>900</width>
+                       <width>2000</width>
                        <height>16777215</height>
                       </size>
                      </property>
@@ -1133,6 +1126,12 @@ background-repeat: no-repeat;
                    </item>
                    <item>
                     <widget class="QLabel" name="label_title_bar_top">
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>31</height>
+                      </size>
+                     </property>
                      <property name="font">
                       <font>
                        <family>Segoe UI</family>
@@ -1149,7 +1148,13 @@ background-repeat: no-repeat;
 </string>
                      </property>
                      <property name="text">
-                      <string>GraffiLabel</string>
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap resource="files.qrc">:/icons/icons/INDIGO_logoGRAPHIS_text.png</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1346,6 +1351,12 @@ QPushButton:pressed {
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>1120</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(40, 44, 52);</string>
@@ -2211,7 +2222,7 @@ QTabBar::tab:!selected {
                       <enum>QTabWidget::South</enum>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>0</number>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -3164,7 +3175,7 @@ QTabBar::tab:!selected {
 </string>
                           </property>
                           <property name="currentIndex">
-                           <number>2</number>
+                           <number>0</number>
                           </property>
                           <widget class="QWidget" name="tab_7">
                            <attribute name="title">
@@ -3843,7 +3854,7 @@ QTreeView::branch:open:has-children:has-siblings  {
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </attribute>
                       </widget>
                      </item>
@@ -3990,6 +4001,9 @@ QTreeView::branch:open:has-children:has-siblings  {
 
 </string>
                        </property>
+                       <property name="sizeAdjustPolicy">
+                        <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                       </property>
                        <property name="editTriggers">
                         <set>QAbstractItemView::NoEditTriggers</set>
                        </property>
@@ -3998,6 +4012,9 @@ QTreeView::branch:open:has-children:has-siblings  {
                        </property>
                        <property name="selectionMode">
                         <enum>QAbstractItemView::NoSelection</enum>
+                       </property>
+                       <property name="horizontalScrollMode">
+                        <enum>QAbstractItemView::ScrollPerPixel</enum>
                        </property>
                        <property name="indentation">
                         <number>40</number>
@@ -4015,7 +4032,7 @@ QTreeView::branch:open:has-children:has-siblings  {
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </attribute>
                       </widget>
                      </item>
@@ -4134,10 +4151,16 @@ QTreeView::branch:open:has-children:has-siblings  {
                    <string notr="true">color: rgb(98, 103, 111);</string>
                   </property>
                   <property name="text">
-                   <string>GraffiLabel</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Graphis @ Indigo 2023 - https://projectindigo.eu/&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::RichText</enum>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
