@@ -357,34 +357,14 @@ class Ui_MainWindow(object):
         self.frame_top.setObjectName(u"frame_top")
         self.frame_top.setMinimumSize(QSize(1120, 40))
         self.frame_top.setMaximumSize(QSize(16777215, 40))
-        self.frame_top.setStyleSheet(u"background-color: transparent;")
+        self.frame_top.setStyleSheet(u"background-color:rgb(85, 85, 85)")
         self.frame_top.setFrameShape(QFrame.NoFrame)
         self.frame_top.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_top)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.frame_top_right = QFrame(self.frame_top)
-        self.frame_top_right.setObjectName(u"frame_top_right")
-        self.frame_top_right.setMaximumSize(QSize(16777215, 50))
-        self.frame_top_right.setStyleSheet(u"background: transparent;")
-        self.frame_top_right.setFrameShape(QFrame.NoFrame)
-        self.frame_top_right.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_2 = QVBoxLayout(self.frame_top_right)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.frame_top_btns = QFrame(self.frame_top_right)
-        self.frame_top_btns.setObjectName(u"frame_top_btns")
-        self.frame_top_btns.setMaximumSize(QSize(16777215, 42))
-        self.frame_top_btns.setStyleSheet(u"background-color: rgba(27, 29, 35, 255)")
-        self.frame_top_btns.setFrameShape(QFrame.NoFrame)
-        self.frame_top_btns.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_4 = QHBoxLayout(self.frame_top_btns)
-        self.horizontalLayout_4.setSpacing(0)
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.frame_label_top_btns = QFrame(self.frame_top_btns)
+        self.frame_label_top_btns = QFrame(self.frame_top)
         self.frame_label_top_btns.setObjectName(u"frame_label_top_btns")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -396,20 +376,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10 = QHBoxLayout(self.frame_label_top_btns)
         self.horizontalLayout_10.setSpacing(6)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
-        self.label_6 = QLabel(self.frame_label_top_btns)
-        self.label_6.setObjectName(u"label_6")
+        self.horizontalLayout_10.setContentsMargins(5, 0, 0, 0)
+        self.lbl_icon = QLabel(self.frame_label_top_btns)
+        self.lbl_icon.setObjectName(u"lbl_icon")
         sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy1)
-        self.label_6.setMinimumSize(QSize(35, 30))
-        self.label_6.setMaximumSize(QSize(30, 30))
-        self.label_6.setPixmap(QPixmap(u":/icons/icons/INDIGO_logoGRAPHIS.png"))
-        self.label_6.setScaledContents(True)
+        sizePolicy1.setHeightForWidth(self.lbl_icon.sizePolicy().hasHeightForWidth())
+        self.lbl_icon.setSizePolicy(sizePolicy1)
+        self.lbl_icon.setMinimumSize(QSize(35, 30))
+        self.lbl_icon.setMaximumSize(QSize(30, 30))
+        self.lbl_icon.setPixmap(QPixmap(u":/icons/icons/INDIGO_logoGRAPHIS.png"))
+        self.lbl_icon.setScaledContents(True)
 
-        self.horizontalLayout_10.addWidget(self.label_6)
+        self.horizontalLayout_10.addWidget(self.lbl_icon)
 
         self.toolButton = QToolButton(self.frame_label_top_btns)
         self.toolButton.setObjectName(u"toolButton")
@@ -431,18 +411,18 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addWidget(self.toolButton)
 
-        self.frame_12 = QFrame(self.frame_label_top_btns)
-        self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMaximumSize(QSize(40, 16777215))
-        self.frame_12.setStyleSheet(u"background: transparent;\n"
+        self.frame_spinner = QFrame(self.frame_label_top_btns)
+        self.frame_spinner.setObjectName(u"frame_spinner")
+        self.frame_spinner.setMaximumSize(QSize(40, 16777215))
+        self.frame_spinner.setStyleSheet(u"background: transparent;\n"
 "")
-        self.frame_12.setFrameShape(QFrame.StyledPanel)
-        self.frame_12.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_8 = QHBoxLayout(self.frame_12)
+        self.frame_spinner.setFrameShape(QFrame.StyledPanel)
+        self.frame_spinner.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_8 = QHBoxLayout(self.frame_spinner)
         self.horizontalLayout_8.setSpacing(0)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.waiting_spinner = SPINNINGWaiter(self.frame_12)
+        self.waiting_spinner = SPINNINGWaiter(self.frame_spinner)
         self.waiting_spinner.setObjectName(u"waiting_spinner")
         sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
@@ -457,7 +437,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.waiting_spinner)
 
 
-        self.horizontalLayout_10.addWidget(self.frame_12)
+        self.horizontalLayout_10.addWidget(self.frame_spinner)
 
         self.lbl_sqlite_name = QLabel(self.frame_label_top_btns)
         self.lbl_sqlite_name.setObjectName(u"lbl_sqlite_name")
@@ -477,7 +457,7 @@ class Ui_MainWindow(object):
 
         self.label_title_bar_top = QLabel(self.frame_label_top_btns)
         self.label_title_bar_top.setObjectName(u"label_title_bar_top")
-        self.label_title_bar_top.setMaximumSize(QSize(200, 31))
+        self.label_title_bar_top.setMaximumSize(QSize(150, 23))
         font2 = QFont()
         font2.setFamily(u"Segoe UI")
         font2.setPointSize(12)
@@ -493,13 +473,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.addWidget(self.label_title_bar_top)
 
 
-        self.horizontalLayout_4.addWidget(self.frame_label_top_btns)
+        self.horizontalLayout_3.addWidget(self.frame_label_top_btns)
 
-        self.frame_btns_right = QFrame(self.frame_top_btns)
+        self.frame_btns_right = QFrame(self.frame_top)
         self.frame_btns_right.setObjectName(u"frame_btns_right")
         sizePolicy.setHeightForWidth(self.frame_btns_right.sizePolicy().hasHeightForWidth())
         self.frame_btns_right.setSizePolicy(sizePolicy)
         self.frame_btns_right.setMaximumSize(QSize(120, 16777215))
+        self.frame_btns_right.setStyleSheet(u"")
         self.frame_btns_right.setFrameShape(QFrame.NoFrame)
         self.frame_btns_right.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_5 = QHBoxLayout(self.frame_btns_right)
@@ -576,13 +557,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addWidget(self.btn_close)
 
 
-        self.horizontalLayout_4.addWidget(self.frame_btns_right, 0, Qt.AlignRight)
-
-
-        self.verticalLayout_2.addWidget(self.frame_top_btns)
-
-
-        self.horizontalLayout_3.addWidget(self.frame_top_right)
+        self.horizontalLayout_3.addWidget(self.frame_btns_right)
 
 
         self.verticalLayout.addWidget(self.frame_top)
@@ -1101,6 +1076,8 @@ class Ui_MainWindow(object):
         font4.setPointSize(10)
         self.txt_user_name.setFont(font4)
         self.txt_user_name.setStyleSheet(u"background-color: rgb(52, 70, 72);")
+        self.txt_user_name.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.txt_user_name.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.formLayout_4.setWidget(0, QFormLayout.FieldRole, self.txt_user_name)
 
@@ -1114,6 +1091,8 @@ class Ui_MainWindow(object):
         self.txt_user_indent.setObjectName(u"txt_user_indent")
         self.txt_user_indent.setFont(font4)
         self.txt_user_indent.setStyleSheet(u"background-color: rgb(52, 70, 72);")
+        self.txt_user_indent.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.txt_user_indent.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.txt_user_indent)
 
@@ -1913,12 +1892,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.frame_main)
 
         MainWindow.setCentralWidget(self.centralwidget)
-        QWidget.setTabOrder(self.btn_minimize, self.btn_maximize_restore)
-        QWidget.setTabOrder(self.btn_maximize_restore, self.btn_close)
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_3.setCurrentIndex(0)
 
@@ -1928,7 +1905,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label_6.setText("")
+        self.lbl_icon.setText("")
         self.toolButton.setText(QCoreApplication.translate("MainWindow", u"MENU", None))
         self.lbl_sqlite_name.setText("")
 #if QT_CONFIG(tooltip)

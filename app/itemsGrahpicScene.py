@@ -25,7 +25,7 @@ from app.var_classes import color_on_image_hoover, list_of_points_to_list
 
 
 class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
-    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=12):
+    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=3):
         super(RectangleAnnotation, self).__init__(parent)
         self.start_point_x = 0
         self.start_point_y = 0
@@ -47,8 +47,9 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
         self.pen_width = pen_width
-
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         self.setBrush(self.color)
 
     def set_color(self, color):
@@ -56,7 +57,9 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
         self.color.setAlpha(0)
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         self.setBrush(self.color)
 
     def start_rectangle(self, p):
@@ -133,18 +136,22 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
     def hoverEnterEvent(self, event):
         self.mouse_hoover = True
         self.setBrush(color_on_image_hoover)
-        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width))
+        p = QtGui.QPen(QtGui.QColor("green"), self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(RectangleAnnotation, self).hoverEnterEvent(event)
 
     def hoverLeaveEvent(self, event):
         self.mouse_hoover = False
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(RectangleAnnotation, self).hoverLeaveEvent(event)
 
 
 class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
-    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=12):
+    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=3):
         super(PointAnnotation, self).__init__(parent)
         self.setZValue(10)
         self.setAcceptHoverEvents(True)
@@ -161,8 +168,10 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
         self.pen_width = pen_width
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
 
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
         self.setBrush(self.color)
 
     def set_radius_from_position(self, position):
@@ -220,22 +229,28 @@ class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
         self.color.setAlpha(0)
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         self.setBrush(self.color)
 
     def hoverEnterEvent(self, event):
         self.setBrush(color_on_image_hoover)
-        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width))
+        p = QtGui.QPen(QtGui.QColor("green"), self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(PointAnnotation, self).hoverEnterEvent(event)
 
     def hoverLeaveEvent(self, event):
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(PointAnnotation, self).hoverLeaveEvent(event)
 
 
 class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
-    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=12):
+    def __init__(self, parent=None, color=None, obj_id=0, image_id=0, object_type='', pen_width=3):
         super(PolygonAnnotation, self).__init__(parent)
         self.m_points = []
         self.setZValue(10)
@@ -256,8 +271,9 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
         self.pen_width = pen_width
-
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         self.setBrush(self.color)
 
     def set_color(self, color):
@@ -265,7 +281,9 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
         self.color.setAlpha(0)
         self.color_no_Alpha = QtGui.QColor(color)
         self.color_no_Alpha.setAlpha(255)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         self.setBrush(self.color)
 
     def move(self, vector):
@@ -350,10 +368,14 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
 
     def hoverEnterEvent(self, event):
         self.setBrush(color_on_image_hoover)
-        self.setPen(QtGui.QPen(QtGui.QColor("green"), self.pen_width))
+        p = QtGui.QPen(QtGui.QColor("green"), self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(PolygonAnnotation, self).hoverEnterEvent(event)
 
     def hoverLeaveEvent(self, event):
         self.setBrush(self.color)
-        self.setPen(QtGui.QPen(self.color_no_Alpha, self.pen_width))
+        p = QtGui.QPen(self.color_no_Alpha, self.pen_width)
+        p.setCosmetic(True)
+        self.setPen(p)
         super(PolygonAnnotation, self).hoverLeaveEvent(event)

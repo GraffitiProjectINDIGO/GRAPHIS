@@ -15,10 +15,10 @@
 #
 
 from PySide2 import QtWidgets
-from PySide2.QtCore import Signal, QPointF
+from PySide2.QtCore import Signal, QPointF, SignalInstance
 from PySide2.QtGui import QPolygonF
 from PySide2 import QtCore, QtGui
-from shapely import geometry
+
 
 from app.db_handler import DBHandler
 from app.image_loader import image_loader
@@ -29,10 +29,10 @@ point_size = 20
 
 
 class DIGITIZERScene(QtWidgets.QGraphicsScene):
-    object_att = Signal(int)
-    object_add = Signal(int)
-    change_object = Signal(int)
-    message_no_valid = Signal()
+    object_att: SignalInstance = Signal(int)
+    object_add: SignalInstance = Signal(int)
+    change_object: SignalInstance = Signal(int)
+    message_no_valid: SignalInstance = Signal()
 
     def __init__(self, parent=None):
         super(DIGITIZERScene, self).__init__(parent)
@@ -62,6 +62,15 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                 if item.obj_id == item_id:
                     self.removeItem(item)
 
+    def clear_image(self):
+
+        if self.items():
+            self.clear()
+            self.instruction_active = False
+
+        self.image_width = 0
+        self.image_height = 0
+
     def open_image(self, filename):
 
         if self.items():
@@ -73,6 +82,21 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
         self.addItem(self.image_item)
 
         pix_map = image_loader(filename)
+        self.image_width = pix_map.width()
+        self.image_height = pix_map.height()
+        self.image_item.setPixmap(pix_map)
+        self.setSceneRect(self.image_item.boundingRect())
+
+    def change_image(self, pix_map: QtGui.QPixmap):
+
+        if self.items():
+            self.clear()
+            self.instruction_active = False
+
+        self.image_item = QtWidgets.QGraphicsPixmapItem()
+        self.image_item.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+        self.addItem(self.image_item)
+
         self.image_width = pix_map.width()
         self.image_height = pix_map.height()
         self.image_item.setPixmap(pix_map)
@@ -281,10 +305,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                     if event.button() == QtCore.Qt.LeftButton:
 
                         if self.polygon_item.polygon().length() > 2:
-                            p = self.polygon_item.polygon().toList()
-                            #o = [[x.x(), x.y()] for x in p]
-                            #i = geometry.Polygon(o)
-                            # print(i.is_valid)
+
                             if self.polygon_item.is_valid():
                                 self.instruction_active = False
 
@@ -309,15 +330,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                         poly = self.polygon_item.polygon()
                         poly.append(event.scenePos())
-                        if len(poly) > 2:
-                            p = poly.toList()
-                            o = [[x.x(), x.y()] for x in p]
-                            i = geometry.Polygon(o)
-                            # print(i.is_valid)
-                            #if i.is_valid:
-                            self.polygon_item.setPolygon(poly)
-                        else:
-                            self.polygon_item.setPolygon(poly)
+                        self.polygon_item.setPolygon(poly)
 
                 # Finish Rectangle
                 if self.current_instruction == Instructions.Rectangle_Instruction:

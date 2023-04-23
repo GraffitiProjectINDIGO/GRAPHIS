@@ -799,7 +799,7 @@ QSlider::handle:vertical:pressed {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgba(27, 29, 35, 255)</string>
+         <string notr="true">background-color:rgb(85, 85, 85);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -811,15 +811,15 @@ QSlider::handle:vertical:pressed {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>5</y>
-           <width>200</width>
-           <height>31</height>
+           <y>10</y>
+           <width>150</width>
+           <height>23</height>
           </rect>
          </property>
          <property name="maximumSize">
           <size>
-           <width>200</width>
-           <height>31</height>
+           <width>150</width>
+           <height>23</height>
           </size>
          </property>
          <property name="font">
@@ -855,7 +855,7 @@ color: rgb(250, 250, 250);</string>
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:rgb(84, 89, 100);</string>
+         <string notr="true">background-color: rgb(40, 44, 52);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>

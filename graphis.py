@@ -26,7 +26,7 @@ import csv
 
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtWidgets import *
-from PySide2.QtCore import Slot, SignalInstance
+from PySide2.QtCore import Slot, SignalInstance, QThreadPool
 from PySide2.QtGui import (QColor, Qt, QPixmap)
 
 from exiftool import ExifTool
@@ -92,12 +92,12 @@ class Worker(QtCore.QRunnable):
         self.kwargs = kwargs
         self.signals = WorkerSignal()
 
-    @QtCore.Slot()
+    @Slot()
     def run(self):
         try:
             result = self.fn(*self.args, **self.kwargs, )
         except:
-            traceback.print_exc()
+            # traceback.print_exc()
             exec_type, value = sys.exc_info()[:2]
             self.signals.error.emit((exec_type, value, traceback.format_exc()))
         else:
@@ -110,7 +110,8 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
 
         # try to load config File
-        self.config_success, self.config_default, self.config_polygon, self.config_rectangle, self.config_circle = load_config()
+        self.config_success, self.config_default, self.config_polygon, \
+            self.config_rectangle, self.config_circle = load_config()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.label_version.setText(str(__version__))
@@ -172,7 +173,9 @@ class MainWindow(QMainWindow):
         self.ui.btn_close.clicked.connect(lambda: self.close())
 
         # MultiThread
-        self.thread_pool = QtCore.QThreadPool()
+        self.thread_pool = QThreadPool.globalInstance()
+        self.thread_pool.setMaxThreadCount(4)
+        print("Multithreading with maximum %d threads" % self.thread_pool.maxThreadCount())
 
         self.ui.image_region_view.setAlternatingRowColors(True)
         self.model_image_region = JsonModel()
@@ -188,7 +191,7 @@ class MainWindow(QMainWindow):
         self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.Stretch)
         self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-       #
+        #
 
         # Redirect Logger
         stdout = OutputWrapper(self, True)
@@ -262,6 +265,11 @@ class MainWindow(QMainWindow):
         self.rectangle_visible = True
         self.circle_visible = True
         self.polygon_visible = True
+        self.image_loading = False
+        self.image_loading_image_id_db = 0
+        self.image_loading_name_path = ''
+        self.image_loading_name = ''
+        self.image_importer_list = []
 
         # ------------------------------------------------------------------------------------------------------------
         # EVENTS #
@@ -312,8 +320,6 @@ class MainWindow(QMainWindow):
         self.ui.btn_expand_all.clicked.connect(self.ui.image_region_view.expandAll)
         self.ui.btn_collapse_all.clicked.connect(self.ui.image_region_view.collapseAll)
 
-        #head.setSectionResizeMode(2, QHeaderView.ResizeToContents)
-
         self.ui.btn_expand_all_all_region.clicked.connect(self.ui.image_all_region.expandAll)
         self.ui.btn_collapse_all_all_region.clicked.connect(self.ui.image_all_region.collapseAll)
 
@@ -342,6 +348,90 @@ class MainWindow(QMainWindow):
         self.ui.waiting_spinner.stop()
         self.db.is_locked = False
 
+    @Slot(bool)
+    def thread_output(self, success: bool):
+
+        if success:
+            self.clean_all_views_and_tables(db_save=True)
+            self.loader_all()
+
+        self.ui.waiting_spinner.stop()
+        self.db.is_locked = False
+
+    @Slot(object)
+    def thread_output_image_loader(self, pixmap):
+        self.digitizer_scene.change_image(pixmap)
+        self.set_image_meta_and_display_meta()
+        self.ui.waiting_spinner.stop()
+        self.image_loading = False
+
+    def thread_output_image_importer(self):
+        added_images = []
+        failed_images = 0
+        for image in self.image_importer_list:
+
+            image_id = self.db.db_store_image(image)
+            if image_id >= 0:
+                self.image_list.append([image, image_id])
+                added_images.append([image, image_id])
+            else:
+                failed_images += 1
+
+        len_image_list = len(added_images)
+        self.len_image_list = len_image_list
+
+        if failed_images:
+            print(f"\t\t{failed_images} images ignored (e.g already imported)")
+        # self.ui.lbl_image_nr.setText(str(len_image_list))
+
+        if len_image_list > 0:
+            print(f"\t\tStart to import {len_image_list} images")
+            worker = Worker(add_preview, added_images, self.db, self.user,
+                            self.config_default['CONTRIBUTOR_TAG'])
+            worker.signals.result.connect(self.thread_output)
+            self.ui.waiting_spinner.start()
+            self.thread_pool.start(worker)
+        else:
+            self.db.is_locked = False
+            self.ui.waiting_spinner.stop()
+
+    @Slot(tuple)
+    def thread_output_image_error(self, error):
+
+        msg = QMessageBox(self, text="Sorry, seems not to be a valid image format")
+        msg.setWindowTitle('Warning')
+        # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
+        msg.exec_()
+        print("Image loading failed. No supported image format: " + self.image_importer_list[0].suffix)
+        self.db.is_locked = False
+        self.ui.waiting_spinner.stop()
+
+    def set_image_meta_and_display_meta(self):
+        self.ui.view_digizizer.fitInView(self.digitizer_scene.image_item, QtCore.Qt.KeepAspectRatio)
+        self.digitizer_scene.image_id_db = self.image_loading_image_id_db
+        self.ui.lbl_image_name.setText(self.image_loading_name_path)
+
+        string_wrap = self.image_loading_name
+        if len(string_wrap) > 110:
+            string_wrap = string_wrap[:110] + '\n' + string_wrap[110:]
+
+        self.ui.lbl_image_path.setText(string_wrap)
+        self.current_image = {'id': self.image_loading_image_id_db - 1, 'name': self.image_loading_name_path}
+        data = self.db.db_load_objects_image(self.image_loading_image_id_db)
+
+        if data:
+            for element in data:
+                data = json.loads(element["data"])
+                if element["object_type"] == 'rectangle':
+                    color = self.color_rectangle
+                elif element["object_type"] == 'circle':
+                    color = self.color_circle
+                else:
+                    color = self.color_polygon
+                self.digitizer_scene.add_object(element["object_type"], data, element['id'], color)
+
+            self.image_region_view_load_all_image()
+
     # ----------------------------------------------------------
     # Functions
 
@@ -352,24 +442,15 @@ class MainWindow(QMainWindow):
             self.ui.horizontalLayout.setContentsMargins(0, 0, 0, 0)
             self.ui.btn_maximize_restore.setToolTip("Restore")
             self.ui.btn_maximize_restore.setIcon(QtGui.QIcon(u":/icons/icons/cil-window-restore.png"))
-            self.ui.frame_top_btns.setStyleSheet("background-color: rgb(27, 29, 35)")
             self.ui.frame_size_grip.hide()
         else:
             self.showNormal()
             self.resize(self.width() + 1, self.height() + 1)
-            self.ui.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.ui.horizontalLayout.setContentsMargins(0, 0, 0, 0)
             self.ui.btn_maximize_restore.setToolTip("Maximize")
             self.ui.btn_maximize_restore.setIcon(QtGui.QIcon(u":/icons/icons/cil-window-maximize.png"))
-            self.ui.frame_top_btns.setStyleSheet("background-color: rgba(27, 29, 35, 200)")
             self.ui.frame_size_grip.show()
 
-    # def eventFilter(self, source, event):
-    #	 return False
-
-    # EVENT - KEY PRESSED
-    # def keyPressEvent(self, event):
-    #    super(MainWindow, self).keyPressEvent(event)
-    # EVENT - MOUSE CLICK
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
         focused_widget = self.focusWidget()
@@ -412,48 +493,29 @@ class MainWindow(QMainWindow):
         self.ui.image_all_region.setModel(self.model_image_region_all)
         self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        #self.ui.image_all_region.resizeColumnToContents(1)
+        # self.ui.image_all_region.resizeColumnToContents(1)
 
     def scene_load_image(self, index):
 
-        self.clear_entries()
-        self.digitizer_scene.current_instruction = Instructions.No_Instruction
-        self.digitizer_scene.instruction_active = False
-        self.digitizer_scene.clear()
+        if not self.image_loading:
+            self.image_loading = True
+            self.clear_entries()
+            self.digitizer_scene.current_instruction = Instructions.No_Instruction
+            self.digitizer_scene.instruction_active = False
+            self.digitizer_scene.clear()
 
-        self.model_image_region.clear()
-        self.model_image_region_all.clear()
-        self.current_item = None
+            self.model_image_region.clear()
+            self.model_image_region_all.clear()
+            self.current_item = None
 
-        # set icon of hiding for objects
-        # self.ui.radio_show_polygon.setChecked(False)
-        # self.ui.btn.setChecked(False)
-
-        self.digitizer_scene.open_image(index.data(Qt.UserRole))
-        self.ui.view_digizizer.fitInView(self.digitizer_scene.image_item, QtCore.Qt.KeepAspectRatio)
-        self.digitizer_scene.image_id_db = index.data(Qt.UserRole + 1)
-        self.ui.lbl_image_name.setText(index.data(Qt.ToolTipRole))
-
-        string_wrap = index.data(Qt.UserRole)
-        if len(string_wrap) > 110:
-            string_wrap = string_wrap[:110] + '\n' + string_wrap[110:]
-
-        self.ui.lbl_image_path.setText(string_wrap)
-        self.current_image = {'id': index.data(Qt.UserRole + 1) - 1, 'name': index.data(Qt.ToolTipRole)}
-        data = self.db.db_load_objects_image(index.data(Qt.UserRole + 1))
-
-        if data:
-            for element in data:
-                data = json.loads(element["data"])
-                if element["object_type"] == 'rectangle':
-                    color = self.color_rectangle
-                elif element["object_type"] == 'circle':
-                    color = self.color_circle
-                else:
-                    color = self.color_polygon
-                self.digitizer_scene.add_object(element["object_type"], data, element['id'], color)
-
-            self.image_region_view_load_all_image()
+            self.digitizer_scene.clear_image()
+            worker = Worker(image_loader, index.data(Qt.UserRole))
+            worker.signals.result.connect(self.thread_output_image_loader)
+            self.image_loading_image_id_db = index.data(Qt.UserRole + 1)
+            self.image_loading_name_path = index.data(Qt.ToolTipRole)
+            self.image_loading_name = index.data(Qt.UserRole)
+            self.thread_pool.start(worker)
+            self.ui.waiting_spinner.start()
 
     def change_visibility(self, objects_type):
         self.digitizer_scene.hide_item(objects_type)
@@ -575,14 +637,14 @@ class MainWindow(QMainWindow):
                         temp_user_indent = ''
                         temp_user_name = ''
                     data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
-                                            self.get_config_role(object_type, 'transcriber_role'),
-                                            temp_user_indent,
-                                            temp_user_name)
+                                         self.get_config_role(object_type, 'transcriber_role'),
+                                         temp_user_indent,
+                                         temp_user_name)
 
                 # Old code to append
-                #success, idx = find_key_role(data, self.config_default["CONTRIBUTOR_TAG"],
+                # success, idx = find_key_role(data, self.config_default["CONTRIBUTOR_TAG"],
                 #                             self.get_config_role(object_type, 'describer_role'))
-                #if success:
+                # if success:
                 #
                 #    if describer_text != data.get(self.config_default["TAG_DESCRIBER"], ''):
                 #
@@ -590,7 +652,7 @@ class MainWindow(QMainWindow):
                 #                             self.get_config_role(object_type, 'describer_modifier_role'),
                 #                             descr_ident,
                 #                             descr_name)
-                #else:
+                # else:
                 #
                 #    if describer_text:
                 #        data = put_struc_tag(data, self.config_default["CONTRIBUTOR_TAG"],
@@ -701,10 +763,10 @@ class MainWindow(QMainWindow):
 
         self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
 
-
     @Slot()
     def message_no_valid_polygon(self):
-        msg = QMessageBox(self, text="That was not a valid polygon\nEither not enough points (min 3) or self intersecting")
+        msg = QMessageBox(self,
+                          text="That was not a valid polygon\nEither not enough points (min 3) or self intersecting")
         msg.setWindowTitle('Warning')
         # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
         msg.exec_()
@@ -730,7 +792,7 @@ class MainWindow(QMainWindow):
         # datetime.now().strftime('%y%j%H%M%S')
         dt = datetime.datetime.now().strftime('%y%m%dT%H:%M:%S')
         rid = image.stem + '_' + dt
-        name_region = self.get_config_role(data['object_type'], 'region_name_prefix') # + dt
+        name_region = self.get_config_role(data['object_type'], 'region_name_prefix')  # + dt
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'RId', rid)
         img_region_dict = put_text_to_dict_or_remove(img_region_dict, 'Name', name_region)
 
@@ -902,7 +964,7 @@ class MainWindow(QMainWindow):
     def load_existing_db(self):
         if not self.db.is_locked:
             self.digitizer_scene.instruction_active = False
-            db_path, _ = QtWidgets.QFileDialog.getOpenFileName(caption="Load Database",
+            db_path, _ = QFileDialog.getOpenFileName(caption="Load Database",
                                                                dir='.', filter='SQLITE Files (*.sqlite)')
             # clear scene GIS and digitizer
             self.clean_all_views_and_tables()
@@ -994,7 +1056,7 @@ class MainWindow(QMainWindow):
             self.clear_entries()
             self.model_image_region.clear()
             self.digitizer_scene.instruction_active = False
-            db_path, _ = QtWidgets.QFileDialog.getSaveFileName(caption="Create Database",
+            db_path, _ = QFileDialog.getSaveFileName(caption="Create Database",
                                                                dir='.', filter='SQLITE Files (*.sqlite)')
 
             self.clean_all_views_and_tables()
@@ -1019,7 +1081,6 @@ class MainWindow(QMainWindow):
                     self.ui.table_preview.setModel(self.model)
                     self.ui.lbl_sqlite_name.setText(path.name)
 
-
         else:
             print('Database is locked')
 
@@ -1027,9 +1088,10 @@ class MainWindow(QMainWindow):
 
         if self.db.db_is_set and not self.db.is_locked:
             self.db.is_locked = True
-            image_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, caption="Click on one image. Only same file formats are imported")
+            image_path, _ = QFileDialog.getOpenFileName(self, caption="Click on one image. Only same file formats are "
+                                                                      "imported")
             if image_path:
-                print("Read image folder")
+                print("Importing images")
                 image_path = Path(image_path)
 
                 image_path_parent = image_path.parent
@@ -1042,48 +1104,19 @@ class MainWindow(QMainWindow):
                 else:
                     image_list = list(image_path_parent.glob('*' + image_path.suffix))
 
-                try:
-                    image = image_loader(image_list[0].as_posix())
-                except:
-                    msg = QMessageBox(self, text="Sorry, seems not to be a valid image format")
-                    msg.setWindowTitle('Warning')
-                    # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
-                    msg.exec_()
-                    print("Image loading failed. No supported image format: " + image_path.suffix)
-                    self.db.is_locked = False
-                    return
+                worker = Worker(image_loader, image_list[0].as_posix())
+                worker.signals.result.connect(self.thread_output_image_importer)
+                worker.signals.error.connect(self.thread_output_image_error)
+                self.image_importer_list = image_list
+                self.thread_pool.start(worker)
+                self.ui.waiting_spinner.start()
+                # image = image_loader(image_list[0].as_posix())
 
-                added_images = []
-                for image in image_list:
-
-                    image_id = self.db.db_store_image(image)
-                    if image_id >= 0:
-                        self.image_list.append([image, image_id])
-                        added_images.append([image, image_id])
-                    else:
-                        print("Image could not be stored in DB")
-
-                len_image_list = len(added_images)
-                self.len_image_list = len_image_list
-
-                print("\tFound nr. of images: ", len_image_list)
-                # self.ui.lbl_image_nr.setText(str(len_image_list))
-
-                if len_image_list > 0:
-
-                    worker = Worker(add_preview, added_images, self.db, self.user,
-                                    self.config_default['CONTRIBUTOR_TAG'])
-                    worker.signals.result.connect(self.thread_output)
-                    self.ui.waiting_spinner.start()
-                    self.thread_pool.start(worker)
-                else:
-                    self.db.is_locked = False
             else:
                 self.db.is_locked = False
         else:
             msg = QMessageBox(self, text="Seems no database is active or database is locked")
             msg.setWindowTitle('Warning')
-            # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
             msg.exec_()
 
     def save_image_regions(self, keep_orig=False):
@@ -1101,7 +1134,7 @@ class MainWindow(QMainWindow):
             objs = self.db.db_load_objects_all()
 
             if objs:
-                image_path, _ = QtWidgets.QFileDialog.getSaveFileName(caption="Export rectangle CSV",
+                image_path, _ = QFileDialog.getSaveFileName(caption="Export rectangle CSV",
                                                                       filter='CSV (*.csv)')
                 if image_path:
                     with open(image_path, 'w', newline='', encoding='utf-8') as fid:
@@ -1110,7 +1143,8 @@ class MainWindow(QMainWindow):
                                                 quoting=csv.QUOTE_MINIMAL)
 
                         csv_writer.writerow(['image', 'type', 'RId', 'UpperLeftX', 'UpperLeftY',
-                                             'Width', 'Height', 'Description', 'Transcription', 'Polygon'])
+                                             'Width', 'Height', self.config_default["TAG_DESCRIBER"],
+                                             self.config_default["TAG_TRANSCRIBER"], 'Polygon'])
                         for obj in objs:  #
 
                             image = obj['image_name']
@@ -1170,10 +1204,9 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
     try:
         et = ExifTool(r"app\bin\exiftool-12.52.exe")
         et.run()
-        print("Start running Exiftool")
     except OSError as err:
-        print("\tStart running Exiftool failed")
-        print("\tOS error:", err)
+        print("\t\tStart running Exiftool failed")
+        print("\t\tOS error:", err)
 
         return False
 
@@ -1195,7 +1228,7 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
             db.db_store_blob(fn[1], pix_map_bytes, img_width, img_height)
         else:
             db.db_store_size(fn[1], img_width, img_height)
-            print('Corrupt Image present. Scaling for Preview not possible')
+            print('\t\tCorrupt Image present. Scaling for Preview not possible')
 
         if et.running:
             exif_tags = et.execute_json(*["-struct", "-ImageRegion", fn[0].as_posix()])
@@ -1218,7 +1251,7 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
                 if len(not_used_region) > 0:
                     db.db_store_image_region(fn[1], orig_image_region=not_used_region)
         else:
-            print('\tSeems Exiftool is not running')
+            print('\t\tSeems Exiftool is not running')
 
     et.terminate()
     return True
