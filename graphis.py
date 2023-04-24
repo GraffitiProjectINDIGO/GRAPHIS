@@ -464,7 +464,7 @@ class MainWindow(QMainWindow):
         self.user_uri = user_uri
         self.ui.txt_user_name.setPlainText(user)
         self.ui.txt_user_indent.setPlainText(user_uri)
-        print('Welcome ' + self.user.upper() + '.\nEnjoy working with Graphis')
+        print('Welcome ' + self.user.upper() + '.\nEnjoy working with GRAPHIS')
         if not self.config_success:
             print('Config file is not proper set.\nFallback on malformed options')
         self.show()

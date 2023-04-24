@@ -2006,7 +2006,7 @@ class Ui_MainWindow(object):
         self.btn_expand_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
         self.btn_collapse_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"All region info", None))
-        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Graphis @ Indigo 2023 - https://projectindigo.eu/</p></body></html>", None))
+        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>GRAPHIS @ Indigo 2023 - https://projectindigo.eu/</p></body></html>", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"v1.2", None))
 #if QT_CONFIG(tooltip)
         self.frame_size_grip.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Change window size</p></body></html>", None))
