@@ -15,18 +15,18 @@
 #
 
 import math
-from PySide2.QtCore import (
+from PySide6.QtCore import (
     Qt,
     QAbstractTableModel,
     QSize,
     QRectF)
-from PySide2.QtGui import (
+from PySide6.QtGui import (
     QPainter,
     QFontMetricsF,
     QFont,
     QPainterPath,
     QColor)
-from PySide2.QtWidgets import QStyledItemDelegate
+from PySide6.QtWidgets import QStyledItemDelegate
 
 from app.var_classes import TEXT_MARGIN, THUMBNAIL_FOOTER_PADDING, THUMBNAIL_MARGIN, NUMBER_OF_COLUMNS, CELL_PADDING
 

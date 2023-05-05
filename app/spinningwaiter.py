@@ -23,11 +23,11 @@ SOFTWARE.
 
 import math
 
-from PySide2 import QtCore, QtGui
+from PySide6 import QtCore, QtGui
 from pathlib import Path
-from PySide2.QtGui import QColor, QPixmap, QPainter
-from PySide2.QtCore import QBuffer, QIODevice, Qt, QRect, QTimer
-from PySide2.QtWidgets import QWidget, QDialog
+from PySide6.QtGui import QColor, QPixmap, QPainter
+from PySide6.QtCore import QBuffer, QIODevice, Qt, QRect, QTimer
+from PySide6.QtWidgets import QWidget, QDialog
 
 
 class SPINNINGWaiter(QWidget):

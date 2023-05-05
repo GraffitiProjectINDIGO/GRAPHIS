@@ -19,9 +19,9 @@ from PIL import ImageQt
 from PIL import Image
 import rawpy
 from multiprocessing import Process, Queue
-from PySide2 import QtGui
-from PySide2.QtGui import QImageReader
-from PySide2.QtCore import SignalInstance
+from PySide6 import QtGui
+from PySide6.QtGui import QImageReader
+from PySide6.QtCore import SignalInstance
 
 Image.MAX_IMAGE_PIXELS = 9999999999999999999
 

@@ -18,9 +18,9 @@ import math
 import numpy
 from shapely import geometry
 
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (QPointF, QRect)
-from PySide2.QtGui import (QPolygonF)
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import (QPointF, QRect)
+from PySide6.QtGui import (QPolygonF)
 from app.var_classes import color_on_image_hoover, list_of_points_to_list
 
 
@@ -329,7 +329,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
 
         else:
             poly = self.polygon()
-            poly.replace(target_point, pos)
+            poly[target_point]= pos
             p = poly.toList()
             o = [[x.x(), x.y()] for x in p]
             i = geometry.Polygon(o)

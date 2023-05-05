@@ -14,10 +14,10 @@
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2 import QtWidgets
-from PySide2.QtCore import Signal, QPointF, SignalInstance
-from PySide2.QtGui import QPolygonF
-from PySide2 import QtCore, QtGui
+from PySide6 import QtWidgets
+from PySide6.QtCore import Signal, QPointF, SignalInstance, Qt
+from PySide6.QtGui import QPolygonF
+from PySide6 import QtGui
 
 
 from app.db_handler import DBHandler
@@ -78,7 +78,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
             self.instruction_active = False
 
         self.image_item = QtWidgets.QGraphicsPixmapItem()
-        self.image_item.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+        self.image_item.setCursor(QtGui.QCursor(Qt.CrossCursor))
         self.addItem(self.image_item)
 
         pix_map = image_loader(filename)
@@ -94,7 +94,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
             self.instruction_active = False
 
         self.image_item = QtWidgets.QGraphicsPixmapItem()
-        self.image_item.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+        self.image_item.setCursor(QtGui.QCursor(Qt.CrossCursor))
         self.addItem(self.image_item)
 
         self.image_width = pix_map.width()
@@ -189,7 +189,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
         self.addItem(new_item)
 
     def mouseDoubleClickEvent(self, event):
-        if not self.instruction_active and event.button() == QtCore.Qt.LeftButton:
+        if not self.instruction_active and event.button() == Qt.LeftButton:
             current_item = self.items(event.scenePos())
             if self.image_item in current_item:
                 current_item.remove(self.image_item)
@@ -210,11 +210,11 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
             # -----------------------------------------------------------------------------------------------
             # STACK CHANGE
-            if len(current_item) > 1 and not self.instruction_active and event.button() == QtCore.Qt.MiddleButton:
+            if len(current_item) > 1 and not self.instruction_active and event.button() == Qt.MiddleButton:
                 current_item[0].stackBefore(current_item[-1])
 
             # Move Instruction
-            if self.current_instruction == Instructions.Move_Instruction and event.button() == QtCore.Qt.RightButton:
+            if self.current_instruction == Instructions.Move_Instruction and event.button() == Qt.RightButton:
 
                 # start move instruction
                 if len(current_item) >= 1:
@@ -232,7 +232,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             self.instruction_active = False
 
             # Change instruction
-            if self.current_instruction == Instructions.Change_Instruction and event.button() == QtCore.Qt.RightButton:
+            if self.current_instruction == Instructions.Change_Instruction and event.button() == Qt.RightButton:
 
                 if not self.instruction_active:
 
@@ -265,7 +265,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                 # Polygon
                 if self.current_instruction == Instructions.Polygon_Instruction:
-                    if event.button() == QtCore.Qt.RightButton:
+                    if event.button() == Qt.RightButton:
                         # starting point of polygon will be show
                         self.p1_poly = PointAnnotation(color=self.color_polygon, object_type='polygon')
                         self.addItem(self.p1_poly)
@@ -283,7 +283,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                 # Rectangle
                 if self.current_instruction == Instructions.Rectangle_Instruction:
-                    if event.button() == QtCore.Qt.RightButton:
+                    if event.button() == Qt.RightButton:
                         self.rectangle_item = RectangleAnnotation(color=self.color_rectangle, object_type='rectangle')
                         self.addItem(self.rectangle_item)
                         self.rectangle_item.start_rectangle(event.scenePos())
@@ -291,7 +291,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                 # Circle
                 if self.current_instruction == Instructions.Circle_Instruction:
-                    if event.button() == QtCore.Qt.RightButton:
+                    if event.button() == Qt.RightButton:
                         self.circle_item = PointAnnotation(color=self.color_circle, object_type='circle')
                         self.addItem(self.circle_item)
                         self.circle_item.setRect(event.scenePos().x(), event.scenePos().y(), 10, 10)
@@ -302,7 +302,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                 if self.current_instruction == Instructions.Polygon_Instruction:
 
                     # Finish polygon objects
-                    if event.button() == QtCore.Qt.LeftButton:
+                    if event.button() == Qt.LeftButton:
 
                         if self.polygon_item.polygon().length() > 2:
 
@@ -326,7 +326,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             self.removeItem(self.polygon_item)
 
                     # Continue Polygon
-                    elif event.button() == QtCore.Qt.RightButton:
+                    elif event.button() == Qt.RightButton:
 
                         poly = self.polygon_item.polygon()
                         poly.append(event.scenePos())
@@ -335,7 +335,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                 # Finish Rectangle
                 if self.current_instruction == Instructions.Rectangle_Instruction:
                     # Finish Rectangle
-                    if event.button() == QtCore.Qt.RightButton:
+                    if event.button() == Qt.RightButton:
                         self.instruction_active = False
 
                         # rect = self.rectangle_item.rect().toRect()
@@ -349,7 +349,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                 # Finish Circle
                 elif self.current_instruction == Instructions.Circle_Instruction:
                     # Finish Rectangle
-                    if event.button() == QtCore.Qt.RightButton:
+                    if event.button() == Qt.RightButton:
 
                         ellipse_rect = self.circle_item.rect()
 
@@ -398,7 +398,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                 if self.current_instruction == Instructions.Polygon_Instruction:
                     poly = self.polygon_item.polygon()
                     if poly.length() > 2:
-                        poly.replace(poly.length() - 1, event.scenePos())
+                        poly[poly.length() - 1] = event.scenePos()
                         self.polygon_item.setPolygon(poly)
 
                 if self.current_instruction == Instructions.Rectangle_Instruction:

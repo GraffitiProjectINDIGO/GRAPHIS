@@ -3,15 +3,21 @@
 ################################################################################
 ## Form generated from reading UI file 'gui_user.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.8
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *  # type: ignore
-from PySide2.QtGui import *  # type: ignore
-from PySide2.QtWidgets import *  # type: ignore
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 import files_rc
 
 class Ui_popup_user(object):
@@ -106,7 +112,7 @@ class Ui_popup_user(object):
         palette.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush6)
         popup_user.setPalette(palette)
         font = QFont()
-        font.setFamily(u"Segoe UI")
+        font.setFamilies([u"Segoe UI"])
         font.setPointSize(10)
         popup_user.setFont(font)
         popup_user.setStyleSheet(u"QMainWindow {background: transparent; }\n"
@@ -350,10 +356,9 @@ class Ui_popup_user(object):
         self.label_title_bar_top1.setGeometry(QRect(10, 10, 150, 23))
         self.label_title_bar_top1.setMaximumSize(QSize(150, 23))
         font1 = QFont()
-        font1.setFamily(u"Segoe UI")
+        font1.setFamilies([u"Segoe UI"])
         font1.setPointSize(10)
         font1.setBold(True)
-        font1.setWeight(75)
         self.label_title_bar_top1.setFont(font1)
         self.label_title_bar_top1.setStyleSheet(u"background: transparent;\n"
 "color: rgb(250, 250, 250);")
@@ -378,7 +383,6 @@ class Ui_popup_user(object):
         font2 = QFont()
         font2.setPointSize(10)
         font2.setBold(True)
-        font2.setWeight(75)
         self.save_user.setFont(font2)
         self.save_user.setStyleSheet(u"QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
@@ -401,14 +405,13 @@ class Ui_popup_user(object):
         font3 = QFont()
         font3.setPointSize(9)
         font3.setBold(True)
-        font3.setWeight(75)
         self.user_error.setFont(font3)
         self.user_error.setStyleSheet(u"color: rgb(150, 30, 30);")
         self.label_credits1 = QLabel(self.frame_center1)
         self.label_credits1.setObjectName(u"label_credits1")
         self.label_credits1.setGeometry(QRect(40, 30, 141, 51))
         font4 = QFont()
-        font4.setFamily(u"Segoe UI")
+        font4.setFamilies([u"Segoe UI"])
         font4.setPointSize(14)
         self.label_credits1.setFont(font4)
         self.label_credits1.setCursor(QCursor(Qt.ArrowCursor))

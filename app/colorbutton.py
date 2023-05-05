@@ -21,9 +21,9 @@
 # SOFTWARE.
 #
 
-from PySide2 import QtWidgets
-from PySide2.QtCore import Qt, Signal, SignalInstance
-from PySide2.QtGui import QColor
+from PySide6 import QtWidgets
+from PySide6.QtCore import Qt, Signal, SignalInstance
+from PySide6.QtGui import QColor
 
 
 def stylesheet_parser_color_class(color):

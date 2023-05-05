@@ -922,7 +922,6 @@ QPlainTextEdit:focus {
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1042,7 +1041,6 @@ QPlainTextEdit:focus {
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1070,7 +1068,6 @@ QPlainTextEdit:focus {
                 <font>
                  <family>Segoe UI</family>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1352,7 +1349,6 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1383,7 +1379,6 @@ QPushButton:pressed {
                   <property name="font">
                    <font>
                     <pointsize>12</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1405,7 +1400,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1425,7 +1419,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1451,7 +1444,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1471,7 +1463,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1497,7 +1488,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1517,7 +1507,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1543,7 +1532,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1566,7 +1554,6 @@ QPushButton:pressed {
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1593,7 +1580,6 @@ QPushButton:pressed {
                   <property name="font">
                    <font>
                     <pointsize>12</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1844,7 +1830,6 @@ QPushButton:pressed {
                   <property name="font">
                    <font>
                     <pointsize>12</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -2191,11 +2176,15 @@ QTabBar::tab:!selected {
                         <number>0</number>
                        </property>
                        <property name="plainText">
-                        <string>https://projectindigo.eu/
+                        <string>GRAPHIS (Generate Regions and Annotations for Photos using the IPTC Standard) is a software developed within the academic graffiti project INDIGO (https://projectindigo.eu) and available via GitHub (https://github.com/GraffitiProjectINDIGO/GRAPHIS). 
 
-With this tool you can add and change IPTC Image Regions and add/change XMP tags to that region. All images from an folder will be loaded. All changes will be saved in a SQLITE database. Saving IPTC Regions back to images is possible.
-@Martin Wieser 
+GRAPHIS provides a graphical user interface to generate, visualise and annotate image regions as enabled by the 2019.1 version of the IPTC Photo Metadata Standard (https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2019.1.html).
+These image regions are shapes like rectangles, circles or any possible polygon that can be marked and saved within an image or as a sidecar XMP file.
+GRAPHIS stores all its operations on-the-fly in an SQLite database, making it possible to quit the program at any point and continue later by reloading that database. Therefore, one should first make a new database (or load an existing one) when working in GRAPHIS. Images are then added to this database, either all images in a folder (with or without its subfolders) or on a per-image basis. The image regions and their annotation can be saved back into the original images at any point, an operation for which GRAPHIS relies on Exiftool (https://exiftool.org).
 
+For more information or questions on GRAPHIS please email info@projectindigo.eu
+
+@Martin Wieser 2023
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
@@ -2308,7 +2297,6 @@ QPTextEdit:focus {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -2428,7 +2416,6 @@ QPTextEdit:focus {
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -2444,7 +2431,6 @@ QPTextEdit:focus {
                       <property name="font">
                        <font>
                         <pointsize>12</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -2476,7 +2462,6 @@ QPTextEdit:focus {
                       <property name="font">
                        <font>
                         <pointsize>12</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -2511,7 +2496,6 @@ QPTextEdit:focus {
                    <property name="font">
                     <font>
                      <pointsize>9</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -2627,7 +2611,6 @@ QTabBar::tab:!selected {
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -2711,7 +2694,6 @@ QPushButton:pressed {
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
-                               <weight>75</weight>
                                <bold>true</bold>
                               </font>
                              </property>
@@ -2733,7 +2715,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -2774,7 +2755,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -2830,7 +2810,6 @@ QPushButton:pressed {
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
-                               <weight>75</weight>
                                <bold>true</bold>
                               </font>
                              </property>
@@ -2852,7 +2831,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -2869,10 +2847,16 @@ QPushButton:pressed {
                                   <verstretch>0</verstretch>
                                  </sizepolicy>
                                 </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>45</height>
+                                 </size>
+                                </property>
                                 <property name="maximumSize">
                                  <size>
                                   <width>16777215</width>
-                                  <height>35</height>
+                                  <height>45</height>
                                  </size>
                                 </property>
                                 <property name="font">
@@ -2893,7 +2877,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -2949,7 +2932,6 @@ QPushButton:pressed {
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
-                               <weight>75</weight>
                                <bold>true</bold>
                               </font>
                              </property>
@@ -2971,7 +2953,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -2988,10 +2969,16 @@ QPushButton:pressed {
                                   <verstretch>0</verstretch>
                                  </sizepolicy>
                                 </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>45</height>
+                                 </size>
+                                </property>
                                 <property name="maximumSize">
                                  <size>
                                   <width>16777215</width>
-                                  <height>35</height>
+                                  <height>45</height>
                                  </size>
                                 </property>
                                 <property name="font">
@@ -3012,7 +2999,6 @@ QPushButton:pressed {
                                 <property name="font">
                                  <font>
                                   <pointsize>11</pointsize>
-                                  <weight>75</weight>
                                   <bold>true</bold>
                                  </font>
                                 </property>
@@ -3077,7 +3063,6 @@ QPushButton:pressed {
                           <property name="font">
                            <font>
                             <pointsize>9</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -3160,7 +3145,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3176,6 +3160,12 @@ QTabBar::tab:!selected {
                                    <horstretch>0</horstretch>
                                    <verstretch>0</verstretch>
                                   </sizepolicy>
+                                 </property>
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>0</height>
+                                  </size>
                                  </property>
                                  <property name="font">
                                   <font>
@@ -3195,7 +3185,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3224,7 +3213,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3235,6 +3223,12 @@ QTabBar::tab:!selected {
                                </item>
                                <item row="2" column="1">
                                 <widget class="QPlainTextEdit" name="contr_creator_role">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>45</height>
+                                  </size>
+                                 </property>
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
@@ -3296,7 +3290,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3307,6 +3300,12 @@ QTabBar::tab:!selected {
                                </item>
                                <item row="0" column="1">
                                 <widget class="QPlainTextEdit" name="contr_describer_ident">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>0</height>
+                                  </size>
+                                 </property>
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
@@ -3325,7 +3324,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3354,7 +3352,6 @@ QTabBar::tab:!selected {
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3365,6 +3362,12 @@ QTabBar::tab:!selected {
                                </item>
                                <item row="2" column="1">
                                 <widget class="QPlainTextEdit" name="contr_describer_role">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>45</height>
+                                  </size>
+                                 </property>
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
@@ -3401,7 +3404,6 @@ QTabBar::tab:!selected {
                               <property name="font">
                                <font>
                                 <pointsize>10</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -3427,11 +3429,14 @@ QTabBar::tab:!selected {
                                  </property>
                                  <property name="html">
                                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                  </property>
                                 </widget>
                                </item>
@@ -3480,7 +3485,6 @@ p, li { white-space: pre-wrap; }
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3491,6 +3495,12 @@ p, li { white-space: pre-wrap; }
                                </item>
                                <item row="0" column="1">
                                 <widget class="QPlainTextEdit" name="contr_transcriber_ident">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>0</height>
+                                  </size>
+                                 </property>
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
@@ -3509,7 +3519,6 @@ p, li { white-space: pre-wrap; }
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3538,7 +3547,6 @@ p, li { white-space: pre-wrap; }
                                  <property name="font">
                                   <font>
                                    <pointsize>11</pointsize>
-                                   <weight>75</weight>
                                    <bold>true</bold>
                                   </font>
                                  </property>
@@ -3549,6 +3557,12 @@ p, li { white-space: pre-wrap; }
                                </item>
                                <item row="2" column="1">
                                 <widget class="QPlainTextEdit" name="contr_transcriber_role">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>45</height>
+                                  </size>
+                                 </property>
                                  <property name="font">
                                   <font>
                                    <pointsize>10</pointsize>
@@ -3585,7 +3599,6 @@ p, li { white-space: pre-wrap; }
                               <property name="font">
                                <font>
                                 <pointsize>10</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -3611,11 +3624,14 @@ p, li { white-space: pre-wrap; }
                                  </property>
                                  <property name="html">
                                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                  </property>
                                 </widget>
                                </item>
@@ -3790,10 +3806,10 @@ QTreeView::branch:open:has-children:has-siblings  {
                        <attribute name="headerCascadingSectionResizes">
                         <bool>false</bool>
                        </attribute>
-                       <attribute name="headerDefaultSectionSize">
+                       <attribute name="headerMinimumSectionSize">
                         <number>220</number>
                        </attribute>
-                       <attribute name="headerMinimumSectionSize">
+                       <attribute name="headerDefaultSectionSize">
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
@@ -3968,10 +3984,10 @@ QTreeView::branch:open:has-children:has-siblings  {
                        <attribute name="headerCascadingSectionResizes">
                         <bool>false</bool>
                        </attribute>
-                       <attribute name="headerDefaultSectionSize">
+                       <attribute name="headerMinimumSectionSize">
                         <number>220</number>
                        </attribute>
-                       <attribute name="headerMinimumSectionSize">
+                       <attribute name="headerDefaultSectionSize">
                         <number>220</number>
                        </attribute>
                        <attribute name="headerStretchLastSection">
@@ -4094,7 +4110,7 @@ QTreeView::branch:open:has-children:has-siblings  {
                    <string notr="true">color: rgb(98, 103, 111);</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GRAPHIS @ Indigo 2023 - https://projectindigo.eu/&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GRAPHIS @ INDIGO 2023 - https://projectindigo.eu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="textFormat">
                    <enum>Qt::RichText</enum>

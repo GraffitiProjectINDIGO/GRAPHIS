@@ -20,7 +20,7 @@ import numpy
 from pathlib import Path
 
 
-from PySide2.QtGui import QColor, QBrush, QStandardItem
+from PySide6.QtGui import QColor, QBrush, QStandardItem
 
 
 CONFIG_FILE = "graphis.config"
@@ -51,10 +51,10 @@ image_region_role = [["cropping", "http://cv.iptc.org/newscodes/imageregionrole/
                      ["square format cropping", "http://cv.iptc.org/newscodes/imageregionrole/squareCropping"],
                      ["composite image item", "http://cv.iptc.org/newscodes/imageregionrole/compositeImageItem"],
                      ["copyright region", "http://cv.iptc.org/newscodes/imageregionrole/copyrightRegion"],
-                     ["subject area", "http://cv.iptc.org/newscodes/imageregionrole/subjectArea"],
-                     ["main subject area", "http://cv.iptc.org/newscodes/imageregionrole/mainSubjectArea"],
-                     ["area of interest", "http://cv.iptc.org/newscodes/imageregionrole/areaOfInterest"],
-                     ["business use", "http://cv.iptc.org/newscodes/imageregionrole/businessUse"]]
+                     ["business use", "http://cv.iptc.org/newscodes/imageregionrole/businessUse"],
+                     ['area of interest', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/areaOfInterest"],
+                     ['main subject area', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/mainSubjectArea"],
+                     ['subject area', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/subjectArea"]]
 
 
 class GeometryConfigs:

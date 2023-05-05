@@ -1,6 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-name_app = 'GRAPHIS_1_3_5'
+name_app = 'GRAPHIS_2_0_0'
 
 block_cipher = None
 

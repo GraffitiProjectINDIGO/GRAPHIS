@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '1.3.5'
+__version__ = '2.0.0'
 
 import sys
 import traceback
@@ -24,10 +24,10 @@ import numpy
 import datetime
 import csv
 
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtWidgets import *
-from PySide2.QtCore import Slot, SignalInstance, QThreadPool
-from PySide2.QtGui import (QColor, Qt, QPixmap)
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Slot, SignalInstance, QThreadPool
+from PySide6.QtGui import (QColor, Qt, QPixmap, QAction)
 
 from exiftool import ExifTool
 
@@ -152,8 +152,8 @@ class MainWindow(QMainWindow):
         def drag_window(event):
             # MOVE WINDOW
             if event.buttons() == Qt.LeftButton and not self.isMaximized():
-                self.move(self.pos() + event.globalPos() - self.dragPos)
-                self.dragPos = event.globalPos()
+                self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos.toPoint())
+                self.dragPos = event.globalPosition()
                 event.accept()
 
         # WIDGET TO MOVE
@@ -401,7 +401,7 @@ class MainWindow(QMainWindow):
         msg = QMessageBox(self, text="Sorry, seems not to be a valid image format")
         msg.setWindowTitle('Warning')
         # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
-        msg.exec_()
+        msg.exec()
         print("Image loading failed. No supported image format: " + self.image_importer_list[0].suffix)
         self.db.is_locked = False
         self.ui.waiting_spinner.stop()
@@ -452,7 +452,7 @@ class MainWindow(QMainWindow):
             self.ui.frame_size_grip.show()
 
     def mousePressEvent(self, event):
-        self.dragPos = event.globalPos()
+        self.dragPos = event.globalPosition()
         focused_widget = self.focusWidget()
         if isinstance(focused_widget, QPlainTextEdit):
             focused_widget.clearFocus()
@@ -769,7 +769,7 @@ class MainWindow(QMainWindow):
                           text="That was not a valid polygon\nEither not enough points (min 3) or self intersecting")
         msg.setWindowTitle('Warning')
         # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
-        msg.exec_()
+        msg.exec()
 
     @Slot(int)
     def add_data(self, object_id):
@@ -965,7 +965,7 @@ class MainWindow(QMainWindow):
         if not self.db.is_locked:
             self.digitizer_scene.instruction_active = False
             db_path, _ = QFileDialog.getOpenFileName(caption="Load Database",
-                                                               dir='.', filter='SQLITE Files (*.sqlite)')
+                                                     dir='.', filter='SQLITE Files (*.sqlite)')
             # clear scene GIS and digitizer
             self.clean_all_views_and_tables()
 
@@ -1057,7 +1057,7 @@ class MainWindow(QMainWindow):
             self.model_image_region.clear()
             self.digitizer_scene.instruction_active = False
             db_path, _ = QFileDialog.getSaveFileName(caption="Create Database",
-                                                               dir='.', filter='SQLITE Files (*.sqlite)')
+                                                     dir='.', filter='SQLITE Files (*.sqlite)')
 
             self.clean_all_views_and_tables()
 
@@ -1117,7 +1117,7 @@ class MainWindow(QMainWindow):
         else:
             msg = QMessageBox(self, text="Seems no database is active or database is locked")
             msg.setWindowTitle('Warning')
-            msg.exec_()
+            msg.exec()
 
     def save_image_regions(self, keep_orig=False):
 
@@ -1135,7 +1135,7 @@ class MainWindow(QMainWindow):
 
             if objs:
                 image_path, _ = QFileDialog.getSaveFileName(caption="Export rectangle CSV",
-                                                                      filter='CSV (*.csv)')
+                                                            filter='CSV (*.csv)')
                 if image_path:
                     with open(image_path, 'w', newline='', encoding='utf-8') as fid:
 
@@ -1258,8 +1258,8 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
 
 
 if __name__ == "__main__":
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication()
     window = MainWindow()
     app.setWindowIcon(QtGui.QIcon("app/icons/icon.png"))
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
