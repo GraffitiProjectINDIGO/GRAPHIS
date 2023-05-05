@@ -33,7 +33,6 @@
     <file>icons/cil-window-restore.png</file>
     <file>icons/cil-x.png</file>
     <file>icons/Flat_cross_icon.svg</file>
-    <file>icons/top_icon.png</file>
     <file>icons/cil-arrow-bottom.png</file>
   </qresource>
 </RCC>

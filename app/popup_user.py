@@ -16,8 +16,8 @@
 
 import pickle
 import os
-from PySide2 import QtCore
-from PySide2.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtWidgets import *
 
 from app.ui_user import Ui_popup_user
 

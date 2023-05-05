@@ -14,9 +14,9 @@
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import (QPoint, Qt, Slot, Signal)
-from PySide2.QtGui import (QKeySequence, QPainter)
-from PySide2.QtWidgets import *
+from PySide6.QtCore import (QPoint, Qt)
+from PySide6.QtGui import (QKeySequence, QPainter, QShortcut)
+from PySide6.QtWidgets import (QGraphicsView, QApplication)
 
 
 class DIGITIZERView(QGraphicsView):
@@ -40,8 +40,8 @@ class DIGITIZERView(QGraphicsView):
 
     def mousePressEvent(self, event):
         # print(event.pos())
-        self._dragPos = event.pos()
-        if event.button() == Qt.MidButton:
+        self._dragPos = event.position()
+        if event.button() == Qt.MiddleButton:
             self.middlePressed = True
             QApplication.setOverrideCursor(Qt.ClosedHandCursor)
         if event.button() == Qt.RightButton:
@@ -49,7 +49,7 @@ class DIGITIZERView(QGraphicsView):
         super(DIGITIZERView, self).mousePressEvent(event)
 
     def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MidButton:
+        if event.button() == Qt.MiddleButton:
             self.middlePressed = False
             # QApplication.restoreOverrideCursor()
             # QApplication.restoreOverrideCursor()
@@ -60,7 +60,7 @@ class DIGITIZERView(QGraphicsView):
 
     def mouseMoveEvent(self, event):
 
-        new_pos = event.pos()
+        new_pos = event.position()
         if self.middlePressed:
             diff = new_pos - self._dragPos
             self._dragPos = new_pos
@@ -70,15 +70,15 @@ class DIGITIZERView(QGraphicsView):
         super(DIGITIZERView, self).mouseMoveEvent(event)
 
     def wheelEvent(self, event):
-        num_degrees = event.delta() / 10
+        num_degrees = event.angleDelta().y() / 10
         num_steps = num_degrees / 15.0
         # event.scenePos
         # self.centerOn(self.mapToScene(event.pos()))
-        old_mouse_img_coo = self.mapToScene(event.pos())
-        diff_vec = event.pos() - QPoint(self.width()/2, self.height()/2)
+        old_mouse_img_coo = self.mapToScene(event.position().toPoint())
+        diff_vec = event.position() - QPoint(int(self.width() / 2), int(self.height() / 2))
         self.zoom(pow(0.8, num_steps))
-        new_middle_map_pos = self.mapFromScene(old_mouse_img_coo)-diff_vec
-        self.centerOn(self.mapToScene(new_middle_map_pos))
+        new_middle_map_pos = self.mapFromScene(old_mouse_img_coo).toPointF() - diff_vec
+        self.centerOn(self.mapToScene(new_middle_map_pos.toPoint()))
 
     def zoom_in(self):
         self.zoom(DIGITIZERView.factor)

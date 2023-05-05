@@ -3,19 +3,28 @@
 ################################################################################
 ## Form generated from reading UI file 'gui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.8
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *  # type: ignore
-from PySide2.QtGui import *  # type: ignore
-from PySide2.QtWidgets import *  # type: ignore
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QComboBox,
+    QFormLayout, QFrame, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLayout, QMainWindow,
+    QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QSplitter, QTabWidget, QTableView, QTextEdit,
+    QToolButton, QTreeView, QVBoxLayout, QWidget)
 
+from app.colorbutton import COLORButton
 from app.digitizerview import DIGITIZERView
 from app.spinningwaiter import SPINNINGWaiter
-from app.colorbutton import COLORButton
-
 import files_rc
 
 class Ui_MainWindow(object):
@@ -105,7 +114,7 @@ class Ui_MainWindow(object):
         palette.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush6)
         MainWindow.setPalette(palette)
         font = QFont()
-        font.setFamily(u"Segoe UI")
+        font.setFamilies([u"Segoe UI"])
         font.setPointSize(10)
         MainWindow.setFont(font)
         MainWindow.setStyleSheet(u"QMainWindow {background: transparent; }\n"
@@ -398,7 +407,6 @@ class Ui_MainWindow(object):
         font1 = QFont()
         font1.setPointSize(12)
         font1.setBold(True)
-        font1.setWeight(75)
         self.toolButton.setFont(font1)
         self.toolButton.setStyleSheet(u"background: transparent;\n"
 "")
@@ -459,10 +467,9 @@ class Ui_MainWindow(object):
         self.label_title_bar_top.setObjectName(u"label_title_bar_top")
         self.label_title_bar_top.setMaximumSize(QSize(150, 23))
         font2 = QFont()
-        font2.setFamily(u"Segoe UI")
+        font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(12)
         font2.setBold(True)
-        font2.setWeight(75)
         self.label_title_bar_top.setFont(font2)
         self.label_title_bar_top.setStyleSheet(u"background: transparent;\n"
 "")
@@ -611,7 +618,6 @@ class Ui_MainWindow(object):
         font3 = QFont()
         font3.setPointSize(20)
         font3.setBold(True)
-        font3.setWeight(75)
         self.lbl_polygon_number.setFont(font3)
         self.lbl_polygon_number.setStyleSheet(u"color: purple;")
         self.lbl_polygon_number.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
@@ -1104,7 +1110,6 @@ class Ui_MainWindow(object):
         font5 = QFont()
         font5.setPointSize(9)
         font5.setBold(True)
-        font5.setWeight(75)
         self.tabWidget.setFont(font5)
         self.tabWidget.setStyleSheet(u"\n"
 "\n"
@@ -1163,7 +1168,6 @@ class Ui_MainWindow(object):
         font6 = QFont()
         font6.setPointSize(10)
         font6.setBold(True)
-        font6.setWeight(75)
         self.btn_object_save.setFont(font6)
         self.btn_object_save.setStyleSheet(u"QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
@@ -1214,7 +1218,6 @@ class Ui_MainWindow(object):
         font7 = QFont()
         font7.setPointSize(11)
         font7.setBold(True)
-        font7.setWeight(75)
         self.label.setFont(font7)
 
         self.formLayout_5.setWidget(0, QFormLayout.LabelRole, self.label)
@@ -1269,7 +1272,8 @@ class Ui_MainWindow(object):
         self.txt_rrole_ident.setObjectName(u"txt_rrole_ident")
         sizePolicy2.setHeightForWidth(self.txt_rrole_ident.sizePolicy().hasHeightForWidth())
         self.txt_rrole_ident.setSizePolicy(sizePolicy2)
-        self.txt_rrole_ident.setMaximumSize(QSize(16777215, 35))
+        self.txt_rrole_ident.setMinimumSize(QSize(0, 45))
+        self.txt_rrole_ident.setMaximumSize(QSize(16777215, 45))
         self.txt_rrole_ident.setFont(font4)
         self.txt_rrole_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.txt_rrole_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1317,7 +1321,8 @@ class Ui_MainWindow(object):
         self.txt_rctype_indent.setObjectName(u"txt_rctype_indent")
         sizePolicy2.setHeightForWidth(self.txt_rctype_indent.sizePolicy().hasHeightForWidth())
         self.txt_rctype_indent.setSizePolicy(sizePolicy2)
-        self.txt_rctype_indent.setMaximumSize(QSize(16777215, 35))
+        self.txt_rctype_indent.setMinimumSize(QSize(0, 45))
+        self.txt_rctype_indent.setMaximumSize(QSize(16777215, 45))
         self.txt_rctype_indent.setFont(font4)
         self.txt_rctype_indent.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.txt_rctype_indent.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1411,6 +1416,7 @@ class Ui_MainWindow(object):
         self.contr_creator_ident.setObjectName(u"contr_creator_ident")
         sizePolicy2.setHeightForWidth(self.contr_creator_ident.sizePolicy().hasHeightForWidth())
         self.contr_creator_ident.setSizePolicy(sizePolicy2)
+        self.contr_creator_ident.setMinimumSize(QSize(0, 45))
         self.contr_creator_ident.setFont(font4)
         self.contr_creator_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_creator_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1471,6 +1477,7 @@ class Ui_MainWindow(object):
 
         self.contr_describer_ident = QPlainTextEdit(self.frame_13)
         self.contr_describer_ident.setObjectName(u"contr_describer_ident")
+        self.contr_describer_ident.setMinimumSize(QSize(0, 45))
         self.contr_describer_ident.setFont(font4)
         self.contr_describer_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_describer_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1550,6 +1557,7 @@ class Ui_MainWindow(object):
 
         self.contr_transcriber_ident = QPlainTextEdit(self.frame_8)
         self.contr_transcriber_ident.setObjectName(u"contr_transcriber_ident")
+        self.contr_transcriber_ident.setMinimumSize(QSize(0, 45))
         self.contr_transcriber_ident.setFont(font4)
         self.contr_transcriber_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_transcriber_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1847,7 +1855,7 @@ class Ui_MainWindow(object):
         self.label_credits.setObjectName(u"label_credits")
         self.label_credits.setMaximumSize(QSize(16777215, 40))
         font9 = QFont()
-        font9.setFamily(u"Segoe UI")
+        font9.setFamilies([u"Segoe UI"])
         self.label_credits.setFont(font9)
         self.label_credits.setCursor(QCursor(Qt.ArrowCursor))
         self.label_credits.setStyleSheet(u"color: rgb(98, 103, 111);")
@@ -1897,7 +1905,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget_2.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_3.setCurrentIndex(0)
+        self.tabWidget_3.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1947,15 +1955,20 @@ class Ui_MainWindow(object):
         self.btn_geometry_move.setText("")
         self.btn_geometry_resize.setText("")
         self.btn_geometry_remove.setText("")
-        self.plainTextEdit.setPlainText(QCoreApplication.translate("MainWindow", u"https://projectindigo.eu/\n"
+        self.plainTextEdit.setPlainText(QCoreApplication.translate("MainWindow", u"GRAPHIS (Generate Regions and Annotations for Photos using the IPTC Standard) is a software developed within the academic graffiti project INDIGO (https://projectindigo.eu) and available via GitHub (https://github.com/GraffitiProjectINDIGO/GRAPHIS). \n"
 "\n"
-"With this tool you can add and change IPTC Image Regions and add/change XMP tags to that region. All images from an folder will be loaded. All changes will be saved in a SQLITE database. Saving IPTC Regions back to images is possible.\n"
-"@Martin Wieser \n"
+"GRAPHIS provides a graphical user interface to generate, visualise and annotate image regions as enabled by the 2019.1 version of the IPTC Photo Metadata Standard (https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2019.1.html).\n"
+"These image regions are shapes like rectangles, circles or any possible polygon that can be marked and saved within an image or as a sidecar XMP file.\n"
+"GRAPHIS stores all its operations on-the-fly in an SQLite database, making it possible to quit the program at any point and continue later by reloading that database. Therefore, one should first make a new database (or load an existing one) when working in GRAPHIS. Images are then added to this database, either all images in a folder (with or without its"
+                        " subfolders) or on a per-image basis. The image regions and their annotation can be saved back into the original images at any point, an operation for which GRAPHIS relies on Exiftool (https://exiftool.org).\n"
 "\n"
+"For more information or questions on GRAPHIS please email info@projectindigo.eu\n"
+"\n"
+"@Martin Wieser 2023\n"
 "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \u201cSoftware\u201d), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n"
 "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n"
-"THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHAN"
-                        "TABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", None))
+"THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMIT"
+                        "ED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), "")
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), "")
         self.lbl_image_name.setText("")
@@ -1982,22 +1995,28 @@ class Ui_MainWindow(object):
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Role", None))
         self.groupBox_8.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Description", None))
         self.xmp_dc.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", None))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Description", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"Identifier", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_28.setText(QCoreApplication.translate("MainWindow", u"Role", None))
         self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"XMP-DC Title", None))
         self.xmp_dc_transcriber.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>", None))
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", None))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"Transcription", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Change region info", None))
         self.btn_expand_all.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
@@ -2006,7 +2025,7 @@ class Ui_MainWindow(object):
         self.btn_expand_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
         self.btn_collapse_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"All region info", None))
-        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>GRAPHIS @ Indigo 2023 - https://projectindigo.eu/</p></body></html>", None))
+        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>GRAPHIS @ INDIGO 2023 - https://projectindigo.eu</p></body></html>", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"v1.2", None))
 #if QT_CONFIG(tooltip)
         self.frame_size_grip.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Change window size</p></body></html>", None))
