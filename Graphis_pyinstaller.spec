@@ -5,7 +5,7 @@ name_app = 'GRAPHIS_2_0_0'
 block_cipher = None
 
 added_files = [
-         ( 'app/bin', 'app' ),
+         ( 'app/bin/*', 'app/bin' ),
 		 ( 'app/icons/icon.png', 'app/icons'),
          ( 'graphis.config', '.' )
          ]

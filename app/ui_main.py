@@ -1416,7 +1416,7 @@ class Ui_MainWindow(object):
         self.contr_creator_ident.setObjectName(u"contr_creator_ident")
         sizePolicy2.setHeightForWidth(self.contr_creator_ident.sizePolicy().hasHeightForWidth())
         self.contr_creator_ident.setSizePolicy(sizePolicy2)
-        self.contr_creator_ident.setMinimumSize(QSize(0, 45))
+        self.contr_creator_ident.setMinimumSize(QSize(0, 0))
         self.contr_creator_ident.setFont(font4)
         self.contr_creator_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_creator_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1445,6 +1445,7 @@ class Ui_MainWindow(object):
 
         self.contr_creator_role = QPlainTextEdit(self.frame_9)
         self.contr_creator_role.setObjectName(u"contr_creator_role")
+        self.contr_creator_role.setMinimumSize(QSize(0, 45))
         self.contr_creator_role.setFont(font4)
         self.contr_creator_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
         self.contr_creator_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1477,7 +1478,7 @@ class Ui_MainWindow(object):
 
         self.contr_describer_ident = QPlainTextEdit(self.frame_13)
         self.contr_describer_ident.setObjectName(u"contr_describer_ident")
-        self.contr_describer_ident.setMinimumSize(QSize(0, 45))
+        self.contr_describer_ident.setMinimumSize(QSize(0, 0))
         self.contr_describer_ident.setFont(font4)
         self.contr_describer_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_describer_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1506,6 +1507,7 @@ class Ui_MainWindow(object):
 
         self.contr_describer_role = QPlainTextEdit(self.frame_13)
         self.contr_describer_role.setObjectName(u"contr_describer_role")
+        self.contr_describer_role.setMinimumSize(QSize(0, 45))
         self.contr_describer_role.setFont(font4)
         self.contr_describer_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
         self.contr_describer_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1557,7 +1559,7 @@ class Ui_MainWindow(object):
 
         self.contr_transcriber_ident = QPlainTextEdit(self.frame_8)
         self.contr_transcriber_ident.setObjectName(u"contr_transcriber_ident")
-        self.contr_transcriber_ident.setMinimumSize(QSize(0, 45))
+        self.contr_transcriber_ident.setMinimumSize(QSize(0, 0))
         self.contr_transcriber_ident.setFont(font4)
         self.contr_transcriber_ident.setStyleSheet(u"background-color: rgb(52, 70, 72);")
         self.contr_transcriber_ident.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1586,6 +1588,7 @@ class Ui_MainWindow(object):
 
         self.contr_transcriber_role = QPlainTextEdit(self.frame_8)
         self.contr_transcriber_role.setObjectName(u"contr_transcriber_role")
+        self.contr_transcriber_role.setMinimumSize(QSize(0, 45))
         self.contr_transcriber_role.setFont(font4)
         self.contr_transcriber_role.setStyleSheet(u"background-color: rgb(90, 90, 90);")
         self.contr_transcriber_role.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1905,7 +1908,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget_2.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_3.setCurrentIndex(2)
+        self.tabWidget_3.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

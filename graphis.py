@@ -23,13 +23,14 @@ from pathlib import Path
 import numpy
 import datetime
 import csv
-
-from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import *
-from PySide6.QtCore import Slot, SignalInstance, QThreadPool
-from PySide6.QtGui import (QColor, Qt, QPixmap, QAction)
-
 from exiftool import ExifTool
+from multiprocessing import freeze_support
+
+from PySide6 import QtCore, QtGui
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Slot, SignalInstance, QThreadPool, QEvent
+
+from PySide6.QtGui import (QColor, Qt, QPixmap, QAction)
 
 from app.preview_class import PreviewModel, PreviewDelegate
 from app.var_classes import (Instructions, PreviewModelData,
@@ -123,8 +124,8 @@ class MainWindow(QMainWindow):
         # self.resize(start_size)
         # self.setMinimumSize(start_size)
         # frame, shadow
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(17)
         self.shadow.setXOffset(0)
@@ -138,10 +139,10 @@ class MainWindow(QMainWindow):
 
         def double_click_maximize_restore(event):
             # IF DOUBLE CLICK CHANGE STATUS
-            if event.type() == QtCore.QEvent.MouseButtonDblClick:
+            if event.type() == QEvent.MouseButtonDblClick:
                 self.maximize_restore()
 
-            self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+            self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.ui.frame_label_top_btns.mouseDoubleClickEvent = double_click_maximize_restore
 
@@ -151,7 +152,7 @@ class MainWindow(QMainWindow):
 
         def drag_window(event):
             # MOVE WINDOW
-            if event.buttons() == Qt.LeftButton and not self.isMaximized():
+            if event.buttons() == Qt.MouseButton.LeftButton and not self.isMaximized():
                 self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos.toPoint())
                 self.dragPos = event.globalPosition()
                 event.accept()
@@ -184,13 +185,13 @@ class MainWindow(QMainWindow):
         self.ui.image_region_view.setModel(self.model_image_region)
         self.ui.image_all_region.setModel(self.model_image_region_all)
 
-        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
 
-        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         #
 
         # Redirect Logger
@@ -407,7 +408,7 @@ class MainWindow(QMainWindow):
         self.ui.waiting_spinner.stop()
 
     def set_image_meta_and_display_meta(self):
-        self.ui.view_digizizer.fitInView(self.digitizer_scene.image_item, QtCore.Qt.KeepAspectRatio)
+        self.ui.view_digizizer.fitInView(self.digitizer_scene.image_item, Qt.KeepAspectRatio)
         self.digitizer_scene.image_id_db = self.image_loading_image_id_db
         self.ui.lbl_image_name.setText(self.image_loading_name_path)
 
@@ -491,8 +492,8 @@ class MainWindow(QMainWindow):
             json_image_all_region.append(json.loads(obj['data'])['attributes'])
         self.model_image_region_all.load(json_image_all_region)
         self.ui.image_all_region.setModel(self.model_image_region_all)
-        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.image_all_region.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         # self.ui.image_all_region.resizeColumnToContents(1)
 
     def scene_load_image(self, index):
@@ -509,11 +510,11 @@ class MainWindow(QMainWindow):
             self.current_item = None
 
             self.digitizer_scene.clear_image()
-            worker = Worker(image_loader, index.data(Qt.UserRole))
+            worker = Worker(image_loader, index.data(Qt.ItemDataRole.UserRole))
             worker.signals.result.connect(self.thread_output_image_loader)
-            self.image_loading_image_id_db = index.data(Qt.UserRole + 1)
-            self.image_loading_name_path = index.data(Qt.ToolTipRole)
-            self.image_loading_name = index.data(Qt.UserRole)
+            self.image_loading_image_id_db = index.data(Qt.ItemDataRole.UserRole + 1)
+            self.image_loading_name_path = index.data(Qt.ItemDataRole.ToolTipRole)
+            self.image_loading_name = index.data(Qt.ItemDataRole.UserRole)
             self.thread_pool.start(worker)
             self.ui.waiting_spinner.start()
 
@@ -669,8 +670,8 @@ class MainWindow(QMainWindow):
                 self.digitizer_scene.set_tooltip(self.current_item['id'], data['RId'])
                 self.current_item['data']['attributes'] = data
                 self.model_image_region.load(data)
-                self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-                self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+                self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
                 self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
 
                 self.change_color(self.color_rectangle, 'rectangle')
@@ -757,8 +758,8 @@ class MainWindow(QMainWindow):
         jdata = json.loads(data['data'])
 
         self.model_image_region.load(jdata['attributes'])
-        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         self.current_item = {'id': object_id, 'data': jdata, 'object_type': data['object_type']}
 
         self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
@@ -826,8 +827,8 @@ class MainWindow(QMainWindow):
         self.db.update_object(obj_id=self.current_item['id'], data=self.current_item['data'])
         self.parse_show_data(data['object_type'], self.current_item['data']['attributes'])
         self.model_image_region.load(self.current_item['data']['attributes'])
-        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.image_region_view.header().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         self.image_region_view_load_all_image()
 
     def parse_show_data(self, object_type, dict_item: dict):
@@ -964,7 +965,7 @@ class MainWindow(QMainWindow):
     def load_existing_db(self):
         if not self.db.is_locked:
             self.digitizer_scene.instruction_active = False
-            db_path, _ = QFileDialog.getOpenFileName(caption="Load Database",
+            db_path, _ = QFileDialog.getOpenFileName(self, caption="Load Database",
                                                      dir='.', filter='SQLITE Files (*.sqlite)')
             # clear scene GIS and digitizer
             self.clean_all_views_and_tables()
@@ -1134,7 +1135,7 @@ class MainWindow(QMainWindow):
             objs = self.db.db_load_objects_all()
 
             if objs:
-                image_path, _ = QFileDialog.getSaveFileName(caption="Export rectangle CSV",
+                image_path, _ = QFileDialog.getSaveFileName(self, caption="Export rectangle CSV",
                                                             filter='CSV (*.csv)')
                 if image_path:
                     with open(image_path, 'w', newline='', encoding='utf-8') as fid:
@@ -1158,8 +1159,8 @@ class MainWindow(QMainWindow):
                                 h = np_coords[1] + np_coords[2]
 
                             else:
-                                min_rec = np_coords.min(axis=0)
-                                max_rec = np_coords.max(axis=0)
+                                min_rec = numpy.min(np_coords, axis=0)
+                                max_rec = numpy.max(np_coords, axis=0)
                                 uplx = min_rec[0]
                                 uply = min_rec[1]
                                 w = max_rec[0] - min_rec[0]
@@ -1219,7 +1220,7 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
 
         ba = QtCore.QByteArray()
         buff = QtCore.QBuffer(ba)
-        buff.open(QtCore.QIODevice.WriteOnly)
+        buff.open(QtCore.QIODevice.OpenModeFlag.WriteOnly)
         ok = scaled.save(buff, "JPG")
         img_width = image.width()
         img_height = image.height()
@@ -1257,9 +1258,14 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
     return True
 
 
-if __name__ == "__main__":
+def main():
     # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    freeze_support()
     app = QApplication()
     window = MainWindow()
     app.setWindowIcon(QtGui.QIcon("app/icons/icon.png"))
     sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()

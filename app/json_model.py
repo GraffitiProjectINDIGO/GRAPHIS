@@ -1,12 +1,8 @@
 # Copyright (C) 2022 The Qt Company Ltd.
 # SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
-import json
-import sys
-from typing import Any, Iterable, List, Dict, Union
-
-from PySide6.QtWidgets import QTreeView, QApplication, QHeaderView
-from PySide6.QtCore import QAbstractItemModel, QModelIndex, QObject, Qt, QFileInfo
+from typing import Any, List, Dict, Union
+from PySide6.QtCore import QAbstractItemModel, QModelIndex, QObject, Qt
 
 
 class TreeItem:
@@ -124,7 +120,7 @@ class JsonModel(QAbstractItemModel):
         """ Clear data from the model """
         self.load({})
 
-    def load(self, document: dict):
+    def load(self, document: dict | list[dict]):
         """Load model from a nested dictionary returned by json.loads()
 
         Arguments:
@@ -181,7 +177,6 @@ class JsonModel(QAbstractItemModel):
             if index.column() == 1:
                 item = index.internalPointer()
                 item.value = str(value)
-
 
                 self.dataChanged.emit(index, index)
 
@@ -296,24 +291,3 @@ class JsonModel(QAbstractItemModel):
 
         else:
             return item.value
-
-
-if __name__ == "__main__":
-
-    app = QApplication(sys.argv)
-    view = QTreeView()
-    model = JsonModel()
-
-    view.setModel(model)
-
-    json_path = QFileInfo(__file__).absoluteDir().filePath("example.json")
-
-    with open(json_path) as file:
-        document = json.load(file)
-        model.load(document)
-
-    view.show()
-    view.header().setSectionResizeMode(0, QHeaderView.Stretch)
-    view.setAlternatingRowColors(True)
-    view.resize(500, 300)
-    app.exec()
