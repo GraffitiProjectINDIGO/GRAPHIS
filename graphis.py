@@ -14,9 +14,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 
 import sys
+from os import environ
 import traceback
 import json
 from pathlib import Path
@@ -25,7 +26,7 @@ import datetime
 import csv
 from exiftool import ExifTool
 from multiprocessing import freeze_support
-
+import os
 from PySide6 import QtCore, QtGui
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Slot, SignalInstance, QThreadPool, QEvent
@@ -371,10 +372,12 @@ class MainWindow(QMainWindow):
         failed_images = 0
         for image in self.image_importer_list:
 
-            image_id = self.db.db_store_image(image)
+            rel = os.path.relpath(image, self.db.db_path)
+            new_path = os.path.normpath(os.path.join(self.db.db_path, rel))
+            image_id = self.db.db_store_image(Path(rel))
             if image_id >= 0:
-                self.image_list.append([image, image_id])
-                added_images.append([image, image_id])
+                self.image_list.append([Path(new_path), image_id])
+                added_images.append([Path(new_path), image_id])
             else:
                 failed_images += 1
 
@@ -510,13 +513,18 @@ class MainWindow(QMainWindow):
             self.current_item = None
 
             self.digitizer_scene.clear_image()
-            worker = Worker(image_loader, index.data(Qt.ItemDataRole.UserRole))
-            worker.signals.result.connect(self.thread_output_image_loader)
-            self.image_loading_image_id_db = index.data(Qt.ItemDataRole.UserRole + 1)
-            self.image_loading_name_path = index.data(Qt.ItemDataRole.ToolTipRole)
-            self.image_loading_name = index.data(Qt.ItemDataRole.UserRole)
-            self.thread_pool.start(worker)
-            self.ui.waiting_spinner.start()
+            if Path(index.data(Qt.ItemDataRole.UserRole)).exists():
+
+                worker = Worker(image_loader, index.data(Qt.ItemDataRole.UserRole))
+                worker.signals.result.connect(self.thread_output_image_loader)
+                self.image_loading_image_id_db = index.data(Qt.ItemDataRole.UserRole + 1)
+                self.image_loading_name_path = index.data(Qt.ItemDataRole.ToolTipRole)
+                self.image_loading_name = index.data(Qt.ItemDataRole.UserRole)
+                self.thread_pool.start(worker)
+                self.ui.waiting_spinner.start()
+            else:
+                print("Image does not exist.")
+                self.image_loading = False
 
     def change_visibility(self, objects_type):
         self.digitizer_scene.hide_item(objects_type)
@@ -972,6 +980,9 @@ class MainWindow(QMainWindow):
 
             if db_path:
                 self.db.db_load(Path(db_path), self.user)
+
+                #self.db.db_check_abs_path()
+
                 self.digitizer_scene.db = self.db
                 print('Existing database was loaded: ' + Path(db_path).name)
                 self.loader_all()
@@ -991,11 +1002,13 @@ class MainWindow(QMainWindow):
 
         for x in images:
             if x['preview'] is not None:
-                self.image_list.append([Path(x['path']), x['id']])
+                #rel = os.path.relpath(x['path'], self.db.db_path)
+                new_path = os.path.normpath(os.path.join(self.db.db_path, x['path']))
+                self.image_list.append([Path(new_path), x['id']])
                 pixmap = QPixmap()
                 pixmap.loadFromData(x['preview'], "JPG")
                 # image = QImage(pixmap)
-                item = PreviewModelData(x['id'], Path(x['path']).as_posix(), Path(x['path']).name, pixmap,
+                item = PreviewModelData(x['id'], new_path, Path(new_path).name, pixmap,
                                         x['polygon_count'], x['rectangle_count'], x['circle_count'])
                 self.model.previews.append(item)
                 self.model.layoutChanged.emit()
@@ -1089,7 +1102,7 @@ class MainWindow(QMainWindow):
 
         if self.db.db_is_set and not self.db.is_locked:
             self.db.is_locked = True
-            image_path, _ = QFileDialog.getOpenFileName(self, caption="Click on one image. Only same file formats are "
+            image_path, _ = QFileDialog.getOpenFileName(self, caption="Click on one image. Only identical file formats are "
                                                                       "imported")
             if image_path:
                 print("Importing images")
@@ -1196,7 +1209,7 @@ class MainWindow(QMainWindow):
 
 def add_preview(image_list, db1: DBHandler, user, contributor_tag):
     # Add a bunch of images.
-    item_all = []
+    #item_all = []
 
     db = DBHandler()
     db.db_load(db1.db_path, user)
@@ -1212,11 +1225,14 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
         return False
 
     for n, fn in enumerate(image_list):
-        image = image_loader(fn[0].as_posix())
+
+        rel = os.path.relpath(fn[0].as_posix(), db1.db_path)
+        new_path = os.path.normpath(os.path.join(db1.db_path, rel))
+        image = image_loader(new_path)
         scaled = image.scaledToHeight(PREVIEW_HEIGHT)
 
-        item = PreviewModelData(fn[1], fn[0].as_posix(), fn[0].name, scaled, 0, 0, 0)
-        item_all.append(item)
+        #item = PreviewModelData(fn[1], fn[0].as_posix(), fn[0].name, scaled, 0, 0, 0)
+        #item_all.append(item)
 
         ba = QtCore.QByteArray()
         buff = QtCore.QBuffer(ba)
@@ -1259,7 +1275,9 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
 
 
 def main():
-    # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    #QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+
+    #QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.Floor)
     freeze_support()
     app = QApplication()
     window = MainWindow()

@@ -20,6 +20,7 @@ from app.createDb import create
 from app.createDb import init
 import sys
 import json
+import os
 
 from app.var_classes import create_region_boundary
 
@@ -55,6 +56,31 @@ class DBHandler:
         self.db_path = db_path
         self.db_user = user
         self.db_is_set = True
+
+    def db_check_abs_path(self):
+        abs_sqlite = self.db_path
+        image_list = self.db_load_images_list()
+
+        for x in image_list:
+            #print(abs_sqlite)
+            image = Path(x['path'])
+            if not image.exists():
+                print("Try to relocate image path to relative path")
+                try:
+                    rel = os.path.relpath(image, abs_sqlite)
+                    new_path = os.path.normpath(os.path.join(abs_sqlite, rel))
+                    if Path(new_path).exists():
+                        self.db_update_path(image.as_posix(), new_path)
+                except:
+                    return
+
+    def db_update_path(self, path1, path2):
+        query = r"""UPDATE
+                        images
+                    SET
+                        path = REPLACE(path,:path_to_replace,:path_replace)"""
+        self.con.execute(query, {'path_to_replace': path1, 'path_replace': path2})
+        self.con.commit()
 
     def db_store_image(self, image_path: Path):
         query = r"""Insert into images 

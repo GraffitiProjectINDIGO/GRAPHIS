@@ -13,10 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+import json
+import os
 
 from exiftool import ExifTool
 from app.db_handler import DBHandler
-import json
+
 
 
 def parse_img_region(region: dict, img_width: int, img_height: int):
@@ -82,6 +84,7 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
 
     for img in images:
 
+        new_path = os.path.normpath(os.path.join(db1.db_path,  img['path']))
         # image deleted_orig_tag will show that original tag is deleted and thus anyhow gets written
         force_change = True if img['deleted_orig_tag'] else False
 
@@ -112,11 +115,11 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
                                                    separators=(', ', '= ')).replace('"', '')
                 if not keep_orig:
                     et.execute(*['-overwrite_original', '-struct',
-                                 '-xmp:ImageRegion=' + img_region_parsed, img['path']])
+                                 '-xmp:ImageRegion=' + img_region_parsed, new_path])
                 else:
-                    et.execute(*['-struct', '-xmp:ImageRegion=' + img_region_parsed, img['path']])
+                    et.execute(*['-struct', '-xmp:ImageRegion=' + img_region_parsed, new_path])
                 if et.last_status:
-                    print("\tProblem writing EXIF to: " + img['path'])
+                    print("\tProblem writing EXIF to: " + new_path)
                 else:
                     count_image_written += 1
 

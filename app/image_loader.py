@@ -29,7 +29,7 @@ for x in QImageReader.supportedImageFormats():
     image_formats_direct_load.append('.' + x.data().decode())
 
 
-def image_loader(filename: Path) -> QtGui.QPixmap:
+def image_loader(filename: str) -> QtGui.QPixmap:
     img = None
     if Path(filename).suffix.lower() in image_formats_direct_load:
         img = QtGui.QPixmap(filename)
@@ -40,10 +40,10 @@ def image_loader(filename: Path) -> QtGui.QPixmap:
         q = Queue()
         proc = Process(target=loader_raw, args=(filename, q))
         proc.start()
-        img = q.get()
+        img1 = q.get()
         proc.join()
 
-        buf, w, h, bytes_per_line = img
+        buf, w, h, bytes_per_line = img1
         img = QtGui.QPixmap.fromImage(QtGui.QImage(buf, w, h, bytes_per_line, QtGui.QImage.Format_RGB888))
     except:
         img_pil = Image.open(filename)
@@ -56,7 +56,7 @@ def image_loader(filename: Path) -> QtGui.QPixmap:
 def loader_raw(path, queu: Queue):
     try:
         with rawpy.imread(path) as raw:
-            src = raw.postprocess()
+            src = raw.postprocess(user_flip=0)
             h, w, ch = src.shape
             bytes_per_line = ch * w
             buf = src.data.tobytes()  # or bytes(src.data)
