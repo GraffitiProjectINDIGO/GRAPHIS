@@ -310,7 +310,11 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                                 self.instruction_active = False
 
                                 coordinates, valid = self.polygon_item.get_coords(self.image_width, self.image_height)
-
+                                # Check if last vertices are equal due to right and left click on same point
+                                # If so delete last point from coordinates list submitted
+                                diff_last2: QPointF = self.polygon_item.polygon()[-2] - self.polygon_item.polygon()[-1]
+                                if diff_last2.manhattanLength() < 0.1:
+                                    coordinates.pop()
                                 self.polygon_item.obj_id, tooltip = self.store_sightings('polygon', coordinates)
                                 self.polygon_item.setToolTip(tooltip)
                                 self.change_color_id(self.polygon_item.obj_id,
@@ -327,24 +331,33 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
                     # Continue Polygon
                     elif event.button() == Qt.RightButton:
-
                         poly = self.polygon_item.polygon()
-                        poly.append(event.scenePos())
-                        self.polygon_item.setPolygon(poly)
+
+                        # Check if no vertic points are equal
+                        if poly.length() < 3:
+                            diff_to_last = poly[-1] - event.scenePos()
+                        else:
+                            diff_to_last = poly[-2] - event.scenePos()
+                        if diff_to_last.manhattanLength() > 1.0:
+
+                            poly.append(event.scenePos())
+                            self.polygon_item.setPolygon(poly)
 
                 # Finish Rectangle
                 if self.current_instruction == Instructions.Rectangle_Instruction:
                     # Finish Rectangle
                     if event.button() == Qt.RightButton:
-                        self.instruction_active = False
 
                         # rect = self.rectangle_item.rect().toRect()
                         coordinates, valid = self.rectangle_item.get_coords(self.image_width, self.image_height)
 
-                        self.rectangle_item.obj_id, tooltip = self.store_sightings('rectangle', coordinates)
-                        self.rectangle_item.setToolTip(tooltip)
-                        self.change_color_id(self.rectangle_item.obj_id,
-                                             QtGui.QColor.fromRgbF(1.0, 1.00, 0.3, 0.588235))
+                        # Check if no rectangle with size 0 is created
+                        if not self.rectangle_item.rect().isNull():
+                            self.instruction_active = False
+                            self.rectangle_item.obj_id, tooltip = self.store_sightings('rectangle', coordinates)
+                            self.rectangle_item.setToolTip(tooltip)
+                            self.change_color_id(self.rectangle_item.obj_id,
+                                                 QtGui.QColor.fromRgbF(1.0, 1.00, 0.3, 0.588235))
 
                 # Finish Circle
                 elif self.current_instruction == Instructions.Circle_Instruction:

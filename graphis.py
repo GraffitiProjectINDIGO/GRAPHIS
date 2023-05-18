@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '2.1.0'
+__version__ = '2.1.1'
 
 import sys
 from os import environ
@@ -779,6 +779,8 @@ class MainWindow(QMainWindow):
         msg.setWindowTitle('Warning')
         # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
         msg.exec()
+        self.clear_entries()
+
 
     @Slot(int)
     def add_data(self, object_id):
