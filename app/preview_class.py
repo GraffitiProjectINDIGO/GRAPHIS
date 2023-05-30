@@ -29,7 +29,7 @@ from PySide6.QtGui import (
 from PySide6.QtWidgets import QStyledItemDelegate
 
 from app.var_classes import TEXT_MARGIN, THUMBNAIL_FOOTER_PADDING, THUMBNAIL_MARGIN, NUMBER_OF_COLUMNS, CELL_PADDING
-
+from app.var_classes import PreviewModelData
 # Create a custom namedtuple class to hold our data.
 
 
@@ -152,6 +152,11 @@ class PreviewModel(QAbstractTableModel):
         # .data holds our data for display, as a list of Preview objects.
         self.previews = []
 
+    def appendData(self, data=PreviewModelData):
+        self.layoutAboutToBeChanged.emit()
+        self.previews.append(data)
+        self.layoutChanged.emit()
+
     def data(self, index, role):
         try:
             data = self.previews[index.row() * NUMBER_OF_COLUMNS + index.column()]
@@ -203,3 +208,10 @@ class PreviewModel(QAbstractTableModel):
     def rowCount(self, index):
         n_items = len(self.previews)
         return math.ceil(n_items / NUMBER_OF_COLUMNS)
+
+    def get_index(self, compare_image_id):
+        for row in range(self.rowCount(0)):
+            for col in range(self.columnCount(0)):
+                if self.index(row, col).data(Qt.UserRole + 1) == compare_image_id:
+                    return self.index(row, col)
+        return None

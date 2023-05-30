@@ -20,9 +20,34 @@ from exiftool import ExifTool
 from app.db_handler import DBHandler
 
 
+def exiftool_escape_string(string):
+    string = string.replace('|', '||')
+    string = string.replace(',', '|,')
+    string = string.replace(']', '|]')
+    string = string.replace('}', '|}')
+    if string[0] == '{':
+        string = '|' + string
+    if string[0] == '[':
+        string = '|' + string
+
+    return string
+
+
+def struct_escape_exiftool(object_input):
+
+    if type(object_input) is dict:
+        for key, value in object_input.items():
+            object_input[key] = struct_escape_exiftool(value)
+    elif type(object_input) is list:
+        for idx, list_item in enumerate(object_input):
+            object_input[idx] = struct_escape_exiftool(list_item)
+    elif type(object_input) is str:
+        object_input = exiftool_escape_string(object_input)
+        # print(object_input)
+    return object_input
+
 
 def parse_img_region(region: dict, img_width: int, img_height: int):
-
     bound = region['RegionBoundary']
 
     if bound['RbUnit'] == 'relative':
@@ -61,7 +86,6 @@ def parse_img_region(region: dict, img_width: int, img_height: int):
 
 
 def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
-
     print('\nWrite Data to Image - ImageRegions')
 
     count_image_written = 0
@@ -84,7 +108,7 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
 
     for img in images:
 
-        new_path = os.path.normpath(os.path.join(db1.db_path,  img['path']))
+        new_path = os.path.normpath(os.path.join(db1.db_path, img['path']))
         # image deleted_orig_tag will show that original tag is deleted and thus anyhow gets written
         force_change = True if img['deleted_orig_tag'] else False
 
@@ -99,6 +123,8 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
                     force_change = True
                 img_region = json.loads(obj['data'])['attributes']
 
+                struct_escape_exiftool(img_region)
+
                 img_regions.append(img_region)
 
             if img['orig_img_region_leftover']:
@@ -111,13 +137,17 @@ def meta_writer(db1: DBHandler, user: str, keep_orig: bool = False) -> bool:
                     # delete region if no region anymore in image
                     img_region_parsed = ''
                 else:
-                    img_region_parsed = json.dumps(img_regions, ensure_ascii=False,
-                                                   separators=(', ', '= ')).replace('"', '')
+                    img_region_parsed = '-xmp:ImageRegion='
+                    # This is the formatting for exiftool structure
+                    # escaping of some special characters is done before
+                    img_region_parsed += json.dumps(img_regions, ensure_ascii=False,
+                                                    separators=(', ', '= ')).replace('"', '')
+                    img_region_parsed = img_region_parsed.encode('utf8')
                 if not keep_orig:
-                    et.execute(*['-overwrite_original', '-struct',
-                                 '-xmp:ImageRegion=' + img_region_parsed, new_path])
+                    et.execute(*['-overwrite_original', '-codedcharacterset=utf8', '-struct',
+                                 img_region_parsed, new_path])
                 else:
-                    et.execute(*['-struct', '-xmp:ImageRegion=' + img_region_parsed, new_path])
+                    et.execute(*['-codedcharacterset=utf8', '-struct', img_region_parsed, new_path])
                 if et.last_status:
                     print("\tProblem writing EXIF to: " + new_path)
                 else:

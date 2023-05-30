@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '2.1.1'
+__version__ = '2.1.2'
 
 import sys
 from os import environ
@@ -439,6 +439,46 @@ class MainWindow(QMainWindow):
     # ----------------------------------------------------------
     # Functions
 
+    def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
+        if self.digitizer_scene.width() != 0.0:
+            # Navigate to next or previous image
+            if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
+
+                next_index = self.model.get_index(self.image_loading_image_id_db + 1)
+                if next_index is not None:
+                    self.scene_load_image(next_index)
+
+            if event.key() == Qt.Key_Backspace:
+                next_index = self.model.get_index(self.image_loading_image_id_db - 1)
+                if next_index is not None:
+                    self.scene_load_image(next_index)
+
+        if event.key() == Qt.Key.Key_S and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
+            self.save_data()
+
+    #  def eventFilter(self, source, event):
+    #      if event.type() == QtCore.QEvent.Type.KeyPress:
+
+    #              if self.digitizer_scene.width() != 0.0:
+    #                  # Navigate to next or previous image
+    #                  if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
+
+    #                      next_index = self.model.get_index(self.image_loading_image_id_db+1)
+    #                      if not next_index is None:
+    #                          self.scene_load_image(next_index)
+    #                          return True
+
+    #                  if event.key() == Qt.Key_Backspace:
+    #                      next_index = self.model.get_index(self.image_loading_image_id_db-1)
+    #                      if not next_index is None:
+    #                          self.scene_load_image(next_index)
+    #                          return True
+
+    #              if event.key() == Qt.Key.Key_S and event.modifiers() == Qt.Modifier.CTRL:
+    #                  self.save_data()
+    #                  return True
+    #      return False
+
     def maximize_restore(self):
 
         if not self.isMaximized():
@@ -687,20 +727,23 @@ class MainWindow(QMainWindow):
                 self.change_color(self.color_circle, 'circle')
                 self.current_item = None
                 self.image_region_view_load_all_image()
-                self.clear_entries()
+                self.clear_entries(action_stay_active=True)
 
-    def clear_entries(self):
+    def clear_entries(self, action_stay_active=False):
         self.current_item = None
-        self.digitizer_scene.instruction_active = False
+
         self.change_visible_button('', show_all=True)
 
-        self.ui.btn_create_rectangle.setIcon(QtGui.QIcon(u":/icons/icons/rectangle.svg"))
-        self.ui.btn_create_polygon.setIcon(QtGui.QIcon(u":/icons/icons/polygon.svg"))
-        self.ui.btn_create_circle.setIcon(QtGui.QIcon(u":/icons/icons/circle.svg"))
-        self.ui.btn_geometry_move.setIcon(QtGui.QIcon(u":/icons/icons/move.svg"))
-        self.ui.btn_geometry_resize.setIcon(QtGui.QIcon(u":/icons/icons/resize.svg"))
+        if not action_stay_active:
+            self.digitizer_scene.instruction_active = False
+            self.ui.btn_create_rectangle.setIcon(QtGui.QIcon(u":/icons/icons/rectangle.svg"))
+            self.ui.btn_create_polygon.setIcon(QtGui.QIcon(u":/icons/icons/polygon.svg"))
+            self.ui.btn_create_circle.setIcon(QtGui.QIcon(u":/icons/icons/circle.svg"))
+            self.ui.btn_geometry_move.setIcon(QtGui.QIcon(u":/icons/icons/move.svg"))
+            self.ui.btn_geometry_resize.setIcon(QtGui.QIcon(u":/icons/icons/resize.svg"))
 
-        self.digitizer_scene.current_instruction = Instructions.No_Instruction
+            self.digitizer_scene.current_instruction = Instructions.No_Instruction
+
         self.model_image_region.clear()
         self.ui.txt_rid.setPlainText('')
         self.ui.txt_rname.setPlainText('')
@@ -781,10 +824,9 @@ class MainWindow(QMainWindow):
         msg.exec()
         self.clear_entries()
 
-
     @Slot(int)
     def add_data(self, object_id):
-        self.clear_entries()
+        self.clear_entries(action_stay_active=True)
         data = self.db.db_load_object(object_id)
         jdata = json.loads(data['data'])
         image = Path(self.current_image['name'])
@@ -983,7 +1025,7 @@ class MainWindow(QMainWindow):
             if db_path:
                 self.db.db_load(Path(db_path), self.user)
 
-                #self.db.db_check_abs_path()
+                # self.db.db_check_abs_path()
 
                 self.digitizer_scene.db = self.db
                 print('Existing database was loaded: ' + Path(db_path).name)
@@ -1004,7 +1046,8 @@ class MainWindow(QMainWindow):
 
         for x in images:
             if x['preview'] is not None:
-                #rel = os.path.relpath(x['path'], self.db.db_path)
+                # rel = os.path.relpath(x['path'], self.db.db_path)
+
                 new_path = os.path.normpath(os.path.join(self.db.db_path, x['path']))
                 self.image_list.append([Path(new_path), x['id']])
                 pixmap = QPixmap()
@@ -1012,8 +1055,8 @@ class MainWindow(QMainWindow):
                 # image = QImage(pixmap)
                 item = PreviewModelData(x['id'], new_path, Path(new_path).name, pixmap,
                                         x['polygon_count'], x['rectangle_count'], x['circle_count'])
-                self.model.previews.append(item)
-                self.model.layoutChanged.emit()
+                self.model.appendData(item)
+
             else:
                 print("\tEmpty Preview in database image: ", x['path'])
 
@@ -1104,8 +1147,9 @@ class MainWindow(QMainWindow):
 
         if self.db.db_is_set and not self.db.is_locked:
             self.db.is_locked = True
-            image_path, _ = QFileDialog.getOpenFileName(self, caption="Click on one image. Only identical file formats are "
-                                                                      "imported")
+            image_path, _ = QFileDialog.getOpenFileName(self,
+                                                        caption="Click on one image. Only identical file formats are "
+                                                                "imported")
             if image_path:
                 print("Importing images")
                 image_path = Path(image_path)
@@ -1211,14 +1255,14 @@ class MainWindow(QMainWindow):
 
 def add_preview(image_list, db1: DBHandler, user, contributor_tag):
     # Add a bunch of images.
-    #item_all = []
+    # item_all = []
 
     db = DBHandler()
     db.db_load(db1.db_path, user)
     db.db_user = user
 
     try:
-        et = ExifTool(r"app\bin\exiftool-12.52.exe")
+        et = ExifTool(r"app\bin\exiftool-12.52.exe", encoding='utf8')
         et.run()
     except OSError as err:
         print("\t\tStart running Exiftool failed")
@@ -1233,8 +1277,8 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
         image = image_loader(new_path)
         scaled = image.scaledToHeight(PREVIEW_HEIGHT)
 
-        #item = PreviewModelData(fn[1], fn[0].as_posix(), fn[0].name, scaled, 0, 0, 0)
-        #item_all.append(item)
+        # item = PreviewModelData(fn[1], fn[0].as_posix(), fn[0].name, scaled, 0, 0, 0)
+        # item_all.append(item)
 
         ba = QtCore.QByteArray()
         buff = QtCore.QBuffer(ba)
@@ -1277,12 +1321,13 @@ def add_preview(image_list, db1: DBHandler, user, contributor_tag):
 
 
 def main():
-    #QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    # QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
 
-    #QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.Floor)
+    # QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.Floor)
     freeze_support()
     app = QApplication()
     window = MainWindow()
+    #  app.installEventFilter(window)
     app.setWindowIcon(QtGui.QIcon("app/icons/icon.png"))
     sys.exit(app.exec())
 

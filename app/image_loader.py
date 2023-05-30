@@ -32,7 +32,8 @@ for x in QImageReader.supportedImageFormats():
 def image_loader(filename: str) -> QtGui.QPixmap:
     img = None
     if Path(filename).suffix.lower() in image_formats_direct_load:
-        img = QtGui.QPixmap(filename)
+        img = QtGui.QPixmap.fromImage(ImageQt.ImageQt(filename))
+
         if img.height() > 0:
             return img
 

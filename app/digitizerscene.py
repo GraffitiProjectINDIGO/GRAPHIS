@@ -157,7 +157,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
         tooltip = 'empty'
         self.object_add.emit(object_id)
-        self.current_instruction = Instructions.No_Instruction
+        #self.current_instruction = Instructions.No_Instruction
         self.change_color(object_type='rectangle', color=self.color_rectangle)
         self.change_color(object_type='polygon', color=self.color_polygon)
         self.change_color(object_type='circle', color=self.color_circle)
