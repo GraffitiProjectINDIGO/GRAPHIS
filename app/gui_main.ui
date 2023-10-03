@@ -1918,8 +1918,8 @@ QPushButton:pressed {
                   <widget class="QPushButton" name="btn_create_polygon">
                    <property name="geometry">
                     <rect>
-                     <x>130</x>
-                     <y>50</y>
+                     <x>10</x>
+                     <y>120</y>
                      <width>51</width>
                      <height>51</height>
                     </rect>
@@ -1956,8 +1956,8 @@ QPushButton:pressed {
                   <widget class="QPushButton" name="btn_geometry_move">
                    <property name="geometry">
                     <rect>
-                     <x>10</x>
-                     <y>120</y>
+                     <x>190</x>
+                     <y>50</y>
                      <width>51</width>
                      <height>51</height>
                     </rect>
@@ -1994,8 +1994,8 @@ QPushButton:pressed {
                   <widget class="QPushButton" name="btn_geometry_resize">
                    <property name="geometry">
                     <rect>
-                     <x>70</x>
-                     <y>120</y>
+                     <x>130</x>
+                     <y>50</y>
                      <width>51</width>
                      <height>51</height>
                     </rect>
@@ -2059,6 +2059,88 @@ QPushButton:pressed {
                    <property name="icon">
                     <iconset resource="files.qrc">
                      <normaloff>:/icons/icons/Flat_cross_icon.svg</normaloff>:/icons/icons/Flat_cross_icon.svg</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="btn_geometry_add_vertex">
+                   <property name="geometry">
+                    <rect>
+                     <x>130</x>
+                     <y>120</y>
+                     <width>51</width>
+                     <height>51</height>
+                    </rect>
+                   </property>
+                   <property name="toolTip">
+                    <string>Add polygon vertex</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="files.qrc">
+                     <normaloff>:/icons/icons/add_node.svg</normaloff>:/icons/icons/add_node.svg</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="btn_geometry_remove_vertex">
+                   <property name="geometry">
+                    <rect>
+                     <x>70</x>
+                     <y>120</y>
+                     <width>51</width>
+                     <height>51</height>
+                    </rect>
+                   </property>
+                   <property name="toolTip">
+                    <string>Remove polygon vertex</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="files.qrc">
+                     <normaloff>:/icons/icons/remove_node.svg</normaloff>:/icons/icons/remove_node.svg</iconset>
                    </property>
                    <property name="iconSize">
                     <size>

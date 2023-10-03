@@ -294,6 +294,8 @@ class MainWindow(QMainWindow):
         self.ui.btn_create_circle.clicked.connect(lambda: self.set_instruction('create_circle'))
         self.ui.btn_geometry_move.clicked.connect(lambda: self.set_instruction('move_geometry'))
         self.ui.btn_geometry_resize.clicked.connect(lambda: self.set_instruction('change_geometry'))
+        self.ui.btn_geometry_add_vertex.clicked.connect(lambda: self.set_instruction('add_vertex'))
+        self.ui.btn_geometry_remove_vertex.clicked.connect(lambda: self.set_instruction('remove_vertex'))
 
         # self.ui.text_rectangle_attribute.focus_out.connect(self.save_data)
 
@@ -741,6 +743,8 @@ class MainWindow(QMainWindow):
             self.ui.btn_create_circle.setIcon(QtGui.QIcon(u":/icons/icons/circle.svg"))
             self.ui.btn_geometry_move.setIcon(QtGui.QIcon(u":/icons/icons/move.svg"))
             self.ui.btn_geometry_resize.setIcon(QtGui.QIcon(u":/icons/icons/resize.svg"))
+            self.ui.btn_geometry_add_vertex.setIcon(QtGui.QIcon(u":/icons/icons/add_node.svg"))
+            self.ui.btn_geometry_remove_vertex.setIcon(QtGui.QIcon(u":/icons/icons/remove_node.svg"))
 
             self.digitizer_scene.current_instruction = Instructions.No_Instruction
 
@@ -797,6 +801,7 @@ class MainWindow(QMainWindow):
         self.change_color(self.color_rectangle, 'rectangle')
         self.change_color(self.color_polygon, 'polygon')
         self.change_color(self.color_circle, 'circle')
+
         self.current_item = None
         self.clear_entries()
         self.image_region_view_load_all_image()
@@ -818,7 +823,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def message_no_valid_polygon(self):
         msg = QMessageBox(self,
-                          text="That was not a valid polygon\nEither not enough points (min 3) or self intersecting")
+                          text="That was or will not be a valid polygon\nEither not enough points (min 3) or self intersecting")
         msg.setWindowTitle('Warning')
         # msg.setStyleSheet('background-color: rgb(40, 44, 52);')
         msg.exec()
@@ -973,6 +978,9 @@ class MainWindow(QMainWindow):
             self.ui.btn_create_circle.setIcon(QtGui.QIcon(u":/icons/icons/circle.svg"))
             self.ui.btn_geometry_move.setIcon(QtGui.QIcon(u":/icons/icons/move.svg"))
             self.ui.btn_geometry_resize.setIcon(QtGui.QIcon(u":/icons/icons/resize.svg"))
+            self.ui.btn_geometry_add_vertex.setIcon(QtGui.QIcon(u":/icons/icons/add_node.svg"))
+            self.ui.btn_geometry_remove_vertex.setIcon(QtGui.QIcon(u":/icons/icons/remove_node.svg"))
+
             if action == 'create_rectangle':
                 self.current_item = None
                 self.digitizer_scene.current_instruction = Instructions.Rectangle_Instruction
@@ -990,6 +998,12 @@ class MainWindow(QMainWindow):
             elif action == 'change_geometry':
                 self.digitizer_scene.current_instruction = Instructions.Change_Instruction
                 self.ui.btn_geometry_resize.setIcon(QtGui.QIcon(u":/icons/icons/resize_active.svg"))
+            elif action == 'add_vertex':
+                self.digitizer_scene.current_instruction = Instructions.Add_Vertex
+                self.ui.btn_geometry_add_vertex.setIcon(QtGui.QIcon(u":/icons/icons/add_node_active.svg"))
+            elif action == 'remove_vertex':
+                self.digitizer_scene.current_instruction = Instructions.Remove_Vertex
+                self.ui.btn_geometry_remove_vertex.setIcon(QtGui.QIcon(u":/icons/icons/remove_node_active.svg"))
 
     def clean_all_views_and_tables(self, db_save=False):
         self.digitizer_scene.clear()

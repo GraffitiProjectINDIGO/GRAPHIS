@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/add_node_active.svg</file>
+    <file>icons/remove_node_active.svg</file>
     <file>icons/rectangle_active.svg</file>
     <file>icons/INDIGO_logoGRAPHIS_text.png</file>
     <file>icons/INDIGO_logoGRAPHIS.png</file>

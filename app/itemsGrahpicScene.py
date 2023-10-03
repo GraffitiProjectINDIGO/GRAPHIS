@@ -19,7 +19,7 @@ import numpy
 from shapely import geometry
 
 from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtCore import (QPointF, QRect)
+from PySide6.QtCore import (QPointF, QLineF)
 from PySide6.QtGui import (QPolygonF)
 from app.var_classes import color_on_image_hoover, list_of_points_to_list
 
@@ -148,6 +148,29 @@ class RectangleAnnotation(QtWidgets.QGraphicsRectItem):
         p.setCosmetic(True)
         self.setPen(p)
         super(RectangleAnnotation, self).hoverLeaveEvent(event)
+
+
+class OctoLines:
+    def __init__(self, x, y, pick_radius):
+        self.line_list = [
+            QLineF(QPointF(x, y + pick_radius), QPointF(x + pick_radius * 0.707, y + pick_radius * 0.707)),
+            QLineF(QPointF(x + pick_radius * 0.707, y + pick_radius * 0.707), QPointF(x + pick_radius, y)),
+            QLineF(QPointF(x + pick_radius, y), QPointF(x + pick_radius * 0.707, y - pick_radius * 0.707)),
+            QLineF(QPointF(x + pick_radius * 0.707, y - pick_radius * 0.707), QPointF(x, y - pick_radius)),
+            QLineF(QPointF(x, y - pick_radius), QPointF(x - pick_radius * 0.707, y - pick_radius * 0.707)),
+            QLineF(QPointF(x - pick_radius * 0.707, y - pick_radius * 0.707), QPointF(x - pick_radius, y)),
+            QLineF(QPointF(x - pick_radius, y), QPointF(x - pick_radius * 0.707, y + pick_radius * 0.707)),
+            QLineF(QPointF(x - pick_radius * 0.707, y + pick_radius * 0.707), QPointF(x, y + pick_radius))]
+
+    def intersect(self, line: QLineF):
+        for octo_line in self.line_list:
+            inter_type, inter_p = line.intersects(octo_line)
+            if inter_type == QLineF.BoundedIntersection:
+                return True, inter_p
+        return False, None
+
+    def items(self):
+        return self.line_list
 
 
 class PointAnnotation(QtWidgets.QGraphicsEllipseItem):
@@ -329,7 +352,7 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
 
         else:
             poly = self.polygon()
-            poly[target_point]= pos
+            poly[target_point] = pos
             p = poly.toList()
             o = [[x.x(), x.y()] for x in p]
             i = geometry.Polygon(o)
@@ -339,7 +362,6 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
                 self.setPolygon(poly)
 
     def get_coords(self, image_width, image_height):
-
         coords = self.polygon().toList()
         valid = True
         for p in coords:
@@ -357,6 +379,23 @@ class PolygonAnnotation(QtWidgets.QGraphicsPolygonItem):
                 return True, idx
 
         return False, 0
+
+    def close_octo(self, octo: OctoLines,):
+
+        inter_p: QPointF | None = None
+        poly = self.polygon().toList()
+        if not self.polygon().isClosed():
+            poly.append(poly[0])
+        for idx, pt in enumerate(poly):
+            line = QLineF(poly[idx], poly[idx+1])
+            valid, inter_p = octo.intersect(line)
+            if valid:
+                return True, idx, inter_p
+
+            if idx == len(poly)-1:
+                break
+
+        return False, 0, inter_p
 
     def is_valid(self):
         p = self.polygon().toList()

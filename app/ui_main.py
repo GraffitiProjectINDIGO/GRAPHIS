@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'gui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -830,7 +830,7 @@ class Ui_MainWindow(object):
         self.btn_create_rectangle.setIconSize(QSize(50, 50))
         self.btn_create_polygon = QPushButton(self.groupBox_2)
         self.btn_create_polygon.setObjectName(u"btn_create_polygon")
-        self.btn_create_polygon.setGeometry(QRect(130, 50, 51, 51))
+        self.btn_create_polygon.setGeometry(QRect(10, 120, 51, 51))
         self.btn_create_polygon.setStyleSheet(u"QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
 "	border-radius: 5px;	\n"
@@ -850,7 +850,7 @@ class Ui_MainWindow(object):
         self.btn_create_polygon.setIconSize(QSize(50, 50))
         self.btn_geometry_move = QPushButton(self.groupBox_2)
         self.btn_geometry_move.setObjectName(u"btn_geometry_move")
-        self.btn_geometry_move.setGeometry(QRect(10, 120, 51, 51))
+        self.btn_geometry_move.setGeometry(QRect(190, 50, 51, 51))
         self.btn_geometry_move.setStyleSheet(u"QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
 "	border-radius: 5px;	\n"
@@ -870,7 +870,7 @@ class Ui_MainWindow(object):
         self.btn_geometry_move.setIconSize(QSize(50, 50))
         self.btn_geometry_resize = QPushButton(self.groupBox_2)
         self.btn_geometry_resize.setObjectName(u"btn_geometry_resize")
-        self.btn_geometry_resize.setGeometry(QRect(70, 120, 51, 51))
+        self.btn_geometry_resize.setGeometry(QRect(130, 50, 51, 51))
         self.btn_geometry_resize.setStyleSheet(u"QPushButton {\n"
 "	border: 2px solid rgb(52, 59, 72);\n"
 "	border-radius: 5px;	\n"
@@ -908,6 +908,46 @@ class Ui_MainWindow(object):
         icon14.addFile(u":/icons/icons/Flat_cross_icon.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_geometry_remove.setIcon(icon14)
         self.btn_geometry_remove.setIconSize(QSize(50, 50))
+        self.btn_geometry_add_vertex = QPushButton(self.groupBox_2)
+        self.btn_geometry_add_vertex.setObjectName(u"btn_geometry_add_vertex")
+        self.btn_geometry_add_vertex.setGeometry(QRect(130, 120, 51, 51))
+        self.btn_geometry_add_vertex.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+        icon15 = QIcon()
+        icon15.addFile(u":/icons/icons/add_node.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_geometry_add_vertex.setIcon(icon15)
+        self.btn_geometry_add_vertex.setIconSize(QSize(50, 50))
+        self.btn_geometry_remove_vertex = QPushButton(self.groupBox_2)
+        self.btn_geometry_remove_vertex.setObjectName(u"btn_geometry_remove_vertex")
+        self.btn_geometry_remove_vertex.setGeometry(QRect(70, 120, 51, 51))
+        self.btn_geometry_remove_vertex.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(52, 59, 72);\n"
+"	border-radius: 5px;	\n"
+"	background-color: rgb(52, 59, 72);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(57, 65, 80);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgb(35, 40, 49);\n"
+"	border: 2px solid rgb(43, 50, 61);\n"
+"}")
+        icon16 = QIcon()
+        icon16.addFile(u":/icons/icons/remove_node.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_geometry_remove_vertex.setIcon(icon16)
+        self.btn_geometry_remove_vertex.setIconSize(QSize(50, 50))
 
         self.verticalLayout_6.addWidget(self.groupBox_2)
 
@@ -964,9 +1004,9 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setFrameShape(QFrame.NoFrame)
         self.plainTextEdit.setFrameShadow(QFrame.Plain)
         self.plainTextEdit.setLineWidth(0)
-        icon15 = QIcon()
-        icon15.addFile(u":/icons/icons/Question.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.tabWidget_2.addTab(self.tab_3, icon15, "")
+        icon17 = QIcon()
+        icon17.addFile(u":/icons/icons/Question.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.tabWidget_2.addTab(self.tab_3, icon17, "")
         self.tab_4 = QWidget()
         self.tab_4.setObjectName(u"tab_4")
         self.info_screen = QTextEdit(self.tab_4)
@@ -994,9 +1034,9 @@ class Ui_MainWindow(object):
         self.info_screen.setUndoRedoEnabled(False)
         self.info_screen.setReadOnly(True)
         self.info_screen.setTabStopDistance(5.000000000000000)
-        icon16 = QIcon()
-        icon16.addFile(u":/icons/icons/console.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.tabWidget_2.addTab(self.tab_4, icon16, "")
+        icon18 = QIcon()
+        icon18.addFile(u":/icons/icons/console.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.tabWidget_2.addTab(self.tab_4, icon18, "")
 
         self.verticalLayout_12.addWidget(self.tabWidget_2)
 
@@ -1182,9 +1222,9 @@ class Ui_MainWindow(object):
 "	background-color: rgb(35, 40, 49);\n"
 "	border: 2px solid rgb(43, 50, 61);\n"
 "}")
-        icon17 = QIcon()
-        icon17.addFile(u":/icons/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_object_save.setIcon(icon17)
+        icon19 = QIcon()
+        icon19.addFile(u":/icons/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_object_save.setIcon(icon19)
         self.btn_object_save.setIconSize(QSize(50, 50))
 
         self.verticalLayout_10.addWidget(self.btn_object_save)
@@ -1958,6 +1998,14 @@ class Ui_MainWindow(object):
         self.btn_geometry_move.setText("")
         self.btn_geometry_resize.setText("")
         self.btn_geometry_remove.setText("")
+#if QT_CONFIG(tooltip)
+        self.btn_geometry_add_vertex.setToolTip(QCoreApplication.translate("MainWindow", u"Add polygon vertex", None))
+#endif // QT_CONFIG(tooltip)
+        self.btn_geometry_add_vertex.setText("")
+#if QT_CONFIG(tooltip)
+        self.btn_geometry_remove_vertex.setToolTip(QCoreApplication.translate("MainWindow", u"Remove polygon vertex", None))
+#endif // QT_CONFIG(tooltip)
+        self.btn_geometry_remove_vertex.setText("")
         self.plainTextEdit.setPlainText(QCoreApplication.translate("MainWindow", u"GRAPHIS (Generate Regions and Annotations for Photos using the IPTC Standard) is a software developed within the academic graffiti project INDIGO (https://projectindigo.eu) and available via GitHub (https://github.com/GraffitiProjectINDIGO/GRAPHIS). \n"
 "\n"
 "GRAPHIS provides a graphical user interface to generate, visualise and annotate image regions as enabled by the 2019.1 version of the IPTC Photo Metadata Standard (https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2019.1.html).\n"

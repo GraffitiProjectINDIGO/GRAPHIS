@@ -1,17 +1,17 @@
-#Copyright (C) 2023 Martin Wieser
+# Copyright (C) 2023 Martin Wieser
 #
-#This program is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#You should have received a copy of the GNU General Public License
-#along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
 from PySide6 import QtWidgets
@@ -19,12 +19,12 @@ from PySide6.QtCore import Signal, QPointF, SignalInstance, Qt
 from PySide6.QtGui import QPolygonF
 from PySide6 import QtGui
 
-
 from app.db_handler import DBHandler
 from app.image_loader import image_loader
 from app.var_classes import Instructions
-from app.itemsGrahpicScene import RectangleAnnotation, PointAnnotation, PolygonAnnotation
+from app.itemsGrahpicScene import RectangleAnnotation, PointAnnotation, PolygonAnnotation, OctoLines
 from app.var_classes import create_region_boundary
+
 point_size = 20
 
 
@@ -157,7 +157,7 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
 
         tooltip = 'empty'
         self.object_add.emit(object_id)
-        #self.current_instruction = Instructions.No_Instruction
+        # self.current_instruction = Instructions.No_Instruction
         self.change_color(object_type='rectangle', color=self.color_rectangle)
         self.change_color(object_type='polygon', color=self.color_polygon)
         self.change_color(object_type='circle', color=self.color_circle)
@@ -231,7 +231,78 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                             self.change_object.emit(self.active_item.obj_id)
                             self.instruction_active = False
 
-            # Change instruction
+            # Add vertex
+            if self.current_instruction == Instructions.Add_Vertex and event.button() == Qt.RightButton:
+                if not self.instruction_active:
+
+                    # create a octagon as to check intersection
+
+                    pick_radius = (self.image_width + self.image_height) / 2.0 / 100
+                    x, y = event.scenePos().x(), event.scenePos().y()
+                    octo = OctoLines(x, y, pick_radius)
+                    #for item_octo in octo.items():
+                    #    self.addItem(QtWidgets.QGraphicsLineItem(item_octo))
+
+                    for item in self.items():
+
+                        if hasattr(item, 'object_type'):
+                            if item.object_type == 'polygon':
+
+                                found_near, id_item, inter_p = item.close_octo(octo)
+                                if found_near:
+
+                                    p: list = item.polygon().toList()
+                                    p.insert(id_item+1, inter_p)
+                                    item.setPolygon(QPolygonF(p))
+                                    self.change_point_index = id_item+1
+                                    self.active_item = item
+                                    self.instruction_active = True
+                                    break
+
+                else:
+
+                    if self.active_item.is_valid:
+                        coordinates, valid = self.active_item.get_coords(self.image_width, self.image_height)
+                        if valid:
+                            self.db.update_object(self.active_item.obj_id, coordinates)
+                            self.change_object.emit(self.active_item.obj_id)
+                            self.instruction_active = False
+
+            # Remove Vertex
+
+            if self.current_instruction == Instructions.Remove_Vertex and event.button() == Qt.RightButton:
+                if not self.instruction_active:
+
+                    pick_radius = (self.image_width + self.image_height) / 2.0 / 100
+                    for item in self.items():
+
+                        if hasattr(item, 'object_type'):
+                            if item.object_type == 'polygon':
+
+                                found_near_geometry, idx_point = item.close_point(event.scenePos(), pick_radius)
+                                if found_near_geometry:
+
+                                    if item.polygon().length() > 3:
+
+                                        p_del: QPolygonF = item.polygon()
+                                        p_del.removeAt(idx_point)
+                                        if item.is_valid():
+
+                                            item.setPolygon(p_del)
+                                            coordinates, valid = item.get_coords(self.image_width,
+                                                                                 self.image_height)
+                                            if valid:
+                                                self.db.update_object(item.obj_id, coordinates)
+                                                self.change_object.emit(item.obj_id)
+                                            else:
+                                                self.message_no_valid.emit()
+                                        else:
+                                            self.message_no_valid.emit()
+                                    else:
+                                        self.message_no_valid.emit()
+
+                                    break
+
             if self.current_instruction == Instructions.Change_Instruction and event.button() == Qt.RightButton:
 
                 if not self.instruction_active:
@@ -339,7 +410,6 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
                         else:
                             diff_to_last = poly[-2] - event.scenePos()
                         if diff_to_last.manhattanLength() > 1.0:
-
                             poly.append(event.scenePos())
                             self.polygon_item.setPolygon(poly)
 
@@ -393,6 +463,13 @@ class DIGITIZERScene(QtWidgets.QGraphicsScene):
     def mouseMoveEvent(self, event):
 
         if self.current_instruction == Instructions.Change_Instruction and self.instruction_active:
+            # poly = self.polygon_item.polygon()
+            # if poly.length() > 2:
+            #     poly.replace(self.change_point_index, event.scenePos())
+            #	  self.polygon_item.setPolygon(poly)
+            self.active_item.change_geometry(event.scenePos(), self.change_point_index)
+
+        if self.current_instruction == Instructions.Add_Vertex and self.instruction_active:
             # poly = self.polygon_item.polygon()
             # if poly.length() > 2:
             #     poly.replace(self.change_point_index, event.scenePos())

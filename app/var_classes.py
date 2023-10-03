@@ -110,6 +110,8 @@ class Instructions:
     Rectangle_Instruction = 'Rectangle'
     Move_Instruction = 'Move'
     Change_Instruction = 'Change'
+    Add_Vertex = 'Add_vertex'
+    Remove_Vertex = 'Remove_vertex'
 
 
 preview = namedtuple("preview", "id path title image polygon_number rectangle_number circle_number")
