@@ -1,5 +1,4 @@
 ![ ](app/icons/INDIGO_logoGRAPHIS_text.png)
-# GRAPHIS  
 
 ## Table of contents
 * [General info](#general-info)
