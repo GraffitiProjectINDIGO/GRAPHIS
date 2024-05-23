@@ -28,9 +28,9 @@ Once an image region has been created, it is possible to modify its shape in var
 
 While currently only fixed metadata fields of the image region can be edited, all meta-information about the image regions can be shown with the tabs on the right side. The "View region info" tab displays all the properties of the selected region. The "All region info" tab lists all properties of every image region in the active image. In the last two tabs, properties can be expanded or collapsed at will.
 
-Results can be saved directly inside the images as well as in a separate CSV file.
+Results can be saved directly inside the images or a separate CSV file.
 
-Much more information can be found the the following publication, which users of GRAPHIS are also asked to cite:
+Much more information can be found inthe following publication, which users of GRAPHIS are also asked to cite:<br>
 Verhoeven, G.J., Wieser, M., Carloni, M., 2023. <i>GRAPHIS—Visualise, Draw, Annotate, and Save Image Regions in Graffiti Photos</i>, in: <ins>disseminate | analyse | understand graffiti-scapes. Proceedings of the goINDIGO2023 international graffiti symposium</ins>, Vienna, Austria. 14-16 June 2023. Urban Creativity, Lisbon.
 
 
