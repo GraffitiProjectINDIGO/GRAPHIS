@@ -3,7 +3,7 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Creating binaries with PyInstaller](#create_binary)
+* [Install](#install)
 * [Usage](#usage)
 
 
@@ -14,22 +14,24 @@ GRAPHIS (<ins>G</ins>enerate <ins>R</ins>egions and <ins>A</ins>nnotations for <
 
 GRAPHIS supports the most common raster image file formats that store IPTC metadata: JPEG, TIFF, PNG, and many RAW formats. The metadata of all imported images are read and written into a local SQLite database; this database also stores each operation on the image regions. GRAPHIS can store the (newly created or altered) image regions and their annotations back into the original images at any time, but only if chosen so in the menu. Altering image regions outside of GRAPHIS while the SQLite database still holds image region metadata that are not written back into the image file will lead to errors.
 		
-## Creating binaries with PyInstaller
-run ```pyinstaller Graphis_pyinstaller.spec``` to create an executable software package graphis_XX.
+## Install
+The latest compiled release—ready for direct installation on a Windows machine—can be found [here](https://github.com/GraffitiProjectINDIGO/GRAPHIS/releases).
+One can also run ```pyinstaller Graphis_pyinstaller.spec``` to create an executable software package graphis_XX.
 
 ## Usage
-GRAPHIS aims to add, manipulate or visualise IPTC image regions. Only valid circles or polygonal shapes within
-the image area are allowed. Additional extra meta information can be stored for each image region. 
+GRAPHIS aims to add, manipulate, or visualise IPTC image regions. Only circles, rectangles, or any other valid polygonal shapes contained within the image are allowed. Additional meta information can be stored for each image region.
+To create or alter an image region, the user should select one of the region operators with a left mouse click. With the circle and rectangle tools, drawing starts and ends with a right mouse click. Polygons are finished with a left click because every right click of the mouse creates a new vertex. Upon finishing the creation of a shape, its region boundary information gets automatically stored in the SQLite database, while the image region property gets default values that are defined in the graphis.config file (a text-based configuration file). Any change in geometry is immediately submitted to the underlying SQLite database, while metadata changes must be submitted with the green floppy disk icon.
 
-While currently only fixed metadata fields of the image region can be edited, all meta-information about the image regions can be shown with the tabs on the right side called "View region info" to show the region info of the currently selected geometry
-and "All region info" which shows all image regions within the current image.
+When drawing a region, the last-used drawing tool remains active (indicated by its yellow icon), allowing the user to keep drawing with the same tool without activating it every time. Suppose metadata properties need to be added (like a description) or changed (like the region name) after drawing that region. In that case, the user can quickly save that new information with CTRL+S, avoiding a mouse click on the saving icon. The Enter and Backspace buttons allow navigation to the next or previous image. However, this will only work if the cursor is not on a metadata field, as one would otherwise start typing in that field. These features support the rapid creation of polygons with minimal mouse clicks. GRAPHIS also ensures that a region cannot be finalised if it partly lies outside the image boundaries. In addition, intersecting polygon edges are not allowed.
 
-Right-Click:    Create new image region. Polygon is finished by a left click.
-                Moving geometries. Change geometry by a right click on the nearest vertices or the circle border
+Once an image region has been created, it is possible to modify its shape in various ways using some of the tools provided by GRAPHIS. For example, circles and rectangles can be resized, while the same tool can also be used to move polygon vertices. Other tools allow the user to shift or delete the entire shape, or to add or remove individual polygon vertices. As with the drawing tools, a left mouse click activates these shape modification tools, while a right mouse click executes the action.
 
-Changes are submitted to the project's SQLite file. Geometry creation/changes are submitted to the database immediately,
-while metadata changes on the right have to be submitted by the save button
-To update the image metadata use the menu on top "save image regions to file"
+While currently only fixed metadata fields of the image region can be edited, all meta-information about the image regions can be shown with the tabs on the right side. The "View region info" tab displays all the properties of the selected region. The "All region info" tab lists all properties of every image region in the active image. In the last two tabs, properties can be expanded or collapsed at will.
+
+Results can be saved directly inside the images as well as in a separate CSV file.
+
+Much more information can be found the the following publication, which users of GRAPHIS are also asked to cite:
+Verhoeven, G.J., Wieser, M., Carloni, M., 2023. <i>GRAPHIS—Visualise, Draw, Annotate, and Save Image Regions in Graffiti Photos</i>, in: <ins>disseminate | analyse | understand graffiti-scapes. Proceedings of the goINDIGO2023 international graffiti symposium</ins>, Vienna, Austria. 14-16 June 2023. Urban Creativity, Lisbon.
 
 
 ![ ](doc/images/main_window.jpg)
