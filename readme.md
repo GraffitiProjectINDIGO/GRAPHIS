@@ -14,8 +14,46 @@ GRAPHIS (<ins>G</ins>enerate <ins>R</ins>egions and <ins>A</ins>nnotations for <
 GRAPHIS supports the most common raster image file formats that store IPTC metadata: JPEG, TIFF, PNG, and many RAW formats. The metadata of all imported images are read and written into a local SQLite database; this database also stores each operation on the image regions. GRAPHIS can store the (newly created or altered) image regions and their annotations back into the original images at any time, but only if chosen so in the menu.
 		
 ## Install
-The latest compiled release—ready for direct installation on a Windows machine—can be found [here](https://github.com/GraffitiProjectINDIGO/GRAPHIS/releases).
+The latest release of GRAPHIS can be found at [github](https://github.com/GraffitiProjectINDIGO/GRAPHIS).
+
+### From Source
+To install GRAPHIS you can execute in the graphis directory (same one where you found this file after cloning the git repo):
+
+```
+  pip install .
+```
+
+## Builds
+The latest compiled release (ready as executable on a Windows machine) can be found [here](https://github.com/GraffitiProjectINDIGO/GRAPHIS/releases).
+
+### Build executable
 One can also run ```pyinstaller Graphis_pyinstaller.spec``` to create an executable software package graphis_XX.
+For this you need the pyinstaller installed in your environment.
+
+### Qt6 and PySide6
+If you want to build Qt6 and PySide6 from source, the source code and build instructions for PySide6 and Qt6 can be found under ``source``.
+You can also find more in detail information at [Qt for Python](https://wiki.qt.io/Qt_for_Python)
+
+### LibRAW
+If you want to build LibRAW from source, the source code and build instructions be found under ``source``.
+
+
+## Dependencies
+
+### Python
+PyImageMapping runs on **Python 3.10+**.
+PyImageMapping has been tested on Windows and Linux, and probably also runs on other Unix-like platforms.
+
+### Packages
+It relies only on well-developed packages
+- [numpy](https://www.numpy.org)
+- [PySide6](https://doc.qt.io/qtforpython-6) under the GPLv3. The source code and build instructions for Pyside6 and Qt6 can be found under ``source``.
+- [shapely](https://shapely.readthedocs.io/en/stable/index.html)
+- [Pillow](https://python-pillow.org/)
+- [LibRaw](https://www.libraw.org/) under the LGPLv2.1 using [rawpy](https://pypi.org/project/rawpy). The source code for LibRAW can be found under ``source``.
+
+and the package [PyExiftool](https://github.com/sylikc/pyexiftool) as interface to EXIFTool's command line
+
 
 ## Usage
 GRAPHIS aims to add, manipulate, or visualise IPTC image regions. Only circles, rectangles, or any other valid polygonal shapes contained within the image are allowed. Additional meta information can be stored for each image region.
@@ -34,3 +72,17 @@ Verhoeven, G.J., Wieser, M., Carloni, M., 2023. <i>GRAPHIS—Visualise, Draw, An
 
 
 ![ ](doc/images/main_window.jpg)
+
+## Licence
+PyImageMapping is licensed under the GPLv3.
+
+Copyright (C) 2024 Martin Wieser
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+See ``LICENSE`` for more details.

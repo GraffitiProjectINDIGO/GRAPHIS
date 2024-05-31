@@ -1,13 +1,14 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-name_app = 'GRAPHIS_2_1_2'
+name_app = 'GRAPHIS_2_2'
 
 block_cipher = None
 
 added_files = [
          ( 'app/bin/*', 'app/bin' ),
 		 ( 'app/icons/icon.png', 'app/icons'),
-         ( 'graphis.config', '.' )
+         ( 'graphis.config', '.' ),
+         ( 'app/ThirdPartyNotices.json', 'app' )
          ]
 a = Analysis(
     ['graphis.py'],

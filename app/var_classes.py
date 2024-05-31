@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Martin Wieser
+# Copyright (C) 2024 Martin Wieser
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,10 @@ from pathlib import Path
 from PySide6.QtGui import QColor, QBrush, QStandardItem
 
 
+software_version = "2.2"
+license_version = "GNU General Public License v3 or later (GPLv3+)"
+build_year = "2024"
+
 CONFIG_FILE = "graphis.config"
 
 COLOR_CIRCLE_START = '#fdae61'
@@ -44,14 +48,14 @@ RCTYPE_Standard_IDENTIFIER = 'link to indigo graffito definition'
 RCTYPE_Standard_NAME = 'graffito'
 
 
-image_region_role = [["cropping", "http://cv.iptc.org/newscodes/imageregionrole/cropping"],
-                     ["recommended cropping", "http://cv.iptc.org/newscodes/imageregionrole/recomCropping"],
-                     ["landscape format cropping", "http://cv.iptc.org/newscodes/imageregionrole/landscapeCropping"],
-                     ["portrait format cropping", "http://cv.iptc.org/newscodes/imageregionrole/portraitCropping"],
-                     ["square format cropping", "http://cv.iptc.org/newscodes/imageregionrole/squareCropping"],
-                     ["composite image item", "http://cv.iptc.org/newscodes/imageregionrole/compositeImageItem"],
-                     ["copyright region", "http://cv.iptc.org/newscodes/imageregionrole/copyrightRegion"],
-                     ["business use", "http://cv.iptc.org/newscodes/imageregionrole/businessUse"],
+image_region_role = [#["cropping", "http://cv.iptc.org/newscodes/imageregionrole/cropping"],
+                     #["recommended cropping", "http://cv.iptc.org/newscodes/imageregionrole/recomCropping"],
+                     #["landscape format cropping", "http://cv.iptc.org/newscodes/imageregionrole/landscapeCropping"],
+                     #["portrait format cropping", "http://cv.iptc.org/newscodes/imageregionrole/portraitCropping"],
+                     #["square format cropping", "http://cv.iptc.org/newscodes/imageregionrole/squareCropping"],
+                     #["composite image item", "http://cv.iptc.org/newscodes/imageregionrole/compositeImageItem"],
+                     #["copyright region", "http://cv.iptc.org/newscodes/imageregionrole/copyrightRegion"],
+                     #["business use", "http://cv.iptc.org/newscodes/imageregionrole/businessUse"],
                      ['area of interest', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/areaOfInterest"],
                      ['main subject area', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/mainSubjectArea"],
                      ['subject area', "https://vocabs.acdh.oeaw.ac.at/graphis-imgreg/subjectArea"]]

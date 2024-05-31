@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Martin Wieser
+# Copyright (C) 2024 Martin Wieser
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,10 +14,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-__version__ = '2.2'
+
 
 import sys
-from os import environ
 import traceback
 import json
 from pathlib import Path
@@ -37,7 +36,7 @@ from app.preview_class import PreviewModel, PreviewDelegate
 from app.var_classes import (Instructions, PreviewModelData,
                              image_region_role, put_struct_to_dict_or_remove, put_text_to_dict_or_remove,
                              put_struc_tag, find_key_role, PREVIEW_HEIGHT, load_config,
-                             get_image_region_role)
+                             get_image_region_role, software_version)
 from app.ui_main import Ui_MainWindow
 from app.digitizerscene import DIGITIZERScene
 from app.image_loader import image_loader
@@ -46,7 +45,11 @@ from app.popup_user import POPUPUser
 from app.meta_exif import parse_img_region
 from app.meta_exif import meta_writer
 from app.json_model import JsonModel
+from app.popup_about import POPUPAbout
 
+__version__ = software_version
+
+path_to_license_folder = Path(__file__).resolve().with_name("app")
 
 class OutputWrapper(QtCore.QObject):
     outputWritten: SignalInstance = QtCore.Signal(object, object)
@@ -209,6 +212,7 @@ class MainWindow(QMainWindow):
         self.action_menu4 = QAction("Save bounding boxes to CSV file", self)
         self.action_menu5 = QAction("Save image regions to files", self)
         self.action_menu6 = QAction("Save image regions to files (keep original images)", self)
+        self.action_menu7 = QAction("?", self)
 
         self.alignMenu = QMenu(self)
         self.alignMenu.addAction(self.action_menu1)
@@ -221,7 +225,9 @@ class MainWindow(QMainWindow):
         self.alignMenu.addAction(self.action_menu4)
         self.alignMenu.addAction(self.action_menu5)
         self.alignMenu.addAction(self.action_menu6)
-        self.alignMenu.setStyleSheet("background: rgb(130, 130, 130);font: 10pt;\n")
+        self.alignMenu.addSeparator()
+        self.alignMenu.addAction(self.action_menu7)
+        self.alignMenu.setStyleSheet("background:rgb(130, 130, 130);font: 10pt;\n")
 
         self.ui.toolButton.setMenu(self.alignMenu)
 
@@ -240,6 +246,7 @@ class MainWindow(QMainWindow):
 
         self.log_file = Path()
         self.pop_user = POPUPUser()
+        self.pop_about = POPUPAbout(path_to_license_folder)
         self.len_image_list = 0
         self.log_sync_nr = 0
         self.image_list = []
@@ -284,6 +291,7 @@ class MainWindow(QMainWindow):
         self.action_menu4.triggered.connect(self.save_csv)
         self.action_menu5.triggered.connect(lambda: self.save_image_regions(keep_orig=False))
         self.action_menu6.triggered.connect(lambda: self.save_image_regions(keep_orig=True))
+        self.action_menu7.triggered.connect(self.pop_about.show)
 
         # Connect double on image to load the image
         self.ui.table_preview.doubleClicked.connect(self.scene_load_image)

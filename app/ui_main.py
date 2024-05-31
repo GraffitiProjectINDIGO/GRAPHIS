@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'gui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -375,7 +375,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.frame_label_top_btns = QFrame(self.frame_top)
         self.frame_label_top_btns.setObjectName(u"frame_label_top_btns")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame_label_top_btns.sizePolicy().hasHeightForWidth())
@@ -388,7 +388,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setContentsMargins(5, 0, 0, 0)
         self.lbl_icon = QLabel(self.frame_label_top_btns)
         self.lbl_icon.setObjectName(u"lbl_icon")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.lbl_icon.sizePolicy().hasHeightForWidth())
@@ -432,7 +432,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.waiting_spinner = SPINNINGWaiter(self.frame_spinner)
         self.waiting_spinner.setObjectName(u"waiting_spinner")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.waiting_spinner.sizePolicy().hasHeightForWidth())
@@ -449,7 +449,7 @@ class Ui_MainWindow(object):
 
         self.lbl_sqlite_name = QLabel(self.frame_label_top_btns)
         self.lbl_sqlite_name.setObjectName(u"lbl_sqlite_name")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.lbl_sqlite_name.sizePolicy().hasHeightForWidth())
@@ -496,7 +496,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.btn_minimize = QPushButton(self.frame_btns_right)
         self.btn_minimize.setObjectName(u"btn_minimize")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.btn_minimize.sizePolicy().hasHeightForWidth())
@@ -571,7 +571,7 @@ class Ui_MainWindow(object):
 
         self.frame_center = QFrame(self.frame_main)
         self.frame_center.setObjectName(u"frame_center")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.frame_center.sizePolicy().hasHeightForWidth())
@@ -1012,7 +1012,7 @@ class Ui_MainWindow(object):
         self.info_screen = QTextEdit(self.tab_4)
         self.info_screen.setObjectName(u"info_screen")
         self.info_screen.setGeometry(QRect(0, 0, 251, 151))
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy6.setHorizontalStretch(0)
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.info_screen.sizePolicy().hasHeightForWidth())
@@ -1231,7 +1231,7 @@ class Ui_MainWindow(object):
 
         self.frame_5 = QFrame(self.frame_10)
         self.frame_5.setObjectName(u"frame_5")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
         sizePolicy7.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
@@ -1678,13 +1678,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setSpacing(6)
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_11.addItem(self.horizontalSpacer)
 
         self.btn_expand_all = QPushButton(self.frame_4)
         self.btn_expand_all.setObjectName(u"btn_expand_all")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy8.setHorizontalStretch(0)
         sizePolicy8.setVerticalStretch(0)
         sizePolicy8.setHeightForWidth(self.btn_expand_all.sizePolicy().hasHeightForWidth())
@@ -1775,7 +1775,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.setSpacing(6)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_12.addItem(self.horizontalSpacer_2)
 
@@ -1946,8 +1946,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget_2.setCurrentIndex(1)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.tabWidget_3.setCurrentIndex(0)
 
 
@@ -2015,11 +2015,18 @@ class Ui_MainWindow(object):
 "\n"
 "For more information or questions on GRAPHIS please email info@projectindigo.eu\n"
 "\n"
-"@Martin Wieser 2023\n"
-"Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \u201cSoftware\u201d), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n"
-"The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n"
-"THE SOFTWARE IS PROVIDED \u201cAS IS\u201d, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMIT"
-                        "ED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", None))
+"WISDAMapp is using the Qt's QT6 engine with Pyside6/shiboken6 under the GPLv3 and LibRAW under the LGPLv.2.1\n"
+"Instructions to obtain the source coude can be found under github.com/wisdam\n"
+"\n"
+"Copyright (C) 2023 Martin Wieser\n"
+"\n"
+"This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"See the GNU General Public License for more d"
+                        "etails.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), "")
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), "")
         self.lbl_image_name.setText("")
@@ -2076,7 +2083,7 @@ class Ui_MainWindow(object):
         self.btn_expand_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Expand all", None))
         self.btn_collapse_all_all_region.setText(QCoreApplication.translate("MainWindow", u"Collapse all", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"All region info", None))
-        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>GRAPHIS @ INDIGO 2023 - https://projectindigo.eu</p></body></html>", None))
+        self.label_credits.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>GRAPHIS @ INDIGO 2024 - https://projectindigo.eu</p></body></html>", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"v1.2", None))
 #if QT_CONFIG(tooltip)
         self.frame_size_grip.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Change window size</p></body></html>", None))
