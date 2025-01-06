@@ -33,7 +33,3 @@ dependencies = [
 [project.urls]
     "Homepage" = "https://github.com/GraffitiProjectINDIGO/GRAPHIS"
     "Bug Tracker" = "https://github.com/GraffitiProjectINDIGO/GRAPHIS/issues"
-
-
-[project.scripts]
-graphis = "graphis.main:run"
