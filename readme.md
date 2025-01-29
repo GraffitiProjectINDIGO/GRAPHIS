@@ -68,7 +68,7 @@ While currently only fixed metadata fields of the image region can be edited, al
 Results can be saved directly inside the images or in a separate CSV file. Altering image regions outside of GRAPHIS while the SQLite database still holds image region metadata that are not written back into the image file will lead to errors.
 
 Much more information can be found in the following publication, which users of GRAPHIS are also asked to cite:<br>
-Verhoeven, G.J., Wieser, M., Carloni, M., 2023. <i>GRAPHIS—Visualise, Draw, Annotate, and Save Image Regions in Graffiti Photos</i>, in: <ins>disseminate | analyse | understand graffiti-scapes. Proceedings of the goINDIGO2023 international graffiti symposium</ins>, Vienna, Austria. 14-16 June 2023. Urban Creativity, Lisbon.
+Verhoeven, G.J., Wieser, M., Carloni, M., 2024. <i>GRAPHIS—Visualise, Draw, Annotate, and Save Image Regions in Graffiti Photos</i>, in: <ins>disseminate | analyse | understand graffiti-scapes. Proceedings of the goINDIGO2023 international graffiti symposium</ins>, Vienna, Austria. 14-16 June 2023. Urban Creativity, Lisbon, pp. 72-103. DOI: [10.48619/indigo.v0i0.977](https://journals.ap2.pt/index.php/indigo/article/view/977).
 
 
 ![ ](doc/images/main_window.jpg)
