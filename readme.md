@@ -41,8 +41,8 @@ If you want to build LibRAW from source, the source code and build instructions 
 ## Dependencies
 
 ### Python
-PyImageMapping runs on **Python 3.10+**.
-PyImageMapping has been tested on Windows and Linux, and probably also runs on other Unix-like platforms.
+GRAPHIS runs on **Python 3.10+**.
+GRAPHIS has been tested on Windows.
 
 ### Packages
 It relies only on well-developed packages
@@ -74,7 +74,7 @@ Verhoeven, G.J., Wieser, M., Carloni, M., 2024. <i>GRAPHIS—Visualise, Draw, An
 ![ ](doc/images/main_window.jpg)
 
 ## Licence
-PyImageMapping is licensed under the GPLv3.
+GRAPHIS is licensed under the GPLv3.
 
 Copyright (C) 2024 Martin Wieser
 
