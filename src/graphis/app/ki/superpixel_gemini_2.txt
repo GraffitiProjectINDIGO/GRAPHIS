@@ -1,0 +1,143 @@
+import sys
+import cv2
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from skimage.segmentation import mark_boundaries
+
+from PySide6.QtCore import Qt, QThread, Signal, Slot
+from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget
+
+# --- 1. DAS NEURONALE NETZWERK (Feature Extractor) ---
+class FeatureExtractionNet(nn.Module):
+    """ Ein schlankes CNN, das tiefe semantische Features für jeden Pixel berechnet """
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(32, 16, kernel_size=3, padding=1) # 16 dimensionale Feature-Vektoren
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.conv3(x)
+        return x
+
+# --- 2. MULTI-GRID DEEP SUPERPIXEL ENGINE ---
+def compute_deep_superpixels(image_np, num_spixels_width=30, num_spixels_height=30):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # Bild normalisieren & in Tensor wandeln
+    img_tensor = torch.from_numpy(image_np).permute(2, 0, 1).float().unsqueeze(0).to(device) / 255.0
+    h, w = img_tensor.shape[2], img_tensor.shape[3]
+
+    # Feature-Netzwerk initialisieren (Im echten Einsatz vortrainiert, hier "Self-Supervised Inferenz")
+    net = FeatureExtractionNet().to(device)
+    net.eval()
+
+    with torch.no_grad():
+        features = net(img_tensor) # Shape: [1, 16, H, W]
+
+    # Koordinaten-Gitter als zusätzliche Features anhängen (Sorgt für räumliche Kompaktheit)
+    grid_y, grid_x = torch.meshgrid(torch.linspace(0, 1, h), torch.linspace(0, 1, w), indexing='ij')
+    grid = torch.stack([grid_x, grid_y], dim=0).unsqueeze(0).to(device) * 2.0  # Gewichtung der Geometrie
+
+    # Kombinierte Feature Map (Semantik + Position)
+    combined_features = torch.cat([features, grid], dim=1).squeeze(0) # [18, H, W]
+
+    # Initialisierung der Gitter-Zentren (Superpixel-Init)
+    sp_y = torch.linspace(0, h-1, num_spixels_height).long()
+    sp_x = torch.linspace(0, w-1, num_spixels_width).long()
+    mesh_y, mesh_x = torch.meshgrid(sp_y, sp_x, indexing='ij')
+
+    centers_y = mesh_y.flatten().to(device)
+    centers_x = mesh_x.flatten().to(device)
+
+    # Features an den Zentren extrahieren
+    num_centers = centers_y.shape[0]
+    flat_features = combined_features.view(combined_features.shape[0], -1) # [18, H*W]
+
+    center_indices = centers_y * w + centers_x
+    centers = flat_features[:, center_indices].t() # [NumCenters, 18]
+
+    # Soft K-Means Iterationen auf den Deep Features ausführen
+    pixel_features = flat_features.t() # [H*W, 18]
+    for _ in range(5):
+        # Distanzmatrix berechnen (Vektorisiert auf GPU)
+        dist = torch.cdist(pixel_features.unsqueeze(0), centers.unsqueeze(0)).squeeze(0) # [H*W, NumCenters]
+
+        # Soft-Assignment (Wahrscheinlichkeiten)
+        sim = F.softmax(-dist * 10.0, dim=1) # 10.0 ist die inverse Temperatur (Kompaktheit)
+
+        # Zentren aktualisieren
+        centers = torch.mm(sim.t(), pixel_features) / (sim.sum(dim=0).unsqueeze(1) + 1e-8)
+
+    # Jedem Pixel das ähnlichste Deep-Superpixel-Zentrum zuweisen
+    labels = torch.argmax(sim, dim=1).view(h, w).cpu().numpy()
+    return labels
+
+# --- 3. PYSIDE GUI MULTI-THREADING ---
+class DeepSuperpixelWorker(QThread):
+    result_ready = Signal(np.ndarray)
+
+    def __init__(self, image_path):
+        super().__init__()
+        self.image_path = image_path
+
+    def run(self):
+        # Bild laden
+        img = cv2.imread(self.image_path)
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        # Deep Learning Superpixel-Zuweisung berechnen
+        labels = compute_deep_superpixels(img_rgb, num_spixels_width=25, num_spixels_height=25)
+
+        # Grenzen via Skimage berechnen und auf das RGB Bild zeichnen
+        marked_img = mark_boundaries(img_rgb, labels, color=(0, 1, 1)) # Cyan-Grenzen
+        marked_img = (marked_img * 255).astype(np.uint8)
+
+        self.result_ready.emit(marked_img)
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Deep Learning Superpixel App")
+        self.resize(800, 600)
+        self.image_path = "dein_testbild.jpg" # <--- HIER PFAD ERGÄNZEN
+
+        layout = QVBoxLayout()
+        self.label = QLabel("Klicke um die Deep-Learning Pipeline zu starten.")
+        self.label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.label)
+
+        self.btn = QPushButton("Deep Superpixel berechnen")
+        self.btn.clicked.connect(self.run_pipeline)
+        layout.addWidget(self.btn)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+    def run_pipeline(self):
+        self.btn.setEnabled(False)
+        self.label.setText("CNN extrahiert Features & berechnet Cluster...")
+
+        self.worker = DeepSuperpixelWorker(self.image_path)
+        self.worker.result_ready.connect(self.display_image)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker.start()
+
+    @Slot(np.ndarray)
+    def display_image(self, img_array):
+        h, w, c = img_array.shape
+        q_img = QImage(img_array.data, w, h, 3 * w, QImage.Format_RGB888)
+        self.label.setPixmap(QPixmap.fromImage(q_img).scaled(self.label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.btn.setEnabled(True)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    w = MainWindow()
+    w.show()
+    sys.exit(app.exec())

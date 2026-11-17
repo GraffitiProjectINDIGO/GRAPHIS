@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-save-image-regions-keep-originals"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <rect
+     x="3.5"
+     y="8.5"
+     width="28.5"
+     height="28"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="image-outline-8"
+     style="fill:none" />
+  <circle
+     cx="11"
+     cy="17.200001"
+     stroke="#111111"
+     stroke-width="2.5"
+     id="image-sun"
+     r="2.3"
+     style="stroke-width:3;stroke-dasharray:none;fill:none" />
+  <path
+     d="m 6.5,31 7.5,-7.3 4.8,4.7 2.9,-2.8 6.8,6.4"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="image-mountains"
+     style="fill:none" />
+  <circle
+     cx="29.3"
+     cy="10.5"
+     r="8.5"
+     fill="#2f80ed"
+     id="arrow-badge"
+     style="stroke:none" />
+  <path
+     d="M 29.3,5.8 V 14.5"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     id="arrow-stem"
+     style="stroke-width:3;stroke-dasharray:none;fill:none" />
+  <path
+     d="M 25.7,11.0 L 29.3,14.8 L 33.0,11.0"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="arrow-head"
+     style="stroke-width:3;stroke-dasharray:none;fill:none" />
+  <circle
+     cx="10.1"
+     cy="30.5"
+     r="6.0999999"
+     fill="#27c46a"
+     id="safe-badge"
+     style="stroke:none" />
+  <path
+     d="m 7.1,30.5 2.3,2.3 3.9,-4.5"
+     stroke="#111111"
+     stroke-width="2.3"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="safe-check"
+     style="fill:none" />
+</svg>

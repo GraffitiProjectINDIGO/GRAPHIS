@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40" height="40" version="1.1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <path transform="matrix(.69062 -.29823 .29814 .69062 -12.206 7.5886)" d="m52.782 52.782-20.472 8.1014-20.204-8.7471-8.1014-20.472 8.7471-20.204 20.472-8.1014 20.204 8.7471 8.1014 20.472z" fill="#ff000b"/>
+  <text transform="scale(1.4076 .71044)" x="14.138503" y="46.58609" fill="#fffff5" font-family="sans-serif" font-size="48px" text-align="center" text-anchor="middle" style="line-height:1.25" xml:space="preserve"><tspan x="14.138503" y="46.58609" fill="#fffff5" font-family="Arial" font-size="48px" text-align="center" text-anchor="middle">!</tspan></text>
+ </g>
+</svg>

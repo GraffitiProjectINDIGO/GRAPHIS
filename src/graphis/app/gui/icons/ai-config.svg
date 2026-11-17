@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg-exif-config" width="40" height="40" fill="none" version="1.1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+ <path id="gear-label" d="m18 12.455 4.2973 15.045m-4.3028-15.09-4.78 15.09m12.785-15v15m-10.486-6.983 4.565-.0057" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" style="fill:none;stroke-width:2;stroke:#000"/>
+ <path d="m31.513 28.881.63277 2.2599-3.2542 2.8927-4.4294-2.0791-1.6723 4.4746h-4.9718l-1.8079-4.5198-3.887 2.3051-4.113-2.8927.85876-2.5311" style="fill:none;stroke-width:3;stroke:#000"/>
+ <path d="m31.664 29.534-.82603-3.7972 4.0487-3.9069-.0984-5.9003-3.3167-1.9537 1.6387-4.7809-3.9774-3.9322-4.4294 2.0791-1.6723-4.4746h-4.9718l-1.8079 4.5198-4.6102-1.9435-3.209 4.6102 1.973 3.978-4.8321 2.3182-.023601 5.3022 4.1349 3.5563-1.1167 4.5517" style="fill:none;stroke-width:3;stroke:#000"/>
+</svg>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+   viewBox="0 0 40 40"
+   version="1.1"
+   id="svg3"
+   width="40"
+   height="40"
+   xmlns="http://www.w3.org/2000/svg">
+<rect
+     x="3.5"
+     y="8.5"
+     width="28.5"
+     height="28"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="image-outline"
+     style="fill:none" />
+  <path
+     d="M 40,10 25,0 v 20 z"
+     fill="#222222"
+     id="path2"
+     style="fill:#27c46a;fill-opacity:1;stroke:none;stroke-width:1.76777;stroke-opacity:1" />
+  <ellipse
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.7776;stroke-dasharray:none;stroke-opacity:1"
+     id="path3"
+     cx="12.102102"
+     cy="19.05652"
+     rx="3.1111982"
+     ry="3.1111994" />
+  <ellipse
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.77761;stroke-dasharray:none;stroke-opacity:1"
+     id="path3-9"
+     cx="22.13625"
+     cy="28.340788"
+     rx="3.1111987"
+     ry="3.1111968" />
+  <path
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     d="M 9.9202687,31.192597 23.317745,17.795121"
+     id="path4" />
+</svg>

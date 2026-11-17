@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+   viewBox="0 0 40 40"
+   version="1.1"
+   id="svg2"
+   width="40"
+   height="40"
+   xmlns="http://www.w3.org/2000/svg">
+<rect
+     x="3"
+     y="8"
+     width="34"
+     height="28"
+     rx="2"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="2"
+     id="rect1"
+     ry="1.9999999"
+     style="stroke-width:3;stroke-dasharray:none" />
+  <path
+     d="M 2.9999999,16.4 H 36.999999 M 2.9999999,24.8 H 36.999999 M 13.818181,8 v 28"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="2"
+     stroke-linecap="round"
+     id="path1" />
+  <circle
+     cx="28.5"
+     cy="20.5"
+     fill="#ed0909"
+     id="circle1"
+     style="stroke-width:0.999992"
+     r="2.5" />
+  <circle
+     cx="28.5"
+     cy="30.5"
+     fill="#f0b905"
+     id="circle2"
+     style="stroke-width:0.999992;fill:#aa8800"
+     r="2.5" />
+</svg>

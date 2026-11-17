@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-database-statistics"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <path
+     d="M 5.5,34.5 H 31"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     id="axis-x"
+     style="fill:none" />
+  <path
+     d="M 7,32.527273 V 8.4727273"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     id="axis-y"
+     style="fill:none" />
+  <path
+     d="M 12.0,33.0 V 22.2"
+     stroke="#111111"
+     stroke-width="4"
+     stroke-linecap="round"
+     id="bar-1"
+     style="fill:none" />
+  <path
+     d="M 19,33.1 V 15.5"
+     stroke="#111111"
+     stroke-width="4"
+     stroke-linecap="round"
+     id="bar-2"
+     style="fill:none" />
+  <path
+     d="M 26.0,33.0 V 19.0"
+     stroke="#111111"
+     stroke-width="4"
+     stroke-linecap="round"
+     id="bar-3"
+     style="fill:none" />
+  <circle
+     cx="29.3"
+     cy="10.5"
+     r="8.5"
+     fill="#2f80ed"
+     id="info-badge"
+     style="stroke:none" />
+  <path
+     d="M 29.3,9.7 V 15.0"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     id="info-stem"
+     style="stroke-width:3;stroke-dasharray:none;fill:none" />
+  <circle
+     cx="29.3"
+     cy="6.3"
+     r="1.55"
+     fill="#111111"
+     id="info-dot"
+     style="stroke-width:3;stroke-dasharray:none;stroke:none" />
+</svg>

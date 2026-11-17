@@ -1,0 +1,159 @@
+import sys
+import cv2
+import numpy as np
+import torch
+import torch.nn.functional as F
+import timm
+from skimage.segmentation import mark_boundaries
+
+from PySide6.QtCore import Qt, QThread, Signal, Slot
+from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget
+
+# --- 1. HYBRID FEATURE EXTRACTOR ENGINE ---
+class TimmSuperpixelEngine:
+    def __init__(self):
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        # Wir laden ein robustes ResNet18 über timm.
+        # features_only=True sorgt dafür, dass wir die rohen Feature-Maps vor dem Pooling erhalten.
+        # out_indices=[1] greift die frühen Layer ab (hohe Auflösung, exzellente Kantenstrukturen).
+        self.model = timm.create_model('resnet18', pretrained=True, features_only=True, out_indices=[1])
+        self.model.to(self.device)
+        self.model.eval()
+
+    def process(self, image_np, num_spixels_w=30, num_spixels_h=30, spatial_weight=2.5):
+        h, w, _ = image_np.shape
+
+        # 1. Bild vorbereiten (Image-Net Normalisierung für timm)
+        img_tensor = torch.from_numpy(image_np).permute(2, 0, 1).float().unsqueeze(0).to(self.device) / 255.0
+        mean = torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1).to(self.device)
+        std = torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1).to(self.device)
+        img_tensor = (img_tensor - mean) / std
+
+        # 2. Deep Features via timm extrahieren
+        with torch.no_grad():
+            # Extrahiert Features (ResNet Stage 1 hat meist 1/4 der Originalauflösung)
+            raw_features = self.model(img_tensor)[0]
+
+            # Features per Bilinear-Interpolation exakt auf Originalgröße hochskalieren
+            deep_features = F.interpolate(raw_features, size=(h, w), mode='bilinear', align_corners=False)
+
+            # Features normalisieren für stabileres Clustering
+            deep_features = F.normalize(deep_features, p=2, dim=1).squeeze(0) # [Channels, H, W]
+
+        # 3. Räumliches Koordinatengitter (XY) für Superpixel-Kompaktheit erzeugen
+        grid_y, grid_x = torch.meshgrid(torch.linspace(0, 1, h), torch.linspace(0, 1, w), indexing='ij')
+        grid = torch.stack([grid_x, grid_y], dim=0).to(self.device) * spatial_weight
+
+        # Kombinieren: [Semantische Deep Features + Geometrische XY-Koordinaten]
+        combined_features = torch.cat([deep_features, grid], dim=0) # Shape: [Channels + 2, H, W]
+        c_channels = combined_features.shape[0]
+
+        # 4. Gitter-Zentren für K-Means initialisieren
+        sp_y = torch.linspace(0, h - 1, num_spixels_h).long()
+        sp_x = torch.linspace(0, w - 1, num_spixels_w).long()
+        mesh_y, mesh_x = torch.meshgrid(sp_y, sp_x, indexing='ij')
+
+        centers_y = mesh_y.flatten().to(self.device)
+        centers_x = mesh_x.flatten().to(self.device)
+
+        # Feature-Vektoren flachklopfen für Matrix-Multiplikation
+        pixel_features = combined_features.view(c_channels, -1).t() # [H*W, C]
+
+        center_indices = centers_y * w + centers_x
+        centers = pixel_features[center_indices] # [NumCenters, C]
+
+        # 5. GPU-beschleunigtes Soft K-Means Clustering (Pure PyTorch)
+        # 10 Iterationen genügen meist vollkommen für messerscharfe Konvergenz
+        for _ in range(10):
+            # Distanz jedes Pixels zu jedem Zentrum berechnen
+            dist = torch.cdist(pixel_features.unsqueeze(0), centers.unsqueeze(0)).squeeze(0)
+
+            # Softmax konvertiert Distanzen in Zuweisungs-Wahrscheinlichkeiten
+            sim = F.softmax(-dist * 15.0, dim=1)
+
+            # Zentren updaten (Gewichtetes Mittel der Pixel-Features)
+            centers = torch.mm(sim.t(), pixel_features) / (sim.sum(dim=0).unsqueeze(1) + 1e-8)
+
+        # Hard-Assignment: Höchste Wahrscheinlichkeit bestimmt finale Superpixel-ID
+        labels = torch.argmax(sim, dim=1).view(h, w).cpu().numpy()
+        return labels
+
+# --- 2. PYSIDE WORKER (Kein Einfrieren der GUI) ---
+class HybridSuperpixelWorker(QThread):
+    result_ready = Signal(np.ndarray)
+
+    def __init__(self, image_path, sp_width, sp_height, compactness):
+        super().__init__()
+        self.image_path = image_path
+        self.sp_width = sp_width
+        self.sp_height = sp_height
+        self.compactness = compactness
+        self.engine = TimmSuperpixelEngine()
+
+    def run(self):
+        img = cv2.imread(self.image_path)
+        if img is None:
+            return
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        # Hybrid-Inferenz starten
+        labels = self.engine.process(
+            img_rgb,
+            num_spixels_w=self.sp_width,
+            num_spixels_h=self.sp_height,
+            spatial_weight=self.compactness
+        )
+
+        # Grenzen zeichnen
+        marked_img = mark_boundaries(img_rgb, labels, color=(0, 1, 1))
+        marked_img = (marked_img * 255).astype(np.uint8)
+
+        self.result_ready.emit(marked_img)
+
+# --- 3. PYSIDE APPLIKATION ---
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Timm Hybrid AI Superpixel")
+        self.resize(900, 700)
+
+        # ACHTUNG: Hier Ihren Bildpfad eintragen!
+        self.image_path = "dein_testbild.jpg"
+
+        layout = QVBoxLayout()
+        self.label = QLabel("Klicke um vortrainierte 'timm' Deep-Features zu nutzen.")
+        self.label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.label)
+
+        self.btn = QPushButton("Berechne KI-Superpixel (ResNet18 + K-Means)")
+        self.btn.clicked.connect(self.run_hybrid_pipeline)
+        layout.addWidget(self.btn)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+    def run_hybrid_pipeline(self):
+        self.btn.setEnabled(False)
+        self.label.setText("Lade ResNet18 & berechne Deep-Superpixel auf der GPU/CPU...")
+
+        # Parameter: 35x35 Gitter, Kompaktheits-Gewichtung: 3.0
+        self.worker = HybridSuperpixelWorker(self.image_path, sp_width=35, sp_height=35, compactness=3.0)
+        self.worker.result_ready.connect(self.display_image)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker.start()
+
+    @Slot(np.ndarray)
+    def display_image(self, img_array):
+        h, w, c = img_array.shape
+        q_img = QImage(img_array.data, w, h, 3 * w, QImage.Format_RGB888)
+        self.label.setPixmap(QPixmap.fromImage(q_img).scaled(self.label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.btn.setEnabled(True)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    w = MainWindow()
+    w.show()
+    sys.exit(app.exec())

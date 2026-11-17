@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-auto-layout-graph"
+   xmlns="http://www.w3.org/2000/svg">
+  <path
+     d="M 11.8,14.2 L 20.0,23.0 L 27.8,15.4"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="graph-links" />
+  <rect
+     x="6.0"
+     y="9.0"
+     width="11.0"
+     height="9.5"
+     rx="2.0"
+     stroke="#111111"
+     stroke-width="3"
+     id="graph-node-left" />
+  <rect
+     x="14.5"
+     y="22.0"
+     width="11.0"
+     height="9.5"
+     rx="2.0"
+     stroke="#111111"
+     stroke-width="3"
+     id="graph-node-bottom" />
+  <rect
+     x="23.0"
+     y="10.0"
+     width="11.0"
+     height="9.5"
+     rx="2.0"
+     stroke="#111111"
+     stroke-width="3"
+     id="graph-node-right" />
+  <circle
+     cx="29.3"
+     cy="10.5"
+     r="8.5"
+     fill="#27c46a"
+     id="layout-badge" />
+  <path
+     d="M 25.0,10.5 H 33.6"
+     stroke="#111111"
+     stroke-width="2.6"
+     stroke-linecap="round"
+     id="layout-horizontal" />
+  <path
+     d="M 29.3,6.2 V 14.8"
+     stroke="#111111"
+     stroke-width="2.6"
+     stroke-linecap="round"
+     id="layout-vertical" />
+</svg>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg3"
+   xmlns="http://www.w3.org/2000/svg">
+<path
+     d="M 32.07248,9.2279855 C 27.310025,4.4977213 22.965896,2.3227517 16.08501,4.1052868 7.2381557,6.3739678 1.8317452,15.286644 4.1253738,24.037273 6.4190026,32.787899 15.429687,38.135505 24.27654,35.866822 30.338274,34.246338 34.925532,29.546925 36.400007,23.713175"
+     stroke="#111111"
+     stroke-width="3.2"
+     stroke-linecap="round"
+     id="path1" />
+  <path
+     d="m 32.180226,2.0954802 0.5,7.2000003 -7.2,0.5"
+     stroke="#111111"
+     stroke-width="3.2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path2" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     x="9.3107347"
+     y="26.847458"
+     id="text3"><tspan
+       id="tspan3"
+       x="9.3107347"
+       y="26.847458"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Arial;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-dasharray:none">90°</tspan></text>
+</svg>

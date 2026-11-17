@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+   viewBox="0 0 40 40"
+   version="1.1"
+   id="svg4"
+   width="40"
+   height="40"
+   xmlns="http://www.w3.org/2000/svg">
+<rect
+     x="3.5"
+     y="7.5"
+     width="15"
+     height="12"
+     rx="2.8970923"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="4.40485"
+     id="rect1"
+     style="stroke-width:3;stroke-dasharray:none"
+     ry="2.8970923" />
+  <rect
+     x="21.499994"
+     y="-19.499994"
+     width="15"
+     height="12"
+     rx="2.8970914"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="4.40485"
+     id="rect2"
+     style="stroke-width:2.99999;stroke-dasharray:none"
+     ry="2.8970914"
+     transform="scale(1,-1)" />
+  <rect
+     x="3.5"
+     y="23.691275"
+     width="15"
+     height="12"
+     rx="2.7673435"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="3.22021"
+     id="rect3"
+     style="stroke-width:3;stroke-dasharray:none"
+     ry="2.7673435" />
+  <rect
+     x="21.5"
+     y="23.691275"
+     width="15"
+     height="12"
+     rx="2.1299646"
+     fill="none"
+     stroke="#1f2933"
+     stroke-width="3.22021"
+     id="rect4"
+     style="stroke-width:3;stroke-dasharray:none"
+     ry="2.1299646" />
+  <path
+     d="m 6.777522,14.347704 2.8843556,-3.566239 2.8843564,3.566239 1.442178,-1.78312 1.442178,1.78312"
+     id="path4"
+     style="fill:none;stroke:#1f2933;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="m 24.777522,14.347704 2.884356,-3.566239 2.884356,3.566239 1.442178,-1.78312 1.442178,1.78312"
+     id="path4-9"
+     style="fill:none;stroke:#1f2933;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="m 6.7775219,31.347704 2.884356,-3.566239 2.8843561,3.566239 1.442178,-1.78312 1.442178,1.78312"
+     id="path4-8"
+     style="fill:none;stroke:#1f2933;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="m 24.777522,31.347704 2.884356,-3.566239 2.884356,3.566239 1.442178,-1.78312 1.442178,1.78312"
+     id="path4-8-2"
+     style="fill:none;stroke:#1f2933;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+</svg>

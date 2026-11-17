@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-thumbnail-size-decrease"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <rect
+     x="5"
+     y="9"
+     width="28"
+     height="26"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="thumbnail-outline"
+     style="fill:none"
+     ry="3" />
+  <path
+     d="m 8.5,31 7.4,-7.4 4.5,4.5 3.1,-3.1 5.19887,5.453672"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="thumbnail-mountains"
+     style="fill:none;stroke:#111111;stroke-opacity:1" />
+  <circle
+     cx="29.3"
+     cy="10.5"
+     r="8.5"
+     fill="#2f80ed"
+     id="minus-badge"
+     style="stroke:none" />
+  <path
+     d="M 25.0,10.5 H 33.6"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     id="minus"
+     style="stroke-width:3;stroke-dasharray:none;fill:none" />
+</svg>

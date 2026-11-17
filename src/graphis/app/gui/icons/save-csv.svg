@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-save-csv"
+   xmlns="http://www.w3.org/2000/svg">
+<rect
+     x="3.5"
+     y="8.5"
+     width="28.5"
+     height="28"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="image-outline" />
+  <text
+     x="24.008802"
+     y="22.4151"
+     text-anchor="middle"
+     font-family="'Segoe UI', Arial, sans-serif"
+     font-size="17.024px"
+     font-weight="700"
+     fill="#111111"
+     id="csv-text"
+     transform="scale(0.74019639,1.3509928)"
+     style="font-size:16px;stroke-width:1.28969"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Arial;"
+       id="tspan1">CSV</tspan></text>
+  <circle
+     cx="29.3"
+     cy="10.5"
+     r="8.5"
+     fill="#2f80ed"
+     id="arrow-badge" />
+  <path
+     d="M 29.3,5.8 V 14.5"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     id="arrow-stem" />
+  <path
+     d="M 25.7,11.0 L 29.3,14.8 L 33.0,11.0"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="arrow-head" />
+</svg>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-fit-image"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <rect
+     x="5"
+     y="9"
+     width="28"
+     height="26"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="thumbnail-outline"
+     style="fill:none"
+     ry="3" />
+  <circle
+     cx="28"
+     cy="11"
+     fill="#2f80ed"
+     id="fit-badge"
+     style="stroke-width:1.0586;stroke:none"
+     r="10" />
+  <path
+     d="m 27.160371,5.5 h 6.42766 l -0.146049,6.143601 M 23,16.364228 l 5.18448,0.0017 M 23.000007,10.150959 23,16.29456"
+     stroke="#111111"
+     stroke-width="3.83457"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="fit-corner-top"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+  <path
+     d="M 32.179096,7 23.5,16.266667"
+     stroke="#111111"
+     stroke-width="2.4"
+     stroke-linecap="round"
+     id="fit-diagonal"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+  <path
+     d="m 8.5,31 7.4,-7.4 4.5,4.5 3.1,-3.1 5.19887,5.453672"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="thumbnail-mountains"
+     style="fill:none;stroke:#111111;stroke-opacity:1" />
+</svg>

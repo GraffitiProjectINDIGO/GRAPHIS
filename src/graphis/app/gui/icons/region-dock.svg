@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-region-dock"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <path
+     d="M 25.6,9.6 V 33.8"
+     stroke="#111111"
+     stroke-width="3"
+     stroke-linecap="round"
+     id="dock-panel" />
+  <rect
+     x="5"
+     y="10"
+     width="26.5"
+     height="25"
+     rx="3"
+     stroke="#111111"
+     stroke-width="3"
+     id="window-outline"
+     style="fill:none"
+     ry="3" />
+  <path
+     d="M 10,16.5 H 20"
+     stroke="#111111"
+     stroke-width="2.6"
+     stroke-linecap="round"
+     id="content-line-1"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+  <path
+     d="M 10,22.4 H 24"
+     stroke="#111111"
+     stroke-width="2.6"
+     stroke-linecap="round"
+     id="content-line-2"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+  <circle
+     cx="29.299999"
+     cy="10.5"
+     r="8.5"
+     fill="#2f80ed"
+     id="popout-badge"
+     style="stroke:none" />
+  <path
+     d="M 25.4,14.4 33.1,6.7"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     id="popout-arrow-stem"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+  <path
+     d="M 30,14.5 H 25.4 V 9.9"
+     stroke="#111111"
+     stroke-width="2.8"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="popout-arrow-head"
+     style="fill:none;stroke-width:3;stroke-dasharray:none" />
+</svg>

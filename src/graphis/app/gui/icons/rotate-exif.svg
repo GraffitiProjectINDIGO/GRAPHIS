@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40" height="40" fill="none" version="1.1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+ <path d="m32.072 9.228c-4.7625-4.7303-9.1066-6.9052-15.987-5.1227-8.8469 2.2687-14.253 11.181-11.96 19.932 2.2936 8.7506 11.304 14.098 20.151 11.83 6.0617-1.6205 10.649-6.3199 12.123-12.154" stroke="#111" stroke-linecap="round" stroke-width="3.2"/>
+ <path d="m32.18 2.0955 0.5 7.2-7.2 0.5" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/>
+ <text x="2.531074" y="25.175142" fill="#154f17" font-family="Arial" font-size="16px" stroke-width="2" xml:space="preserve"><tspan x="2.531074" y="25.175142" fill="#154f17" font-family="Arial" font-size="16px" font-weight="bold" stroke-width="2">EXIF</tspan></text>
+</svg>

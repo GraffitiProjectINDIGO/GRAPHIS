@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg-zoom-active-object"
+   xmlns="http://www.w3.org/2000/svg">
+  <rect
+     x="5.0"
+     y="9.0"
+     width="28.0"
+     height="26.0"
+     rx="3.0"
+     stroke="#111111"
+     stroke-width="3"
+     id="image-outline" />
+  <rect
+     x="11.0"
+     y="17.0"
+     width="12.0"
+     height="9.0"
+     rx="1.5"
+     stroke="#111111"
+     stroke-width="2.7"
+     id="active-object" />
+  <path
+     d="M 8.6,31.0 L 13.0,27.0 L 16.0,29.7 L 18.7,27.1 L 23.6,31.8"
+     stroke="#111111"
+     stroke-width="2.6"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="image-context" />
+  <circle
+     cx="28"
+     cy="11"
+     fill="#d9b01f"
+     id="zoom-badge"
+     r="10" />
+  <path
+     d="m 27.214941,5.7093773 h 6.42766 l -0.146049,6.1436007 m -10.441982,4.720627 5.18448,0.0017 m -5.184473,-6.214969 -7e-6,6.143601"
+     stroke="#111111"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="fit-corner" />
+  <path
+     d="m 32,7 -8.679096,9.266667"
+     stroke="#111111"
+     stroke-width="2.4"
+     stroke-linecap="round"
+     id="fit-diagonal" />
+</svg>
